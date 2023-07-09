@@ -5,7 +5,7 @@ const StockHistory = () => {
 
   const doFetch = async () => {
     const dt = await fetch(
-      "https://boursedecasablancastocks.azurewebsites.net/api/HttpTrigger1?code=VZkVkT0wQ5KMm0mqY6w6YMet-lb4p6rtQgl8bSh8kD_QAzFu3UrTPA=="
+      "https://boursedecasablancastocks.azurewebsites.net/api/StockHistory"
     )
     const js = await dt.json()
     return js
