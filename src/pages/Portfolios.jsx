@@ -4,7 +4,7 @@ import { useSearch } from "../store/Searching"
 
 const Portfolios = () => {
   const { data, setData, loading } = useLoading({
-    url: "https://boursedecasablancastocks.azurewebsites.net/api/Portfolios",
+    url: "https://portfoliosmanagement.azurewebsites.net/api/Portfolios",
     initData: [],
   })
 
@@ -16,7 +16,7 @@ const Portfolios = () => {
   })
 
   return (
-    <div>
+    <div className="container-fluid">
       <LoadingSpinner loading={loading} />
       {loading === Loading.succeded && (
         <table className="table">
@@ -30,12 +30,24 @@ const Portfolios = () => {
             {searchData.map((item, index) => (
               <tr key={item.id}>
                 <td>{item.created}</td>
-                <td>{item.description}</td>
+                <td>
+                  <a href={`portfolio/${item.id}`}>{item.description}</a>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       )}
+      <div className="d-flex justify-content-end">
+        <a
+          href="portfolio"
+          className="btn btn-danger "
+          role="button"
+          aria-pressed="true"
+        >
+          Create
+        </a>
+      </div>
     </div>
   )
 }

@@ -20,9 +20,11 @@ export const useLoading = ({ url, initData }) => {
   useEffect(() => {
     setLoading(Loading.started)
     doFetch()
-      .then((data) => {
+      .then((dt) => {
+        const { status, message, data } = dt
         setData(data)
-        setLoading(Loading.succeded)
+        if (status === "OK") setLoading(Loading.succeded)
+        else setLoading(Loading.failed)
       })
       .catch((e) => setLoading(Loading.failed))
   }, [])

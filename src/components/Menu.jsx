@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import Search from "./Search"
 
 const Menu = () => {
@@ -33,9 +34,9 @@ const Menu = () => {
               </a>
               <ul className="dropdown-menu">
                 <li>
-                  <a className="dropdown-item" href="stocks">
+                  <Link to="stocks" className="dropdown-item">
                     Stocks
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a className="dropdown-item" href="#">
@@ -50,9 +51,9 @@ const Menu = () => {
               </ul>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="portfolios">
+              <Link to="portfolios" className="nav-link">
                 Portfolios
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">
