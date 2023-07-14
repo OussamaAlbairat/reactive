@@ -1,24 +1,30 @@
-import { Loading, useLoading } from "../store/Loading"
-import LoadingSpinner from "../components/LoadingSpinner"
+import { useState } from "react"
+import { useLoading } from "../store/Loading"
 import { useSearch } from "../store/Searching"
+import { RuningOperationStatus } from "../store/RuningOperationStatus"
+import RuningOperationSpinner from "../components/RuningOperationSpinner"
 
 const Portfolios = () => {
-  const { data, setData, loading } = useLoading({
+  const [runingOperationStatus, setRuningOperationStatus] = useState(
+    RuningOperationStatus.notStarted
+  )
+  const { data, setData } = useLoading({
     url: "https://portfoliosmanagement.azurewebsites.net/api/Portfolios",
     initData: [],
+    setRuningOperationStatus,
   })
 
   const { searchData } = useSearch({
     data,
     setData,
-    loading,
+    runingOperationStatus,
     filterData: (obj, value) => obj.description.startsWith(value),
   })
 
   return (
     <div className="container-fluid">
-      <LoadingSpinner loading={loading} />
-      {loading === Loading.succeded && (
+      <RuningOperationSpinner status={runingOperationStatus} />
+      {runingOperationStatus === RuningOperationStatus.succeded && (
         <table className="table">
           <thead>
             <tr>

@@ -1,11 +1,16 @@
 import { useEffect } from "react"
-import { Loading } from "./Loading"
+import { RuningOperationStatus } from "./RuningOperationStatus"
 import useRegistry from "./Registry"
 
-export const useSearch = ({ data, setData, loading, filterData }) => {
+export const useSearch = ({
+  data,
+  setData,
+  runingOperationStatus,
+  filterData,
+}) => {
   const { subscribe, unsubscribe } = useRegistry()
   useEffect(() => {
-    if (loading === Loading.succeded) {
+    if (runingOperationStatus === RuningOperationStatus.succeded) {
       const search = (value) => {
         if (value === "") setData(data)
         else {
@@ -16,7 +21,7 @@ export const useSearch = ({ data, setData, loading, filterData }) => {
       subscribe("SEARCH", search)
       return () => unsubscribe("SEARCH", search)
     }
-  }, [loading])
+  }, [runingOperationStatus])
 
   return { searchData: data }
 }

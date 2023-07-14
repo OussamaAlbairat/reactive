@@ -1,24 +1,31 @@
-import { Loading, useLoading } from "../store/Loading"
-import LoadingSpinner from "../components/LoadingSpinner"
+import { useState } from "react"
+import { useLoading } from "../store/Loading"
 import { useSearch } from "../store/Searching"
+import { RuningOperationStatus } from "../store/RuningOperationStatus"
+import RuningOperationSpinner from "../components/RuningOperationSpinner"
 
 const Stocks = () => {
-  const { data, setData, loading } = useLoading({
+  const [runingOperationStatus, setRuningOperationStatus] = useState(
+    RuningOperationStatus.notStarted
+  )
+
+  const { data, setData } = useLoading({
     url: "https://boursedecasablancastocks.azurewebsites.net/api/Stocks?",
     initData: [],
+    setRuningOperationStatus,
   })
 
   const { searchData } = useSearch({
     data,
     setData,
-    loading,
+    runingOperationStatus,
     filterData: (obj, value) => obj.symbol.startsWith(value),
   })
 
   return (
     <div>
-      <LoadingSpinner loading={loading} />
-      {loading === Loading.succeded && (
+      <RuningOperationSpinner status={runingOperationStatus} />
+      {runingOperationStatus === RuningOperationStatus.succeded && (
         <table className="table">
           <thead>
             <tr>

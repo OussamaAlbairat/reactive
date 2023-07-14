@@ -1,25 +1,32 @@
-import { Loading, useLoading } from "../store/Loading"
-import LoadingSpinner from "../components/LoadingSpinner"
+import { useState } from "react"
+import { useLoading } from "../store/Loading"
 import { useSearch } from "../store/Searching"
+import { RuningOperationStatus } from "../store/RuningOperationStatus"
+import RuningOperationSpinner from "../components/RuningOperationSpinner"
 
 function Weather() {
-  const { data, setData, loading } = useLoading({
+  const [runingOperationStatus, setRuningOperationStatus] = useState(
+    RuningOperationStatus.notStarted
+  )
+
+  const { data, setData } = useLoading({
     url: "https://localhost:7264/WeatherForecast",
     initData: [],
+    setRuningOperationStatus,
   })
 
   const { searchData } = useSearch({
     data,
     setData,
-    loading,
+    runingOperationStatus,
     filterData: (obj, value) => obj.summary.startsWith(value),
   })
 
   return (
     <>
       <h1>Weather</h1>
-      <LoadingSpinner loading={loading} />
-      {loading === Loading.succeded &&
+      <RuningOperationSpinner status={runingOperationStatus} />
+      {runingOperationStatus === RuningOperationStatus.succeded &&
         searchData.map((item) => (
           <div key={item.date}>
             <p>

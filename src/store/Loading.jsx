@@ -1,33 +1,27 @@
 import { useState, useEffect } from "react"
+import { RuningOperationStatus } from "./RuningOperationStatus"
 
-export const Loading = {
-  succeded: Symbol(0),
-  failed: Symbol(1),
-  started: Symbol(2),
-  notStarted: Symbol(3),
-}
-
-export const useLoading = ({ url, initData }) => {
+export const useLoading = ({ url, initData, setRuningOperationStatus }) => {
   const [data, setData] = useState(initData)
-  const [loading, setLoading] = useState(Loading.notStarted)
 
   const doFetch = async () => {
-    const resp = await fetch(url)
-    const data = await resp.json()
-    return data
+    const resp = url ? await fetch(url) : null
+    const dt = resp ? await resp.json() : null
+    return dt || { status: "OK", message: "url not provided", data: initData }
   }
 
   useEffect(() => {
-    setLoading(Loading.started)
+    setRuningOperationStatus(RuningOperationStatus.started)
     doFetch()
       .then((dt) => {
         const { status, message, data } = dt
         setData(data)
-        if (status === "OK") setLoading(Loading.succeded)
-        else setLoading(Loading.failed)
+        if (status === "OK")
+          setRuningOperationStatus(RuningOperationStatus.succeded)
+        else setRuningOperationStatus(RuningOperationStatus.failed)
       })
-      .catch((e) => setLoading(Loading.failed))
+      .catch((e) => setRuningOperationStatus(RuningOperationStatus.failed))
   }, [])
 
-  return { data, setData, loading }
+  return { data, setData }
 }

@@ -1,41 +1,64 @@
-import axios from "axios"
 import { useState } from "react"
 import { useParams } from "react-router-dom"
-import { useLoading, Loading } from "../store/Loading"
+import { useLoading } from "../store/Loading"
+import { useSaving } from "../store/Saving"
+import { RuningOperationStatus } from "../store/RuningOperationStatus"
+import RuningOperationSpinner from "../components/RuningOperationSpinner"
 
 const Portfolio = () => {
-  const { id } = useParams() || -1
+  let { id } = useParams()
 
-  //const [formData, setFormData] = useState({ id })
+  const [runingOperationStatus, setRuningOperationStatus] = useState(
+    RuningOperationStatus.notStarted
+  )
 
-  const { formData, setFormData, loading } = useLoading({
-    url: `https://portfoliosmanagement.azurewebsites.net/api/portfolio?id=${id}`,
-    initData: { id },
+  const formatDate = (date) => {
+    let dt = new Date(date)
+    return `${dt.getFullYear()}-${(dt.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}-${(dt.getDate() + 1).toString().padStart(2, "0")}`
+  }
+
+  const isInteger = (a) => {
+    return !Number.isNaN(Number.parseInt(a))
+  }
+
+  const { data, setData } = useLoading({
+    url: isInteger(id)
+      ? `https://portfoliosmanagement.azurewebsites.net/api/portfolio?id=${id}`
+      : null,
+    initData: [
+      { id: id || -1, created: "", description: "", report: '{ "stocks":[]}' },
+    ],
+    setRuningOperationStatus,
+  })
+
+  const { save } = useSaving({
+    url: "https://portfoliosmanagement.azurewebsites.net/api/portfolio",
+    setRuningOperationStatus,
   })
 
   const inputChanged = (e) => {
     const name = e.target.name
     const value = e.target.value
-    setFormData((old) => {
-      return { ...old, [name]: value }
+    setData((old) => {
+      return [{ ...old[0], [name]: value }]
     })
   }
 
   const saveClicked = (e) => {
     e.preventDefault()
-    axios
-      .post(
-        "https://portfoliosmanagement.azurewebsites.net/api/portfolio",
-        formData
-      )
-      .then((resp) => {})
-      .catch((err) => {})
+    console.log(data)
+    save(data[0]).then((dt) => {
+      console.log(dt)
+      setData(dt)
+    })
   }
 
   return (
     <div className="container-fluid">
-      <Loading loading={loading} />
-      {loading === Loading.succeded && (
+      <RuningOperationSpinner status={runingOperationStatus} />
+      {runingOperationStatus === RuningOperationStatus.succeded && (
         <form>
           <div className="form-group">
             <label htmlFor="created">Created</label>
@@ -46,6 +69,7 @@ const Portfolio = () => {
               className="form-control"
               aria-describedby="createdHelp"
               onChange={inputChanged}
+              value={formatDate(data[0].created)}
             />
             <small id="createdHelp" className="form-text text-muted">
               Date the portfolio is created.
@@ -59,6 +83,7 @@ const Portfolio = () => {
               className="form-control"
               aria-describedby="descriptionHelp"
               onChange={inputChanged}
+              value={data[0].description}
             />
             <small id="descriptionHelp" className="form-text text-muted">
               Describe briefly your portfolio.
