@@ -6,14 +6,14 @@ import { RuningOperationStatus } from "../store/RuningOperationStatus"
 import RuningOperationSpinner from "../components/RuningOperationSpinner"
 
 const Portfolio = () => {
-  let { id } = useParams()
+  const { id } = useParams()
 
   const [runingOperationStatus, setRuningOperationStatus] = useState(
     RuningOperationStatus.notStarted
   )
 
   const formatDate = (date) => {
-    let dt = new Date(date)
+    const dt = new Date(date)
     return `${dt.getFullYear()}-${(dt.getMonth() + 1)
       .toString()
       .padStart(2, "0")}-${(dt.getDate() + 1).toString().padStart(2, "0")}`
@@ -56,50 +56,61 @@ const Portfolio = () => {
   }
 
   return (
-    <div className="container-fluid">
+    <div className="container">
       <RuningOperationSpinner status={runingOperationStatus} />
-      {runingOperationStatus === RuningOperationStatus.succeded && (
-        <form>
-          <div className="form-group">
-            <label htmlFor="created">Created</label>
-            <input
-              id="created"
-              name="created"
-              type="date"
-              className="form-control"
-              aria-describedby="createdHelp"
-              onChange={inputChanged}
-              value={formatDate(data[0].created)}
-            />
-            <small id="createdHelp" className="form-text text-muted">
-              Date the portfolio is created.
-            </small>
-          </div>
-          <div className="form-group">
-            <label htmlFor="description">Description</label>
-            <textarea
-              id="description"
-              name="description"
-              className="form-control"
-              aria-describedby="descriptionHelp"
-              onChange={inputChanged}
-              value={data[0].description}
-            />
-            <small id="descriptionHelp" className="form-text text-muted">
-              Describe briefly your portfolio.
-            </small>
-          </div>
-          <div className="d-flex justify-content-end">
-            <button
-              type="submit"
-              className="btn btn-danger"
-              onClick={saveClicked}
-            >
-              Save
-            </button>
-          </div>
-        </form>
-      )}
+      <form>
+        <div className="form-group">
+          <label htmlFor="created">Created</label>
+          <input
+            id="created"
+            name="created"
+            type="date"
+            className="form-control"
+            aria-describedby="createdHelp"
+            onChange={inputChanged}
+            value={formatDate(data[0].created)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            className="form-control"
+            aria-describedby="descriptionHelp"
+            onChange={inputChanged}
+            value={data[0].description}
+          />
+        </div>
+        <hr />
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Ratio</th>
+            </tr>
+          </thead>
+          <tbody>
+            {JSON.parse(data[0].report).stocks.map((stock, index) => {
+              return (
+                <tr key={index}>
+                  <td>{stock.symbol}</td>
+                  <td>{stock.ratio * 100 + "%"}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+        <div className="d-flex justify-content-end my-5">
+          <button
+            type="submit"
+            className="btn btn-danger"
+            onClick={saveClicked}
+          >
+            Save
+          </button>
+        </div>
+      </form>
     </div>
   )
 }
