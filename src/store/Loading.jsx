@@ -1,18 +1,35 @@
 import { useState, useEffect } from "react"
 import { RuningOperationStatus } from "./RuningOperationStatus"
 
-export const useLoading = ({ url, initData, setRuningOperationStatus }) => {
+const cache = new Map()
+
+export const useLoading = ({
+  url,
+  initData,
+  setRuningOperationStatus,
+  cachedUrl = false,
+}) => {
   const [data, setData] = useState(initData)
 
-  const doFetch = async () => {
-    const resp = url ? await fetch(url) : null
+  const getData = async (uri) => {
+    if (cachedUrl) {
+      if (cache.has(uri)) {
+        return cache.get(uri)
+      } else return cache.set(uri, await doFetch(uri)).get(uri)
+    } else {
+      return await doFetch(uri)
+    }
+  }
+
+  const doFetch = async (uri) => {
+    const resp = uri ? await fetch(uri) : null
     const dt = resp ? await resp.json() : null
     return dt || { status: "OK", message: "url not provided", data: initData }
   }
 
   useEffect(() => {
     setRuningOperationStatus(RuningOperationStatus.started)
-    doFetch()
+    getData(url)
       .then((dt) => {
         const { status, message, data } = dt
         setData(data)

@@ -14,6 +14,7 @@ const Stocks = () => {
     url: "https://boursedecasablancastocks.azurewebsites.net/api/Stocks?",
     initData: [],
     setRuningOperationStatus,
+    cachedUrl: true,
   })
 
   const { searchData } = useSearch({
