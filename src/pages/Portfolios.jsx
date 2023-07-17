@@ -18,7 +18,7 @@ const Portfolios = () => {
     data,
     setData,
     runingOperationStatus,
-    filterData: (obj, value) => obj.description.startsWith(value),
+    filterDataCondition: (obj, value) => obj.description.startsWith(value),
   })
 
   return (

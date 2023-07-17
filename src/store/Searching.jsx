@@ -6,7 +6,7 @@ export const useSearch = ({
   data,
   setData,
   runingOperationStatus,
-  filterData,
+  filterDataCondition,
 }) => {
   const { subscribe, unsubscribe } = useRegistry()
   useEffect(() => {
@@ -14,7 +14,9 @@ export const useSearch = ({
       const search = (value) => {
         if (value === "") setData(data)
         else {
-          const filteredData = data.filter((obj) => filterData(obj, value))
+          const filteredData = data.filter((obj) =>
+            filterDataCondition(obj, value)
+          )
           setData(filteredData)
         }
       }
