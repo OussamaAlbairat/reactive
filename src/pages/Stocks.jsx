@@ -3,7 +3,7 @@ import { useLoading } from "../store/Loading"
 import { useSearch } from "../store/Searching"
 import { RuningOperationStatus } from "../store/RuningOperationStatus"
 import RuningOperationSpinner from "../components/RuningOperationSpinner"
-import { Pagination, usePagination } from "../store/Pagination"
+import { Pagination, usePagination } from "../components/Pagination"
 
 const Stocks = () => {
   const [runingOperationStatus, setRuningOperationStatus] = useState(
