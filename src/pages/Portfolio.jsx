@@ -46,6 +46,18 @@ const Portfolio = () => {
     })
   }
 
+  const newId = () => Math.floor(Math.random() * 10 ** 15)
+
+  const addClicked = (e) => {
+    e.preventDefault()
+    setData((old) => {
+      const oldReport = JSON.parse(old[0].report)
+      const newStocks = oldReport.stocks
+      newStocks.push({ id: newId(), symbol: "NEW", ratio: 0.1 })
+      return [{ ...old[0], report: JSON.stringify({ stocks: [...newStocks] }) }]
+    })
+  }
+
   const saveClicked = (e) => {
     e.preventDefault()
     console.log(data)
@@ -53,6 +65,34 @@ const Portfolio = () => {
       console.log(dt)
       setData(dt)
     })
+  }
+
+  const changeStock = (stockid, field, value) => {
+    setData((old) => {
+      const oldReport = JSON.parse(old[0].report)
+      const newStocks = oldReport.stocks
+      newStocks.find((x) => x.id == stockid)[field] = value
+
+      return [{ ...old[0], report: JSON.stringify({ stocks: [...newStocks] }) }]
+    })
+  }
+
+  const ratioChanged = (e) => {
+    e.preventDefault()
+    const value = e.target.value
+    const { stockid } = e.target.dataset
+    changeStock(
+      stockid,
+      "ratio",
+      Number.parseFloat(value.replace("%", "")) / 100
+    )
+  }
+
+  const symbolChanged = (e) => {
+    e.preventDefault()
+    const value = e.target.value
+    const { stockid } = e.target.dataset
+    changeStock(stockid, "symbol", value)
   }
 
   return (
@@ -94,14 +134,37 @@ const Portfolio = () => {
             {JSON.parse(data[0].report).stocks.map((stock, index) => {
               return (
                 <tr key={index}>
-                  <td>{stock.symbol}</td>
-                  <td>{stock.ratio * 100 + "%"}</td>
+                  <td>
+                    <input
+                      type="text"
+                      name="symbol"
+                      value={stock.symbol}
+                      onChange={symbolChanged}
+                      data-stockid={stock.id || newId()}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="ratio"
+                      value={stock.ratio * 100 + "%"}
+                      onChange={ratioChanged}
+                      data-stockid={stock.id || newId()}
+                    />
+                  </td>
                 </tr>
               )
             })}
           </tbody>
         </table>
         <div className="d-flex justify-content-end my-5">
+          <button
+            type="submit"
+            className="btn btn-danger mx-2"
+            onClick={addClicked}
+          >
+            Add
+          </button>
           <button
             type="submit"
             className="btn btn-danger"

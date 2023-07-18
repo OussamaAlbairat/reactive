@@ -1,21 +1,17 @@
 import { useState } from "react"
-import { useLoading } from "../store/Loading"
 import { useSearch } from "../store/Searching"
 import { RuningOperationStatus } from "../store/RuningOperationStatus"
 import RuningOperationSpinner from "../components/RuningOperationSpinner"
 import { Pagination, usePagination } from "../components/Pagination"
+
+import { useStocksLoading } from "../store/StocksLoading"
 
 const Stocks = () => {
   const [runingOperationStatus, setRuningOperationStatus] = useState(
     RuningOperationStatus.notStarted
   )
 
-  const { data, setData } = useLoading({
-    url: "https://boursedecasablancastocks.azurewebsites.net/api/Stocks?",
-    initData: [],
-    setRuningOperationStatus,
-    cachedUrl: true,
-  })
+  const { data, setData } = useStocksLoading({ setRuningOperationStatus })
 
   const { searchData } = useSearch({
     data,

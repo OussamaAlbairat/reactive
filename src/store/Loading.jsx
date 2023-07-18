@@ -12,13 +12,9 @@ export const useLoading = ({
   const [data, setData] = useState(initData)
 
   const getData = async (uri) => {
-    if (cachedUrl) {
-      if (cache.has(uri)) {
-        return cache.get(uri)
-      } else return cache.set(uri, await doFetch(uri)).get(uri)
-    } else {
-      return await doFetch(uri)
-    }
+    if (cachedUrl && cache.has(uri)) return cache.get(uri)
+    else if (cachedUrl) return cache.set(uri, await doFetch(uri)).get(uri)
+    else return await doFetch(uri)
   }
 
   const doFetch = async (uri) => {
