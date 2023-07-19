@@ -1,7 +1,9 @@
+import { newId, financial } from "../store/Utils"
 import { useState } from "react"
 import { useParams } from "react-router-dom"
 import { useLoading } from "../store/Loading"
 import { useSaving } from "../store/Saving"
+import StocksList from "../components/StocksList"
 import { RuningOperationStatus } from "../store/RuningOperationStatus"
 import RuningOperationSpinner from "../components/RuningOperationSpinner"
 
@@ -46,8 +48,6 @@ const Portfolio = () => {
     })
   }
 
-  const newId = () => Math.floor(Math.random() * 10 ** 15)
-
   const addClicked = (e) => {
     e.preventDefault()
     setData((old) => {
@@ -60,9 +60,7 @@ const Portfolio = () => {
 
   const saveClicked = (e) => {
     e.preventDefault()
-    console.log(data)
     save(data[0]).then((dt) => {
-      console.log(dt)
       setData(dt)
     })
   }
@@ -93,6 +91,18 @@ const Portfolio = () => {
     const value = e.target.value
     const { stockid } = e.target.dataset
     changeStock(stockid, "symbol", value)
+  }
+
+  const deleteStock = (e) => {
+    e.preventDefault()
+    const { stockid } = e.target.dataset
+    setData((old) => {
+      const oldReport = JSON.parse(old[0].report)
+      const oldStocks = oldReport.stocks
+      const newStocks = oldStocks.filter((x) => x.id != stockid)
+
+      return [{ ...old[0], report: JSON.stringify({ stocks: [...newStocks] }) }]
+    })
   }
 
   return (
@@ -128,6 +138,7 @@ const Portfolio = () => {
             <tr>
               <th>Symbol</th>
               <th>Ratio</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -136,6 +147,7 @@ const Portfolio = () => {
                 <tr key={index}>
                   <td>
                     <input
+                      list="stocksdatalist"
                       type="text"
                       name="symbol"
                       value={stock.symbol}
@@ -147,10 +159,19 @@ const Portfolio = () => {
                     <input
                       type="text"
                       name="ratio"
-                      value={stock.ratio * 100 + "%"}
+                      value={financial(stock.ratio * 100) + "%"}
                       onChange={ratioChanged}
                       data-stockid={stock.id || newId()}
                     />
+                  </td>
+                  <td>
+                    <a href="#" className="d-flex justify-content-end">
+                      <i
+                        className="bi bi-x-lg"
+                        data-stockid={stock.id || newId()}
+                        onClick={deleteStock}
+                      ></i>
+                    </a>
                   </td>
                 </tr>
               )
@@ -174,6 +195,7 @@ const Portfolio = () => {
           </button>
         </div>
       </form>
+      <StocksList datalistid="stocksdatalist" />
     </div>
   )
 }
