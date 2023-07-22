@@ -5,6 +5,7 @@ import RuningOperationSpinner from "../components/RuningOperationSpinner"
 import { Pagination, usePagination } from "../components/Pagination"
 
 import { useStocksLoading } from "../store/StocksLoading"
+import { Link } from "react-router-dom"
 
 const Stocks = () => {
   const [runingOperationStatus, setRuningOperationStatus] = useState(
@@ -29,7 +30,8 @@ const Stocks = () => {
     <div>
       <RuningOperationSpinner status={runingOperationStatus} />
       {runingOperationStatus === RuningOperationStatus.succeded && (
-        <>
+        <div className="container">
+          <h4>Instruments</h4>
           <table className="table">
             <thead>
               <tr>
@@ -44,7 +46,15 @@ const Stocks = () => {
                 <tr key={index}>
                   <td>{item.company}</td>
                   <td>{item.symbol}</td>
-                  <td>{item.description}</td>
+                  <td>
+                    <Link
+                      relative="path"
+                      to={`../stock/${item.instrument_id}`}
+                      state={{ symbol: item.symbol, company: item.company }}
+                    >
+                      {item.description}
+                    </Link>
+                  </td>
                   <td>{item.quantity}</td>
                 </tr>
               ))}
@@ -57,7 +67,7 @@ const Stocks = () => {
             last={last}
             currentLable={currentLable}
           />
-        </>
+        </div>
       )}
     </div>
   )

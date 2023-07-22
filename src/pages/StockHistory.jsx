@@ -44,19 +44,19 @@ const StockHistory = () => {
           <tbody>
             {data.map((item, index) => (
               <tr key={index}>
-                <td key={index + 1}>{item.symbol}</td>
-                <td key={index + 2}>{item.capitalisation}</td>
-                <td key={index + 3}>{item.closingPrice}</td>
-                <td key={index + 4}>{item.coursAjuste}</td>
-                <td key={index + 5}>{item.coursCourant}</td>
-                <td key={index + 6}>{item.cumulTitresEchanges}</td>
-                <td key={index + 7}>{item.cumulVolumeEchange}</td>
-                <td key={index + 8}>{item.highPrice}</td>
-                <td key={index + 9}>{item.lowPrice}</td>
-                <td key={index + 10}>{item.openingPrice}</td>
-                <td key={index + 11}>{item.ratioConsolide}</td>
-                <td key={index + 12}>{item.created}</td>
-                <td key={index + 13}>{item.totalTrades}</td>
+                <td>{item.symbol}</td>
+                <td>{item.capitalisation}</td>
+                <td>{item.closingPrice}</td>
+                <td>{item.coursAjuste}</td>
+                <td>{item.coursCourant}</td>
+                <td>{item.cumulTitresEchanges}</td>
+                <td>{item.cumulVolumeEchange}</td>
+                <td>{item.highPrice}</td>
+                <td>{item.lowPrice}</td>
+                <td>{item.openingPrice}</td>
+                <td>{item.ratioConsolide}</td>
+                <td>{item.created}</td>
+                <td>{item.totalTrades}</td>
               </tr>
             ))}
           </tbody>
@@ -65,4 +65,5 @@ const StockHistory = () => {
     </div>
   )
 }
+
 export default StockHistory

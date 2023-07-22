@@ -25,7 +25,8 @@ const Portfolios = () => {
     <div className="container-fluid">
       <RuningOperationSpinner status={runingOperationStatus} />
       {runingOperationStatus === RuningOperationStatus.succeded && (
-        <>
+        <div className="container">
+          <h4>Portfolios</h4>
           <table className="table">
             <thead>
               <tr>
@@ -54,7 +55,7 @@ const Portfolios = () => {
               Create
             </a>
           </div>
-        </>
+        </div>
       )}
     </div>
   )
