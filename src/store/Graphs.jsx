@@ -226,43 +226,45 @@ export function plotCandleSticksGraphEx(element, data) {
 
   var plot = _graphInit(element, data, {})
 
-  function LocalFormatter() {
-    function tickToDate(i, ticks, dates) {
-      let ti = ticks[i]
-      let di = dates[ti]
+  class LocalFormatter extends Bokeh.TickFormatter {
+    constructor(attrs) {
+      super(attrs)
+      function tickToDate(i, ticks, dates) {
+        let ti = ticks[i]
+        let di = dates[ti]
 
-      if (di) {
-        return new Date(di)
+        if (di) {
+          return new Date(di)
+        }
+
+        let t0 = ticks[0]
+        let t1 = ticks[1]
+        let td = t1 - t0
+        let nd = ti % td
+
+        let d0 = new Date(dates[t0])
+        let d1 = new Date(dates[t1])
+        let dd = d1.getTime() - d0.getTime()
+
+        di = new Date(d0.getTime() + nd * dd)
+
+        return di
       }
 
-      let t0 = ticks[0]
-      let t1 = ticks[1]
-      let td = t1 - t0
-      let nd = ti % td
+      this.doFormat = function (ticks, opts) {
+        let formatted = []
 
-      let d0 = new Date(dates[t0])
-      let d1 = new Date(dates[t1])
-      let dd = d1.getTime() - d0.getTime()
+        for (let i = 0, len = ticks.length; i < len; i++) {
+          let d = tickToDate(i, ticks, data.date) // new Date(data.date[ticks[i]]);
+          formatted.push(d.toDateString())
+        }
 
-      di = new Date(d0.getTime() + nd * dd)
-
-      return di
-    }
-
-    this.doFormat = function (ticks, opts) {
-      let formatted = []
-
-      for (let i = 0, len = ticks.length; i < len; i++) {
-        let d = tickToDate(i, ticks, data.date) // new Date(data.date[ticks[i]]);
-        formatted.push(d.toDateString())
+        return formatted
       }
-
-      return formatted
     }
   }
 
-  //const formatter = new LocalFormatter()
-  //plot.xaxis.formatter = formatter
+  plot.xaxis.formatter = new LocalFormatter()
 
   var seg_data = {
     x0: xs,

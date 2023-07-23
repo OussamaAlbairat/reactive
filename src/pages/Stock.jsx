@@ -31,12 +31,13 @@ const Stock = () => {
   }
 
   const getCandelData = () => {
+    const candelData = data.reverse()
     return {
-      date: data.map((x) => new Date(x.created).getTime()),
-      open: data.map((x) => financial(x.openingPrice)),
-      close: data.map((x) => financial(x.closingPrice)),
-      low: data.map((x) => financial(x.lowPrice)),
-      high: data.map((x) => financial(x.highPrice)),
+      date: candelData.map((x) => new Date(x.created).getTime()),
+      open: candelData.map((x) => financial(x.openingPrice)),
+      close: candelData.map((x) => financial(x.closingPrice)),
+      low: candelData.map((x) => financial(x.lowPrice)),
+      high: candelData.map((x) => financial(x.highPrice)),
     }
   }
 
@@ -55,9 +56,7 @@ const Stock = () => {
         id="plot"
         className="d-flex justify-content-center"
         style={{ height: "500px" }}
-      >
-        toto lives here!
-      </div>
+      />
     </div>
   )
 }
