@@ -17,7 +17,7 @@ const Stock = () => {
 
   const { data, setData } = useLoading({
     url: isInteger(id)
-      ? `https://boursedecasablancastocks.azurewebsites.net/api/stockhistory?instrument_id=${id}`
+      ? `https://boursedecasablancastocks.azurewebsites.net/api/stockhistory?type=Stock&instrument_id=${id}`
       : null,
     initData: [],
     setRuningOperationStatus,
