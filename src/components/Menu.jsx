@@ -23,32 +23,10 @@ const Menu = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarscollaps">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
+            <li className="nav-item">
+              <Link to="stocks" className="nav-link">
                 Instruments
-              </a>
-              <ul className="dropdown-menu">
-                <li>
-                  <Link to="stocks" className="dropdown-item">
-                    Stocks
-                  </Link>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Bonds
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Funds
-                  </a>
-                </li>
-              </ul>
+              </Link>
             </li>
             <li className="nav-item">
               <Link to="portfolios" className="nav-link">

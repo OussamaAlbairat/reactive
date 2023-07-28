@@ -63,9 +63,6 @@ function _graphInit(element, data, params) {
   var _width = element.clientWidth - 10
   var _height = element.clientHeight
 
-  //_width = (0 < _width && _width < 1000)? _width : 1000;
-  //_height = (0 < _height && _height < 500)? _height : 500;
-
   while (element.firstChild) {
     element.removeChild(element.firstChild)
   }
@@ -119,16 +116,24 @@ function _graphInit(element, data, params) {
   return plot
 }
 
-export function plotLineGraph(element, data) {
+export async function plotLineGraph(element, data) {
   if (!element) return
 
   if (!(data && "x" in data && "y" in data)) return
 
-  var plot = _graphInit(element, data, { x_axis_type: "datetime" })
+  var plot = _graphInit(element, data, {
+    x_axis_type: "datetime",
+    x_range: _zoomOutRange(data.x, 1 / 100),
+    y_range: _zoomOutRange(data.y, 1 / 100),
+  })
 
   plot.line({ x: data.x, y: data.y, line_width: 1 })
 
-  var view = Bokeh.Plotting.show(plot, element)
+  var view = await Bokeh.Plotting.show(plot, element)
+
+  while (element.children.length > 1) element.removeChild(element.firstChild)
+
+  return view
 }
 
 function plotMultiLineGraph(element, data) {
@@ -207,7 +212,7 @@ function plotCandleSticks(element, data) {
   Bokeh.Plotting.show(plot, element)
 }
 
-export function plotCandleSticksGraphEx(element, data) {
+export async function plotCandleSticksGraphEx(element, data) {
   if (!element) return
 
   if (!("date" in data && data.date.length > 0)) return
@@ -304,7 +309,9 @@ export function plotCandleSticksGraphEx(element, data) {
   plot.vbar(vbar_inc_data)
   plot.vbar(vbar_dec_data)
 
-  Bokeh.Plotting.show(plot, element)
+  var view = await Bokeh.Plotting.show(plot, element)
+
+  while (element.children.length > 1) element.removeChild(element.firstChild)
 }
 
 function plotScatterGraph(element, data) {

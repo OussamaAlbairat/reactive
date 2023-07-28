@@ -39,6 +39,7 @@ const Stocks = () => {
                 <th>Symbol</th>
                 <th>Description</th>
                 <th>Quantity</th>
+                <th>Type</th>
               </tr>
             </thead>
             <tbody>
@@ -50,12 +51,17 @@ const Stocks = () => {
                     <Link
                       relative="path"
                       to={`../stock/${item.instrument_id}`}
-                      state={{ symbol: item.symbol, company: item.company }}
+                      state={{
+                        symbol: item.symbol,
+                        company: item.company,
+                        type: item.type,
+                      }}
                     >
                       {item.description}
                     </Link>
                   </td>
                   <td>{item.quantity}</td>
+                  <td>{item.type}</td>
                 </tr>
               ))}
             </tbody>
