@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 
 export const useAuth = () => {
   const [user, setUser] = useState(null)
@@ -22,12 +23,12 @@ export const Auth = () => {
   return (
     <div>
       {user == null && (
-        <a href="login" className="btn btn-success mx-2">
+        <Link to="login" className="btn btn-success mx-2">
           Login
-        </a>
+        </Link>
       )}
       {user != null && (
-        <a href=".auth/logout" className="btn btn-primary mx-2">
+        <a href="/.auth/logout" className="btn btn-primary mx-2">
           Logout({user})
         </a>
       )}
