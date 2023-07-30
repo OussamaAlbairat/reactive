@@ -19,6 +19,15 @@ const Login = () => {
           <li className="list-group-item">
             <a
               style={{ width: "256px" }}
+              href=".auth/login/google"
+              className="btn btn-outline-secondary btn-lg btn-block my-2 bi bi-google"
+            >
+              <span className="mx-2">Google</span>
+            </a>
+          </li>{" "}
+          <li className="list-group-item">
+            <a
+              style={{ width: "256px" }}
               href=".auth/login/github"
               className="btn btn-outline-secondary btn-lg btn-block my-2 bi bi-github"
             >
