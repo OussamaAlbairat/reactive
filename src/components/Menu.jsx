@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom"
 import Search from "./Search"
+import { useAuth, Auth } from "./Auth"
 
 const Menu = () => {
+  const { user } = useAuth()
+
   return (
     <nav
       className="navbar navbar-expand-lg navbar-dark bg-dark"
@@ -28,16 +31,20 @@ const Menu = () => {
                 Instruments
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to="portfolios" className="nav-link">
-                Portfolios
-              </Link>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                Back testing
-              </a>
-            </li>
+            {user != null && (
+              <li className="nav-item">
+                <Link to="portfolios" className="nav-link">
+                  Portfolios
+                </Link>
+              </li>
+            )}
+            {user != null && (
+              <li className="nav-item">
+                <a className="nav-link" href="#">
+                  Back testing
+                </a>
+              </li>
+            )}
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
@@ -72,6 +79,7 @@ const Menu = () => {
             </li>
           </ul>
           <Search />
+          <Auth />
           {/* <form role="search">
             <input
               className="form-control"

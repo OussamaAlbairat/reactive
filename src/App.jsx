@@ -16,6 +16,7 @@ import Stock from "./pages/Stock.jsx"
 import Stocks from "./pages/Stocks.jsx"
 import Portfolio from "./pages/Portfolio.jsx"
 import Portfolios from "./pages/Portfolios.jsx"
+import Login from "./pages/Login.jsx"
 
 // //Layouts
 import RootLayout from "./layouts/RootLayout.jsx"
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />} errorElement={<Error />}>
       <Route index element={<Home />} />
+      <Route path="login" element={<Login />} />
       <Route path="stocks" element={<Stocks />} />
       <Route path="stock/:id" element={<Stock />} />
       <Route path="portfolios" element={<Portfolios />} />
