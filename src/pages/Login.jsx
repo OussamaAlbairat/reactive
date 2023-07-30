@@ -28,10 +28,10 @@ const Login = () => {
           <li className="list-group-item">
             <a
               style={{ width: "256px" }}
-              href=".auth/login/twiter"
+              href=".auth/login/twitter"
               className="btn btn-outline-secondary btn-lg btn-block my-2 bi bi-twitter"
             >
-              <span className="mx-2">Twiter</span>
+              <span className="mx-2">Twitter</span>
             </a>
           </li>
         </ul>
