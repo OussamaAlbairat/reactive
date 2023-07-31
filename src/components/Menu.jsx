@@ -12,7 +12,12 @@ const Menu = () => {
     >
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
-          Reactive
+          <img
+            src="finlambda.png"
+            className="rounded"
+            style={{ width: "36px", height: "36px" }}
+            alt="Finlambda"
+          />
         </a>
         <button
           className="navbar-toggler"

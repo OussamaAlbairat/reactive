@@ -1,15 +1,20 @@
-
 const Home = () => {
-    
-    return <div>
-        <h1>Home</h1>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            Ducimus, nostrum inventore dolorem, ad dolorum porro
-            unde tempora est molestias culpa voluptatem consequatur
-            ratione, laborum voluptates! Alias sint molestias
-            reprehenderit nemo?</p>
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-4 offset-4">
+          <h1>Fin Lambda</h1>
+          <p>
+            Is about exposing advanced financial tools and functions to the
+            layman interested in financial markets to benefit from. This should
+            encourage everyone to contribute to the economy and be part of the
+            success of people and corporations who have trusted the financial
+            markets to help empower their growth.
+          </p>
+        </div>
+      </div>
     </div>
-
+  )
 }
 
 export default Home
