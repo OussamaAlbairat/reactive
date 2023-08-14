@@ -9,7 +9,7 @@ const Portfolios = () => {
     RuningOperationStatus.notStarted
   )
   const { data, setData } = useLoading({
-    url: "/api/Portfolios",
+    url: "/api/portfoliosmanagement/Portfolios",
     initData: [],
     setRuningOperationStatus,
     cachedUrl: false,

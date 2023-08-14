@@ -16,7 +16,7 @@ const Stock = () => {
 
   const { data, setData } = useLoading({
     url: isInteger(id)
-      ? `/api/stockhistory?type=${location.state?.type}&instrument_id=${id}`
+      ? `/api/boursedecasablancastocks/stockhistory?type=${location.state?.type}&instrument_id=${id}`
       : null,
     initData: [],
     setRuningOperationStatus,

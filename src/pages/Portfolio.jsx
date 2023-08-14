@@ -15,7 +15,7 @@ const Portfolio = () => {
   )
 
   const { data, setData } = useLoading({
-    url: isInteger(id) ? `/api/portfolio?id=${id}` : null,
+    url: isInteger(id) ? `/api/portfoliosmanagement/portfolio?id=${id}` : null,
     initData: [
       { id: id || -1, created: "", description: "", report: '{ "stocks":[]}' },
     ],
@@ -25,7 +25,7 @@ const Portfolio = () => {
   })
 
   const { save } = useSaving({
-    url: "/api/portfolio",
+    url: "/api/portfoliosmanagement/portfolio",
     setRuningOperationStatus,
   })
 
