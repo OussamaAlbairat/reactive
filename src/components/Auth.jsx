@@ -13,7 +13,7 @@ export const useAuth = () => {
         setUser({ type: "provider", email: _user })
         return
       }
-      resp = await fetch("/api/validatetoken")
+      resp = await fetch("/api/reactiveConfig/validatetoken")
       data = await resp.json()
       console.log(data)
       data = data?.data
@@ -32,11 +32,7 @@ export const Auth = () => {
   const clickHandler = (e) => {
     e.preventDefault()
     const run = async () => {
-      // let resp = await fetch(
-      //   "https://reactiveconfig.azurewebsites.net/api/logout",
-      //   { mode: "cors", credentials: "include" }
-      // )
-      let resp = await fetch("/api/logout")
+      let resp = await fetch("/api/reactiveConfig/logout")
       let data = await resp.json()
       console.log(data)
       if (data && data.status == "OK") setUser(null)

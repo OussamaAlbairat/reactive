@@ -16,7 +16,7 @@ const Login = () => {
   const submitHandler = (e) => {
     e.preventDefault()
     const run = async () => {
-      const result = await postApiData("/api/Login", {
+      const result = await postApiData("/api/reactiveConfig/Login", {
         email,
         password,
       })
