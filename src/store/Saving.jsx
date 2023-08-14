@@ -1,11 +1,15 @@
 import axios from "axios"
 import { RuningOperationStatus } from "./RuningOperationStatus"
 
-export const useSaving = ({ url, setRuningOperationStatus }) => {
+export const useSaving = ({ url, setRuningOperationStatus, cors = false }) => {
   const save = async (save_data) => {
     setRuningOperationStatus(RuningOperationStatus.started)
     try {
-      const resp = await axios.post(url, save_data)
+      const resp = await axios.post(
+        url,
+        save_data,
+        cors ? { withCredentials: true } : undefined
+      )
       const { status, message, data } = resp.data
       console.log(message)
       if (status === "OK")

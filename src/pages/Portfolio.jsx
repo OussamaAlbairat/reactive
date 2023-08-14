@@ -1,4 +1,4 @@
-import { newId, financial } from "../store/Utils"
+import { newId, financial, formatDate, isInteger } from "../store/Utils"
 import { useState } from "react"
 import { useParams } from "react-router-dom"
 import { useLoading } from "../store/Loading"
@@ -14,29 +14,18 @@ const Portfolio = () => {
     RuningOperationStatus.notStarted
   )
 
-  const formatDate = (date) => {
-    const dt = new Date(date)
-    return `${dt.getFullYear()}-${(dt.getMonth() + 1)
-      .toString()
-      .padStart(2, "0")}-${(dt.getDate() + 1).toString().padStart(2, "0")}`
-  }
-
-  const isInteger = (a) => {
-    return !Number.isNaN(Number.parseInt(a))
-  }
-
   const { data, setData } = useLoading({
-    url: isInteger(id)
-      ? `https://portfoliosmanagement.azurewebsites.net/api/portfolio?id=${id}`
-      : null,
+    url: isInteger(id) ? `/api/portfolio?id=${id}` : null,
     initData: [
       { id: id || -1, created: "", description: "", report: '{ "stocks":[]}' },
     ],
     setRuningOperationStatus,
+    cachedUrl: false,
+    cors: true,
   })
 
   const { save } = useSaving({
-    url: "https://portfoliosmanagement.azurewebsites.net/api/portfolio",
+    url: "/api/portfolio",
     setRuningOperationStatus,
   })
 

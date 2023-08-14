@@ -10,7 +10,7 @@ const RootLayout = () => {
       >
         <Menu />
       </header>
-      <main style={{ marginTop: "4rem" }}>
+      <main style={{ marginTop: "5rem" }}>
         <Outlet />
       </main>
     </div>

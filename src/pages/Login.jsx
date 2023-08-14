@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import { postApiData } from "../store/Utils"
+import { useNavigate } from "react-router-dom"
 
 const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const navigate = useNavigate()
 
   const onChangeHandler = (e) => {
     e.preventDefault()
@@ -13,11 +15,14 @@ const Login = () => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    const run = async () =>
-      postApiData("reactiveConfig/login", {
-        type: "login",
-        data: { email, password },
+    const run = async () => {
+      const result = await postApiData("/api/Login", {
+        email,
+        password,
       })
+      if (result.status == "OK") navigate("/")
+      else alert("Unable to authenticate user.")
+    }
     run()
   }
 

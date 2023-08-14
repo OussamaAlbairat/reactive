@@ -8,6 +8,7 @@ export const useLoading = ({
   initData,
   setRuningOperationStatus,
   cachedUrl = false,
+  cors = false,
 }) => {
   const [data, setData] = useState(initData)
 

@@ -4,9 +4,7 @@ const StockHistory = () => {
   const [data, setData] = useState([])
 
   const doFetch = async () => {
-    const dt = await fetch(
-      "https://boursedecasablancastocks.azurewebsites.net/api/StockHistory"
-    )
+    const dt = await fetch("/api/StockHistory")
     const js = await dt.json()
     return js
   }

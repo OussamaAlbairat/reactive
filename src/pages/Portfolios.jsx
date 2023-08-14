@@ -9,9 +9,11 @@ const Portfolios = () => {
     RuningOperationStatus.notStarted
   )
   const { data, setData } = useLoading({
-    url: "https://portfoliosmanagement.azurewebsites.net/api/Portfolios",
+    url: "/api/Portfolios",
     initData: [],
     setRuningOperationStatus,
+    cachedUrl: false,
+    cors: true,
   })
 
   const { searchData } = useSearch({

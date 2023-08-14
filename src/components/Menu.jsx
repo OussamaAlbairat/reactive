@@ -13,7 +13,7 @@ const Menu = () => {
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
           <img
-            src="finlambda.png"
+            src="/finlambda.png"
             className="rounded"
             style={{ width: "36px", height: "36px" }}
             alt="Finlambda"
@@ -61,24 +61,24 @@ const Menu = () => {
               </a>
               <ul className="dropdown-menu">
                 <li>
-                  <a className="dropdown-item" href="faq">
+                  <Link className="dropdown-item" to="faq">
                     Faq
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="contact">
+                  <Link className="dropdown-item" to="contact">
                     Contact
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="about">
+                  <Link className="dropdown-item" to="about">
                     About
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="weather">
+                  <Link className="dropdown-item" to="weather">
                     Weather
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </li>
