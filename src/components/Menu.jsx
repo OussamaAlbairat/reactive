@@ -75,24 +75,11 @@ const Menu = () => {
                     About
                   </Link>
                 </li>
-                <li>
-                  <Link className="dropdown-item" to="weather">
-                    Weather
-                  </Link>
-                </li>
               </ul>
             </li>
           </ul>
           <Search />
           <Auth />
-          {/* <form role="search">
-            <input
-              className="form-control"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-          </form> */}
         </div>
       </div>
     </nav>

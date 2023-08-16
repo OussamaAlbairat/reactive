@@ -50,7 +50,7 @@ const Portfolio = () => {
   const saveClicked = (e) => {
     e.preventDefault()
     save(data[0]).then((dt) => {
-      setData(dt)
+      setData(dt.data)
     })
   }
 

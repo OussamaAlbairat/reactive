@@ -1,5 +1,40 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, Children } from "react"
 import { Link, useNavigate } from "react-router-dom"
+
+const DropDownMenu = ({ children }) => {
+  return (
+    <ul className="navbar-nav">
+      <li className="nav-item dropdown">
+        <a
+          className="nav-link dropdown-toggle"
+          href="#"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            fill="currentColor"
+            class="bi bi-person"
+            viewBox="0 0 32 32"
+          >
+            <path d="M 16 16 a 6 6 90 1 0 0 -12 a 6 6 90 0 0 0 12 Z m 4 -6 a 4 4 90 1 1 -8 0 a 4 4 90 0 1 8 0 Z m 8 16 c 0 2 -2 2 -2 2 H 6 s -2 0 -2 -2 s 2 -8 12 -8 s 12 6 12 8 Z m -2 -0.008 c -0.002 -0.492 -0.308 -1.972 -1.664 -3.328 C 23.032 21.36 20.578 20 16 20 c -4.58 0 -7.032 1.36 -8.336 2.664 c -1.356 1.356 -1.66 2.836 -1.664 3.328 h 20 Z" />
+          </svg>
+        </a>
+        <ul className="dropdown-menu dropdown-menu-end">
+          {Children.map(children, (child, ndx) => {
+            return (
+              <li key={ndx}>
+                <div className="dropdown-item d-grid">{child}</div>
+              </li>
+            )
+          })}
+        </ul>
+      </li>
+    </ul>
+  )
+}
 
 export const useAuth = () => {
   const [user, setUser] = useState(null)
@@ -45,63 +80,47 @@ export const Auth = () => {
   return (
     <div className="py-1">
       {user == null && (
-        <Link to="login" className="btn btn-success mx-2">
-          Login
-        </Link>
+        <DropDownMenu>
+          <Link
+            to="signup"
+            className="btn btn-outline-secondary bi bi-person-plus"
+          >
+            <span className="mx-2">Sign up</span>
+          </Link>
+          <Link to="login" className="btn btn-outline-success bi bi-person-up">
+            <span className="mx-2">Login</span>
+          </Link>
+        </DropDownMenu>
       )}
       {user != null && user.type == "basic" && (
-        <ul className="navbar-nav">
-          <li className="nav-item dropdown">
-            <a
-              className="nav-link dropdown-toggle"
-              href="#"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="32"
-                fill="currentColor"
-                class="bi bi-person"
-                viewBox="0 0 32 32"
-              >
-                <path d="M 16 16 a 6 6 90 1 0 0 -12 a 6 6 90 0 0 0 12 Z m 4 -6 a 4 4 90 1 1 -8 0 a 4 4 90 0 1 8 0 Z m 8 16 c 0 2 -2 2 -2 2 H 6 s -2 0 -2 -2 s 2 -8 12 -8 s 12 6 12 8 Z m -2 -0.008 c -0.002 -0.492 -0.308 -1.972 -1.664 -3.328 C 23.032 21.36 20.578 20 16 20 c -4.58 0 -7.032 1.36 -8.336 2.664 c -1.356 1.356 -1.66 2.836 -1.664 3.328 h 20 Z" />
-              </svg>
-            </a>
-            <ul className="dropdown-menu dropdown-menu-right">
-              <li>
-                <button
-                  type="button"
-                  onClick={clickHandler}
-                  className="dropdown-item btn btn-danger mx-2"
-                >
-                  Logout({user.email})
-                </button>
-              </li>
-            </ul>
-          </li>
-        </ul>
+        <DropDownMenu>
+          <Link
+            to="settings"
+            className="btn btn-outline-secondary bi bi-person-gear"
+          >
+            <span className="mx-2">Settings</span>
+          </Link>
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={clickHandler}
+          >
+            Logout ({user.email})
+          </button>
+        </DropDownMenu>
       )}
       {user != null && user.type == "provider" && (
-        <div className="nav-item dropdown">
-          <a
-            className="nav-link dropdown-toggle bi bi-person"
-            href="#"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          ></a>
-          <ul className="dropdown-menu">
-            <li>
-              <a
-                href="/.auth/logout"
-                className="dropdown-item btn btn-danger mx-2"
-              >
-                Logout({user.email})
-              </a>
-            </li>
-          </ul>
-        </div>
+        <DropDownMenu>
+          <Link
+            to="settings"
+            className="btn btn-outline-secondary bi bi-person-gear"
+          >
+            <span className="mx-2">Settings</span>
+          </Link>
+          <a href="/.auth/logout" className="btn btn-danger">
+            Logout ({user.email})
+          </a>
+        </DropDownMenu>
       )}
     </div>
   )

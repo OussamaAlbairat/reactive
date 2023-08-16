@@ -11,12 +11,12 @@ import About from "./pages/About.jsx"
 import Faq from "./pages/Faq.jsx"
 import Contact from "./pages/Contact.jsx"
 import Error from "./pages/Error.jsx"
-import Weather from "./pages/Weather.jsx"
 import Stock from "./pages/Stock.jsx"
 import Stocks from "./pages/Stocks.jsx"
 import Portfolio from "./pages/Portfolio.jsx"
 import Portfolios from "./pages/Portfolios.jsx"
 import Login from "./pages/Login.jsx"
+import Settings from "./pages/Settings.jsx"
 
 // //Layouts
 import RootLayout from "./layouts/RootLayout.jsx"
@@ -34,7 +34,8 @@ const router = createBrowserRouter(
       <Route path="faq" element={<Faq />} />
       <Route path="contact" element={<Contact />} />
       <Route path="about" element={<About />} />
-      <Route path="weather" element={<Weather />} />
+      <Route path="signup" element={<Settings />} />
+      <Route path="settings" element={<Settings />} />
     </Route>
   )
 )
