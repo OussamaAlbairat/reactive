@@ -13,7 +13,6 @@ const Portfolios = () => {
     initData: [],
     setRuningOperationStatus,
     cachedUrl: false,
-    cors: true,
   })
 
   const { searchData } = useSearch({

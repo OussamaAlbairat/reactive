@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { postApiData } from "../store/Utils"
+import { useNavigate } from "react-router-dom"
 import { useLoading } from "../store/Loading"
 import { useSaving } from "../store/Saving"
 import { RuningOperationStatus } from "../store/RuningOperationStatus"
@@ -46,8 +46,10 @@ const Settings = () => {
       const result = await save({
         ...data[0],
       })
-      if (result.status == "OK") navigate("/")
-      else alert(result.message)
+      if (result.status == "OK") {
+        const navigate = useNavigate()
+        navigate("/")
+      } else alert(result.message)
     }
     run()
   }
