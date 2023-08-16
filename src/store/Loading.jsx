@@ -8,7 +8,6 @@ export const useLoading = ({
   initData,
   setRuningOperationStatus,
   cachedUrl = false,
-  cors = false,
 }) => {
   const [data, setData] = useState(initData)
 
@@ -29,7 +28,7 @@ export const useLoading = ({
     getData(url)
       .then((dt) => {
         const { status, message, data } = dt
-        setData(data)
+        setData(data || initData)
         if (status === "OK")
           setRuningOperationStatus(RuningOperationStatus.succeded)
         else setRuningOperationStatus(RuningOperationStatus.failed)
