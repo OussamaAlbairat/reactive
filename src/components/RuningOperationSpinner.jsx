@@ -1,12 +1,25 @@
 import { RuningOperationStatus } from "../store/RuningOperationStatus"
 
+const error = { theme: "danger", icon: "exclamation-triangle" }
+const success = { theme: "success", icon: "hand-thumbs-up" }
+
+const Alert = ({ type, message }) => {
+  const classes = `container d-flex justify-content-start bi bi-${type.icon} alert alert-${type.theme} alert-dismissible fade show`
+  return (
+    <div className={classes} role="alert">
+      <span className="mx-2">{message}</span>
+      <button
+        type="button"
+        className="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+  )
+}
+
 const RuningOperationSpinner = ({ status, message }) => {
   return (
-    (status === RuningOperationStatus.failed && (
-      <h1 className="d-flex justify-content-center">
-        An error occured while fetching data.
-      </h1>
-    )) ||
     (status === RuningOperationStatus.started && (
       <div
         //className="d-flex justify-content-center m-5"
@@ -15,6 +28,12 @@ const RuningOperationSpinner = ({ status, message }) => {
         <div className="spinner-border" role="status"></div>
         <span className="sr-only m-2">{message || "Loading..."}</span>
       </div>
+    )) ||
+    (status === RuningOperationStatus.failed && (
+      <Alert type={error} message="An error occured while fetching data." />
+    )) ||
+    (status === RuningOperationStatus.succeded && (
+      <Alert type={success} message="Operation succeded." />
     ))
   )
 }
