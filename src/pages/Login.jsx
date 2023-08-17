@@ -19,6 +19,7 @@ const Login = () => {
       const result = await postApiData("/api/reactiveConfig/Login", {
         email,
         password,
+        tz: new Date().getTimezoneOffset(),
       })
       if (result.status == "OK") navigate("/")
       else alert("Unable to authenticate user.")

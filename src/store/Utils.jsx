@@ -14,11 +14,7 @@ export const isInteger = (a) => {
 }
 
 export const getApiData = async (url) => {
-  const resp = await fetch(url, {
-    headers: {
-      "X-Custom-Tz": new Date().getTimezoneOffset(),
-    },
-  })
+  const resp = await fetch(url)
   if (!resp.ok) throw new Error("response not OK")
   const data = await resp.json()
   return data
@@ -33,7 +29,6 @@ export const postApiData = async (url, data = {}) => {
     credentials: "same-origin", // include, *same-origin, omit
     headers: {
       "Content-Type": "application/json",
-      "X-Custom-Tz": new Date().getTimezoneOffset(),
       // 'Content-Type': 'application/x-www-form-urlencoded',
     },
     redirect: "follow", // manual, *follow, error
