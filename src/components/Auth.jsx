@@ -63,6 +63,7 @@ export const useAuth = () => {
 
 export const Auth = () => {
   const { user, setUser } = useAuth()
+  const navigate = useNavigate()
 
   const clickHandler = (e) => {
     e.preventDefault()
@@ -71,7 +72,6 @@ export const Auth = () => {
       let data = await resp.json()
       console.log(data)
       if (data && data.status == "OK") setUser(null)
-      const navigate = useNavigate()
       navigate("/")
     }
     run()
