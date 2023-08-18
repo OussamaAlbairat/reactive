@@ -25,10 +25,12 @@ const Stock = () => {
 
   return (
     <div className="container">
-      <h4>{`${location.state?.type}: ${location.state?.company}(${location.state?.symbol})`}</h4>
       <RuningOperationSpinner status={runingOperationStatus} />
       {runingOperationStatus == RuningOperationStatus.succeded && (
-        <Graph type={location.state?.type} data={data} />
+        <div>
+          <h4>{`${location.state?.type}: ${location.state?.company}(${location.state?.symbol})`}</h4>
+          <Graph type={location.state?.type} data={data} />
+        </div>
       )}
     </div>
   )

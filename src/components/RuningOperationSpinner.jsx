@@ -1,20 +1,34 @@
+import { useState } from "react"
 import { RuningOperationStatus } from "../store/RuningOperationStatus"
 
 const error = { theme: "danger", icon: "exclamation-triangle" }
 const success = { theme: "success", icon: "hand-thumbs-up" }
 
 const Alert = ({ type, message }) => {
-  const classes = `container d-flex justify-content-start bi bi-${type.icon} alert alert-${type.theme} alert-dismissible fade show`
+  const [closed, setClosed] = useState(false)
+
+  const closeHandler = (e) => {
+    e.preventDefault()
+    setClosed(true)
+  }
+
   return (
-    <div className={classes} role="alert">
-      <span className="mx-2">{message}</span>
-      <button
-        type="button"
-        className="btn-close"
-        data-bs-dismiss="alert"
-        aria-label="Close"
-      ></button>
-    </div>
+    closed || (
+      <div
+        className={`container d-flex justify-content-start alert alert-${type.theme} alert-dismissible fade show`}
+        role="alert"
+      >
+        <i className={`bi bi-${type.icon}`}></i>
+        <span className="mx-2">{message}</span>
+        <button
+          type="button"
+          className="btn-close"
+          //data-bs-dismiss="alert"
+          aria-label="Close"
+          onClick={closeHandler}
+        ></button>
+      </div>
+    )
   )
 }
 

@@ -23,7 +23,6 @@ const Settings = () => {
     ],
     setRuningOperationStatus,
     cachedUrl: false,
-    cors: true,
   })
 
   const { save } = useSaving({
