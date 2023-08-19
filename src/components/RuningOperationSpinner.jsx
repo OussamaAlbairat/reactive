@@ -1,4 +1,4 @@
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import {
   RuningOperationStatus,
   RuningOperationStatusContext,
@@ -9,13 +9,16 @@ const success = { theme: "success", icon: "hand-thumbs-up" }
 
 const Alert = ({ type, message }) => {
   const [closed, setClosed] = useState(false)
-  const { setStatus } = useContext(RuningOperationStatusContext)
+  const { status } = useContext(RuningOperationStatusContext)
 
   const closeHandler = (e) => {
     e.preventDefault()
     setClosed(true)
-    setStatus(RuningOperationStatus.notStarted)
   }
+
+  useEffect(() => {
+    if (status == RuningOperationStatus.started) setClosed(true)
+  }, [status])
 
   return (
     closed || (
