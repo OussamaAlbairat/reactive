@@ -1,16 +1,14 @@
-import { useState, useEffect } from "react"
-import { RuningOperationStatus } from "./RuningOperationStatus"
+import { useState, useEffect, useContext } from "react"
+import {
+  RuningOperationStatus,
+  RuningOperationStatusContext,
+} from "./RuningOperationStatus"
 
 const cache = new Map()
 
-export const useLoading = ({
-  url,
-  initData,
-  setRuningOperationStatus,
-  cachedUrl = false,
-}) => {
+export const useLoading = ({ url, initData, cachedUrl = false }) => {
   const [data, setData] = useState(initData)
-
+  const { status, setStatus } = useContext(RuningOperationStatusContext)
   const getData = async (uri) => {
     if (cachedUrl && cache.has(uri)) return cache.get(uri)
     else if (cachedUrl) return cache.set(uri, await doFetch(uri)).get(uri)
@@ -24,17 +22,16 @@ export const useLoading = ({
   }
 
   useEffect(() => {
-    setRuningOperationStatus(RuningOperationStatus.started)
+    setStatus(RuningOperationStatus.started)
     getData(url)
       .then((dt) => {
         const { status, message, data } = dt
         setData(data || initData)
-        if (status === "OK")
-          setRuningOperationStatus(RuningOperationStatus.succeded)
-        else setRuningOperationStatus(RuningOperationStatus.failed)
+        if (status === "OK") setStatus(RuningOperationStatus.succeded)
+        else setStatus(RuningOperationStatus.failed)
       })
-      .catch((e) => setRuningOperationStatus(RuningOperationStatus.failed))
+      .catch((e) => setStatus(RuningOperationStatus.failed))
   }, [])
 
-  return { data, setData }
+  return { data, setData, status }
 }

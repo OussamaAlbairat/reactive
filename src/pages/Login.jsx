@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react"
-import { postApiData } from "../store/Utils"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 const Login = () => {
+  const { save } = useSaving({ url: "/api/reactiveConfig/Login" })
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const navigate = useNavigate()
@@ -16,7 +16,7 @@ const Login = () => {
   const submitHandler = (e) => {
     e.preventDefault()
     const run = async () => {
-      const result = await postApiData("/api/reactiveConfig/Login", {
+      const result = await save({
         email,
         password,
         tz: new Date().getTimezoneOffset(),

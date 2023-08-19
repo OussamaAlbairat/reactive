@@ -1,31 +1,23 @@
-import { useState } from "react"
 import { useLoading } from "../store/Loading"
 import { useSearch } from "../store/Searching"
 import { RuningOperationStatus } from "../store/RuningOperationStatus"
-import RuningOperationSpinner from "../components/RuningOperationSpinner"
 
 const Portfolios = () => {
-  const [runingOperationStatus, setRuningOperationStatus] = useState(
-    RuningOperationStatus.notStarted
-  )
-  const { data, setData } = useLoading({
+  const { data, setData, status } = useLoading({
     url: "/api/portfoliosmanagement/Portfolios",
     initData: [],
-    setRuningOperationStatus,
     cachedUrl: false,
   })
 
   const { searchData } = useSearch({
     data,
     setData,
-    runingOperationStatus,
     filterDataCondition: (obj, value) => obj.description.startsWith(value),
   })
 
   return (
     <div className="container-fluid">
-      <RuningOperationSpinner status={runingOperationStatus} />
-      {runingOperationStatus === RuningOperationStatus.succeded && (
+      {status === RuningOperationStatus.succeded && (
         <div className="container">
           <h4>Portfolios</h4>
           <table className="table">

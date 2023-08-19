@@ -1,23 +1,16 @@
-import { useState } from "react"
 import { useSearch } from "../store/Searching"
 import { RuningOperationStatus } from "../store/RuningOperationStatus"
-import RuningOperationSpinner from "../components/RuningOperationSpinner"
 import { Pagination, usePagination } from "../components/Pagination"
 
 import { useStocksLoading } from "../store/StocksLoading"
 import { Link } from "react-router-dom"
 
 const Stocks = () => {
-  const [runingOperationStatus, setRuningOperationStatus] = useState(
-    RuningOperationStatus.notStarted
-  )
-
-  const { data, setData } = useStocksLoading({ setRuningOperationStatus })
+  const { data, setData, status } = useStocksLoading()
 
   const { searchData } = useSearch({
     data,
     setData,
-    runingOperationStatus,
     filterDataCondition: (obj, value) => obj.symbol.startsWith(value),
   })
 
@@ -28,8 +21,7 @@ const Stocks = () => {
 
   return (
     <div>
-      <RuningOperationSpinner status={runingOperationStatus} />
-      {runingOperationStatus === RuningOperationStatus.succeded && (
+      {status === RuningOperationStatus.succeded && (
         <div className="container">
           <h4>Instruments</h4>
           <table className="table">

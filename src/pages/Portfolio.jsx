@@ -4,30 +4,19 @@ import { useParams } from "react-router-dom"
 import { useLoading } from "../store/Loading"
 import { useSaving } from "../store/Saving"
 import StocksList from "../components/StocksList"
-import { RuningOperationStatus } from "../store/RuningOperationStatus"
-import RuningOperationSpinner from "../components/RuningOperationSpinner"
 
 const Portfolio = () => {
   const { id } = useParams()
-
-  const [runingOperationStatus, setRuningOperationStatus] = useState(
-    RuningOperationStatus.notStarted
-  )
 
   const { data, setData } = useLoading({
     url: isInteger(id) ? `/api/portfoliosmanagement/portfolio?id=${id}` : null,
     initData: [
       { id: id || -1, created: "", description: "", report: '{ "stocks":[]}' },
     ],
-    setRuningOperationStatus,
     cachedUrl: false,
-    cors: true,
   })
 
-  const { save } = useSaving({
-    url: "/api/portfoliosmanagement/portfolio",
-    setRuningOperationStatus,
-  })
+  const { save } = useSaving({ url: "/api/portfoliosmanagement/portfolio" })
 
   const inputChanged = (e) => {
     const name = e.target.name
@@ -96,7 +85,6 @@ const Portfolio = () => {
 
   return (
     <div className="container">
-      <RuningOperationSpinner status={runingOperationStatus} />
       <h4>Portfolio</h4>
       <form>
         <div className="form-group">

@@ -1,11 +1,10 @@
 import { useLoading } from "./Loading"
 
-export const useStocksLoading = ({ setRuningOperationStatus }) => {
-  const { data, setData } = useLoading({
+export const useStocksLoading = () => {
+  const { data, setData, status } = useLoading({
     url: "/api/boursedecasablancastocks/Stocks?type=All",
     initData: [],
-    setRuningOperationStatus,
     cachedUrl: true,
   })
-  return { data, setData }
+  return { data, setData, status }
 }

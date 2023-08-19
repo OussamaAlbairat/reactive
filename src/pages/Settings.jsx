@@ -1,15 +1,8 @@
-import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useLoading } from "../store/Loading"
 import { useSaving } from "../store/Saving"
-import { RuningOperationStatus } from "../store/RuningOperationStatus"
-import RuningOperationSpinner from "../components/RuningOperationSpinner"
 
 const Settings = () => {
-  const [runingOperationStatus, setRuningOperationStatus] = useState(
-    RuningOperationStatus.notStarted
-  )
-
   const { data, setData } = useLoading({
     url: "/api/reactiveConfig/settings",
     initData: [
@@ -21,14 +14,10 @@ const Settings = () => {
         passwordconfirm: "",
       },
     ],
-    setRuningOperationStatus,
     cachedUrl: false,
   })
 
-  const { save } = useSaving({
-    url: "/api/reactiveConfig/settings",
-    setRuningOperationStatus,
-  })
+  const { save } = useSaving({ url: "/api/reactiveConfig/settings" })
 
   const onChangeHandler = (e) => {
     e.preventDefault()
@@ -55,7 +44,6 @@ const Settings = () => {
 
   return (
     <>
-      <RuningOperationSpinner status={runingOperationStatus} />
       <div className="container row col-4 offset-4">
         <form className="form">
           <div className="card">

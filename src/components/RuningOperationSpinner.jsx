@@ -1,15 +1,20 @@
-import { useState } from "react"
-import { RuningOperationStatus } from "../store/RuningOperationStatus"
+import { useState, useContext } from "react"
+import {
+  RuningOperationStatus,
+  RuningOperationStatusContext,
+} from "../store/RuningOperationStatus"
 
 const error = { theme: "danger", icon: "exclamation-triangle" }
 const success = { theme: "success", icon: "hand-thumbs-up" }
 
 const Alert = ({ type, message }) => {
   const [closed, setClosed] = useState(false)
+  const { setStatus } = useContext(RuningOperationStatusContext)
 
   const closeHandler = (e) => {
     e.preventDefault()
     setClosed(true)
+    setStatus(RuningOperationStatus.notStarted)
   }
 
   return (
