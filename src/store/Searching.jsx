@@ -1,12 +1,8 @@
-import { useContext, useEffect } from "react"
-import {
-  RuningOperationStatus,
-  RuningOperationStatusContext,
-} from "./RuningOperationStatus"
+import { useEffect } from "react"
+import { RuningOperationStatus } from "./RuningOperationStatus"
 import useRegistry from "./Registry"
 
-export const useSearch = ({ data, setData, filterDataCondition }) => {
-  const { status } = useContext(RuningOperationStatusContext)
+export const useSearch = ({ data, setData, status, filterDataCondition }) => {
   const { subscribe, unsubscribe } = useRegistry()
   useEffect(() => {
     if (status === RuningOperationStatus.succeded && data.length > 0) {

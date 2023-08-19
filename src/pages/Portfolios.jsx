@@ -12,6 +12,7 @@ const Portfolios = () => {
   const { searchData } = useSearch({
     data,
     setData,
+    status,
     filterDataCondition: (obj, value) => obj.description.startsWith(value),
   })
 
