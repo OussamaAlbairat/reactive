@@ -9,7 +9,7 @@ export const useSearch = ({ data, setData, filterDataCondition }) => {
   const { status } = useContext(RuningOperationStatusContext)
   const { subscribe, unsubscribe } = useRegistry()
   useEffect(() => {
-    if (status === RuningOperationStatus.succeded) {
+    if (status === RuningOperationStatus.succeded && data.length > 0) {
       const search = (value) => {
         if (value === "") setData(data)
         else {

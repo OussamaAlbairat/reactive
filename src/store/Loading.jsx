@@ -9,6 +9,7 @@ const cache = new Map()
 export const useLoading = ({ url, initData, cachedUrl = false }) => {
   const [data, setData] = useState(initData)
   const { status, setStatus } = useContext(RuningOperationStatusContext)
+
   const getData = async (uri) => {
     if (cachedUrl && cache.has(uri)) return cache.get(uri)
     else if (cachedUrl) return cache.set(uri, await doFetch(uri)).get(uri)
@@ -22,15 +23,20 @@ export const useLoading = ({ url, initData, cachedUrl = false }) => {
   }
 
   useEffect(() => {
-    setStatus(RuningOperationStatus.started)
-    getData(url)
-      .then((dt) => {
-        const { status, message, data } = dt
-        setData(data || initData)
-        if (status === "OK") setStatus(RuningOperationStatus.succeded)
-        else setStatus(RuningOperationStatus.failed)
-      })
-      .catch((e) => setStatus(RuningOperationStatus.failed))
+    const run = async () => {
+      try {
+        setStatus(RuningOperationStatus.started)
+        const { status, message, data } = await getData(url)
+        if (status === "OK") {
+          setData(data || initData)
+          setStatus(RuningOperationStatus.succeded)
+        } else setStatus(RuningOperationStatus.failed)
+      } catch (ex) {
+        setStatus(RuningOperationStatus.failed)
+        console.log(ex)
+      }
+    }
+    run()
   }, [])
 
   return { data, setData, status }
