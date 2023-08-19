@@ -15,7 +15,7 @@ const Stocks = () => {
   })
 
   const { current, first, previous, next, last, currentLable } = usePagination({
-    data: data,
+    data: searchData,
     size: 13,
   })
 
