@@ -10,8 +10,6 @@ export const useLoading = ({ url, initData, cachedUrl = false }) => {
   const [data, setData] = useState(initData)
   const { status, setStatus } = useContext(RuningOperationStatusContext)
 
-  setStatus(RuningOperationStatus.started)
-
   const getData = async (uri) => {
     if (cachedUrl && cache.has(uri)) return cache.get(uri)
     else if (cachedUrl) return cache.set(uri, await doFetch(uri)).get(uri)
@@ -27,7 +25,7 @@ export const useLoading = ({ url, initData, cachedUrl = false }) => {
   useEffect(() => {
     const run = async () => {
       try {
-        //setStatus(RuningOperationStatus.started)
+        setStatus(RuningOperationStatus.started)
         const { status, message, data } = await getData(url)
         if (status === "OK") {
           setData(data || initData)
