@@ -6,18 +6,10 @@ import { useStocksLoading } from "../store/StocksLoading"
 import { Link } from "react-router-dom"
 
 const Stocks = () => {
-  const { data, setData, status, done } = useStocksLoading()
-
-  const { searchData } = useSearch({
-    data,
-    setData,
-    status,
-    loadingDone: done,
-    filterDataCondition: (obj, value) => obj.symbol.startsWith(value),
-  })
+  const { data, status } = useStocksLoading()
 
   const { current, first, previous, next, last, currentLable } = usePagination({
-    data: searchData,
+    data: data,
     size: 13,
   })
 

@@ -3,17 +3,10 @@ import { useSearch } from "../store/Searching"
 import { RuningOperationStatus } from "../store/RuningOperationStatus"
 
 const Portfolios = () => {
-  const { data, setData, status, done } = useLoading({
+  const { data, status } = useLoading({
     url: "/api/portfoliosmanagement/Portfolios",
     initData: [],
     cachedUrl: false,
-  })
-
-  const { searchData } = useSearch({
-    data,
-    setData,
-    status,
-    loadingDone: done,
     filterDataCondition: (obj, value) => obj.description.startsWith(value),
   })
 
@@ -30,7 +23,7 @@ const Portfolios = () => {
               </tr>
             </thead>
             <tbody>
-              {searchData.map((item, index) => (
+              {data.map((item, index) => (
                 <tr key={item.id}>
                   <td>{item.created}</td>
                   <td>

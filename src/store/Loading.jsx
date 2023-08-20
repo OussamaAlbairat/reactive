@@ -6,8 +6,12 @@ import {
 
 const cache = new Map()
 
-export const useLoading = ({ url, initData, cachedUrl = false }) => {
-  const [done, setDone] = useState(false)
+export const useLoading = ({
+  url,
+  initData,
+  cachedUrl = false,
+  filterDataCondition = null,
+}) => {
   const [data, setData] = useState(initData)
   const { status, setStatus } = useContext(RuningOperationStatusContext)
 
@@ -31,8 +35,20 @@ export const useLoading = ({ url, initData, cachedUrl = false }) => {
         if (status === "OK") {
           setData(data || initData)
           setStatus(RuningOperationStatus.succeded)
+          if (filterDataCondition) {
+            const search = (value) => {
+              if (value === "") setData(data)
+              else {
+                const filteredData = data.filter((obj) =>
+                  filterDataCondition(obj, value)
+                )
+                setData(filteredData)
+              }
+            }
+            subscribe("SEARCH", search)
+            return () => unsubscribe("SEARCH", search)
+          }
         } else setStatus(RuningOperationStatus.failed)
-        setDone(true)
       } catch (ex) {
         setStatus(RuningOperationStatus.failed)
         console.log(ex)
@@ -41,5 +57,5 @@ export const useLoading = ({ url, initData, cachedUrl = false }) => {
     run()
   }, [])
 
-  return { data, setData, status, done }
+  return { data, setData, status }
 }
