@@ -15,7 +15,7 @@ const error = {
     message: "Operation succeded.",
   }
 
-const Alert = ({ status }) => {
+const Alert = ({ status, message }) => {
   const [closed, setClosed] = useState(false)
   const [type, setType] = useState(error)
 
@@ -43,7 +43,7 @@ const Alert = ({ status }) => {
         role="alert"
       >
         <i className={`bi bi-${type.icon}`}></i>
-        <span className="mx-2">{type.message}</span>
+        <span className="mx-2">{`${type.message} ${message}`}</span>
         <button
           type="button"
           className="btn-close"
@@ -56,8 +56,8 @@ const Alert = ({ status }) => {
   )
 }
 
-const RuningOperationSpinner = ({ message }) => {
-  const { status } = useContext(RuningOperationStatusContext)
+const RuningOperationSpinner = () => {
+  const { status, message } = useContext(RuningOperationStatusContext)
   return (
     (status === RuningOperationStatus.started && (
       <div
@@ -65,9 +65,9 @@ const RuningOperationSpinner = ({ message }) => {
         style={{ zIndex: 1000, position: "absolute", top: "50%", left: "50%" }}
       >
         <div className="spinner-border" role="status"></div>
-        <span className="sr-only m-2">{message || "Loading..."}</span>
+        <span className="sr-only m-2">{"Loading..."}</span>
       </div>
-    )) || <Alert status={status} />
+    )) || <Alert status={status} message={message} />
   )
 }
 

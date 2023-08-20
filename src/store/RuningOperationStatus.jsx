@@ -10,4 +10,6 @@ export const RuningOperationStatus = {
 export const RuningOperationStatusContext = createContext({
   status: null,
   setStatus: null,
+  message: null,
+  setMessage: null,
 })

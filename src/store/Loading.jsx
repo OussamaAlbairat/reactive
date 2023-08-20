@@ -15,7 +15,14 @@ export const useLoading = ({
 }) => {
   const [data, setData] = useState(initData)
   const { subscribe, unsubscribe } = useRegistry()
-  const { status, setStatus } = useContext(RuningOperationStatusContext)
+  const { status, setStatus, setMessage } = useContext(
+    RuningOperationStatusContext
+  )
+
+  const setOperationContext = (status, message) => {
+    setStatus(status)
+    setMessage(message)
+  }
 
   const getData = async (uri) => {
     if (cachedUrl && cache.has(uri)) return cache.get(uri)
@@ -34,11 +41,11 @@ export const useLoading = ({
 
     const run = async () => {
       try {
-        setStatus(RuningOperationStatus.started)
+        setOperationContext(RuningOperationStatus.started, "")
         const { status, message, data } = await getData(url)
         if (status === "OK") {
           setData(data || initData)
-          setStatus(RuningOperationStatus.succeded)
+          setOperationContext(RuningOperationStatus.succeded, message)
           if (filterDataCondition) {
             const search = (value) => {
               if (value === "") setData(data)
@@ -52,9 +59,12 @@ export const useLoading = ({
             subscribe("SEARCH", search)
             result.unsubscribe = () => unsubscribe("SEARCH", search)
           }
-        } else setStatus(RuningOperationStatus.failed)
+        } else setOperationContext(RuningOperationStatus.failed, message)
       } catch (ex) {
-        setStatus(RuningOperationStatus.failed)
+        setOperationContext(
+          RuningOperationStatus.failed,
+          "An exception occured."
+        )
         console.log(ex)
       }
     }
