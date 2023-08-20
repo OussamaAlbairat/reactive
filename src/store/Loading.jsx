@@ -3,6 +3,7 @@ import {
   RuningOperationStatus,
   RuningOperationStatusContext,
 } from "./RuningOperationStatus"
+import useRegistry from "./Registry"
 
 const cache = new Map()
 
@@ -13,6 +14,7 @@ export const useLoading = ({
   filterDataCondition = null,
 }) => {
   const [data, setData] = useState(initData)
+  const { subscribe, unsubscribe } = useRegistry()
   const { status, setStatus } = useContext(RuningOperationStatusContext)
 
   const getData = async (uri) => {
