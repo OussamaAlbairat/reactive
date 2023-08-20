@@ -3,7 +3,7 @@ import { useSearch } from "../store/Searching"
 import { RuningOperationStatus } from "../store/RuningOperationStatus"
 
 const Portfolios = () => {
-  const { data, setData, status } = useLoading({
+  const { data, setData, status, done } = useLoading({
     url: "/api/portfoliosmanagement/Portfolios",
     initData: [],
     cachedUrl: false,
@@ -13,6 +13,7 @@ const Portfolios = () => {
     data,
     setData,
     status,
+    loadingDone: done,
     filterDataCondition: (obj, value) => obj.description.startsWith(value),
   })
 

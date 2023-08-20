@@ -7,6 +7,7 @@ import {
 const cache = new Map()
 
 export const useLoading = ({ url, initData, cachedUrl = false }) => {
+  const [done, setDone] = useState(false)
   const [data, setData] = useState(initData)
   const { status, setStatus } = useContext(RuningOperationStatusContext)
 
@@ -31,6 +32,7 @@ export const useLoading = ({ url, initData, cachedUrl = false }) => {
           setData(data || initData)
           setStatus(RuningOperationStatus.succeded)
         } else setStatus(RuningOperationStatus.failed)
+        setDone(true)
       } catch (ex) {
         setStatus(RuningOperationStatus.failed)
         console.log(ex)
@@ -39,5 +41,5 @@ export const useLoading = ({ url, initData, cachedUrl = false }) => {
     run()
   }, [])
 
-  return { data, setData, status }
+  return { data, setData, status, done }
 }

@@ -6,12 +6,13 @@ import { useStocksLoading } from "../store/StocksLoading"
 import { Link } from "react-router-dom"
 
 const Stocks = () => {
-  const { data, setData, status } = useStocksLoading()
+  const { data, setData, status, done } = useStocksLoading()
 
   const { searchData } = useSearch({
     data,
     setData,
     status,
+    loadingDone: done,
     filterDataCondition: (obj, value) => obj.symbol.startsWith(value),
   })
 
