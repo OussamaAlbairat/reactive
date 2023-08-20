@@ -12,11 +12,6 @@ const RootLayout = () => {
     RuningOperationStatus.notStarted
   )
 
-  useEffect(
-    () => setRuningOperationStatus(RuningOperationStatus.notStarted),
-    []
-  )
-
   return (
     <RuningOperationStatusContext.Provider
       value={{
@@ -32,7 +27,7 @@ const RootLayout = () => {
           <Menu />
         </header>
         <main style={{ marginTop: "5rem" }}>
-          <RuningOperationSpinner status={runingOperationStatus} />
+          <RuningOperationSpinner />
           <Outlet />
         </main>
       </div>

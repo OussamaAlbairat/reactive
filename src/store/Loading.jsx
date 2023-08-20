@@ -30,6 +30,8 @@ export const useLoading = ({
   }
 
   useEffect(() => {
+    let result = { unsubscribe: null }
+
     const run = async () => {
       try {
         setStatus(RuningOperationStatus.started)
@@ -48,7 +50,7 @@ export const useLoading = ({
               }
             }
             subscribe("SEARCH", search)
-            return () => unsubscribe("SEARCH", search)
+            result.unsubscribe = () => unsubscribe("SEARCH", search)
           }
         } else setStatus(RuningOperationStatus.failed)
       } catch (ex) {
@@ -57,6 +59,8 @@ export const useLoading = ({
       }
     }
     run()
+
+    return () => result.unsubscribe && result.unsubscribe()
   }, [])
 
   return { data, setData, status }

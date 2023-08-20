@@ -4,12 +4,20 @@ import {
   RuningOperationStatusContext,
 } from "../store/RuningOperationStatus"
 
-const error = { theme: "danger", icon: "exclamation-triangle" }
-const success = { theme: "success", icon: "hand-thumbs-up" }
+const error = {
+    theme: "danger",
+    icon: "exclamation-triangle",
+    message: "Operation failed.",
+  },
+  success = {
+    theme: "success",
+    icon: "hand-thumbs-up",
+    message: "Operation succeded.",
+  }
 
-const Alert = ({ type, message }) => {
+const Alert = ({ status }) => {
   const [closed, setClosed] = useState(false)
-  const { status } = useContext(RuningOperationStatusContext)
+  const [type, setType] = useState(error)
 
   const closeHandler = (e) => {
     e.preventDefault()
@@ -19,6 +27,13 @@ const Alert = ({ type, message }) => {
   useEffect(() => {
     if (status == RuningOperationStatus.notStarted) setClosed(true)
     else if (status == RuningOperationStatus.started) setClosed(true)
+    else if (status == RuningOperationStatus.failed) {
+      setClosed(false)
+      setType(error)
+    } else if (status == RuningOperationStatus.succeded) {
+      setClosed(false)
+      setType(success)
+    }
   }, [status])
 
   return (
@@ -28,7 +43,7 @@ const Alert = ({ type, message }) => {
         role="alert"
       >
         <i className={`bi bi-${type.icon}`}></i>
-        <span className="mx-2">{message}</span>
+        <span className="mx-2">{type.message}</span>
         <button
           type="button"
           className="btn-close"
@@ -41,7 +56,8 @@ const Alert = ({ type, message }) => {
   )
 }
 
-const RuningOperationSpinner = ({ status, message }) => {
+const RuningOperationSpinner = ({ message }) => {
+  const { status } = useContext(RuningOperationStatusContext)
   return (
     (status === RuningOperationStatus.started && (
       <div
@@ -51,13 +67,7 @@ const RuningOperationSpinner = ({ status, message }) => {
         <div className="spinner-border" role="status"></div>
         <span className="sr-only m-2">{message || "Loading..."}</span>
       </div>
-    )) ||
-    (status === RuningOperationStatus.failed && (
-      <Alert type={error} message="An error occured while fetching data." />
-    )) ||
-    (status === RuningOperationStatus.succeded && (
-      <Alert type={success} message="Operation succeded." />
-    ))
+    )) || <Alert status={status} />
   )
 }
 
