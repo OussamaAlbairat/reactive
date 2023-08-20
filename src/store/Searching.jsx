@@ -18,7 +18,7 @@ export const useSearch = ({ data, setData, status, filterDataCondition }) => {
       subscribe("SEARCH", search)
       return () => unsubscribe("SEARCH", search)
     }
-  }, [status, data])
+  }, [status])
 
   return { searchData: data }
 }

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
 import Menu from "../components/Menu"
 import {
@@ -11,6 +11,12 @@ const RootLayout = () => {
   const [runingOperationStatus, setRuningOperationStatus] = useState(
     RuningOperationStatus.notStarted
   )
+
+  useEffect(
+    () => setRuningOperationStatus(RuningOperationStatus.notStarted),
+    []
+  )
+
   return (
     <RuningOperationStatusContext.Provider
       value={{

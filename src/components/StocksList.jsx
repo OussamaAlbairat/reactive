@@ -1,12 +1,7 @@
-import { useState } from "react"
 import { useStocksLoading } from "../store/StocksLoading"
-import { RuningOperationStatus } from "../store/RuningOperationStatus"
 
 const StocksList = ({ datalistid }) => {
-  const [runingOperationStatus, setRuningOperationStatus] = useState(
-    RuningOperationStatus.notStarted
-  )
-  const { data, setData } = useStocksLoading({ setRuningOperationStatus })
+  const { data } = useStocksLoading()
 
   return (
     <datalist id={datalistid}>
