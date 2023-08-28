@@ -39,7 +39,7 @@ const Portfolio = () => {
   const saveClicked = (e) => {
     e.preventDefault()
     save(data[0]).then((dt) => {
-      setData(dt.data)
+      if (dt.status == "OK" && dt.data && dt.data.length) setData(dt.data)
     })
   }
 
