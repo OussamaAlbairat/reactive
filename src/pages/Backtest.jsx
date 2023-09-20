@@ -84,7 +84,7 @@ function Backtest() {
             type="date"
             className="form-control"
             onChange={inputChanged}
-            value={data[0].start_date}
+            value={formatDate(data[0].start_date)}
           />
         </div>
         <div className="form-group">
@@ -95,24 +95,30 @@ function Backtest() {
             type="date"
             className="form-control"
             onChange={inputChanged}
-            value={data[0].end_date}
+            value={formatDate(data[0].end_date)}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="log_returns">Log returns</label>
           <input
-            id="end_date"
-            name="end_date"
+            id="log_returns"
+            name="log_returns"
             type="checkbox"
             className="form-control"
             onChange={inputChanged}
             value={data[0].log_returns}
           />
+          <label htmlFor="log_returns">Log returns</label>
         </div>
         <hr />
-        <button type="submit" className="btn btn-danger" onClick={saveClicked}>
-          Save
-        </button>
+        <div className="d-flex justify-content-end my-5">
+          <button
+            type="submit"
+            className="btn btn-danger"
+            onClick={saveClicked}
+          >
+            Save
+          </button>
+        </div>
       </form>
       <PortfoliosList datalistid="portfoliosdatalist" />
     </div>
