@@ -45,9 +45,9 @@ const Menu = () => {
             )}
             {user != null && (
               <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Back testing
-                </a>
+                <Link to="backtests" className="nav-link">
+                  Backtests
+                </Link>
               </li>
             )}
             <li className="nav-item dropdown">

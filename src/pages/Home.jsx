@@ -1,9 +1,9 @@
 const Home = () => {
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="row">
         <div className="col-4 offset-4">
-          <h1>Fin Lambda</h1>
+          <h1>Direct Portfolio Management</h1>
           <p>
             Is about exposing advanced financial tools and functions to the
             layman interested in financial markets to benefit from. This should

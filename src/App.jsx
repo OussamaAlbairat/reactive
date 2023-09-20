@@ -15,6 +15,8 @@ import Stock from "./pages/Stock.jsx"
 import Stocks from "./pages/Stocks.jsx"
 import Portfolio from "./pages/Portfolio.jsx"
 import Portfolios from "./pages/Portfolios.jsx"
+import Backtest from "./pages/Backtest.jsx"
+import Backtests from "./pages/Backtests.jsx"
 import Login from "./pages/Login.jsx"
 import Settings from "./pages/Settings.jsx"
 
@@ -31,6 +33,9 @@ const router = createBrowserRouter(
       <Route path="portfolios" element={<Portfolios />} />
       <Route path="portfolio" element={<Portfolio />} />
       <Route path="portfolio/:id" element={<Portfolio />} />
+      <Route path="backtests" element={<Backtests />} />
+      <Route path="backtest" element={<Backtest />} />
+      <Route path="backtest/:id" element={<Backtest />} />
       <Route path="faq" element={<Faq />} />
       <Route path="contact" element={<Contact />} />
       <Route path="about" element={<About />} />

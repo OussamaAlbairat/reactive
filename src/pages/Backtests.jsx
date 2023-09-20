@@ -1,11 +1,15 @@
+import { Link } from "react-router-dom"
+import { useLoading } from "../store/Loading"
 import { RuningOperationStatus } from "../store/RuningOperationStatus"
 import { Pagination, usePagination } from "../components/Pagination"
 
-import { useStocksLoading } from "../store/StocksLoading"
-import { Link } from "react-router-dom"
-
-const Stocks = () => {
-  const { data, status } = useStocksLoading()
+function Backtests() {
+  const { data, status } = useLoading({
+    url: "/api/portfoliosmanagement/backtests",
+    initData: [],
+    cachedUrl: false,
+    filterDataCondition: (obj, value) => obj.description.startsWith(value),
+  })
 
   const { current, first, previous, next, last, currentLable } = usePagination({
     data: data,
@@ -16,37 +20,25 @@ const Stocks = () => {
     <div>
       {status === RuningOperationStatus.succeded && (
         <div className="container">
-          <h4>Instruments</h4>
+          <h4>Backtests</h4>
           <table className="table">
             <thead>
               <tr>
-                <th>Company</th>
-                <th>Symbol</th>
+                <th>Created</th>
                 <th>Description</th>
-                <th>Quantity</th>
-                <th>Type</th>
+                <th>Portfolio</th>
               </tr>
             </thead>
             <tbody>
               {current().map((item, index) => (
                 <tr key={index}>
-                  <td>{item.company}</td>
-                  <td>{item.symbol}</td>
+                  <td>{item.created}</td>
+                  <td>{item.description}</td>
                   <td>
-                    <Link
-                      relative="path"
-                      to={`../stock/${item.instrument_id}`}
-                      state={{
-                        symbol: item.symbol,
-                        company: item.company,
-                        type: item.type,
-                      }}
-                    >
-                      {item.description}
+                    <Link relative="path" to={`../backtest/${item.id}`}>
+                      {item.portfolio}
                     </Link>
                   </td>
-                  <td>{item.quantity}</td>
-                  <td>{item.type}</td>
                 </tr>
               ))}
             </tbody>
@@ -58,10 +50,20 @@ const Stocks = () => {
             last={last}
             currentLable={currentLable}
           />
+          <div className="d-flex justify-content-end">
+            <a
+              href="backtest"
+              className="btn btn-danger "
+              role="button"
+              aria-pressed="true"
+            >
+              Create
+            </a>
+          </div>
         </div>
       )}
     </div>
   )
 }
 
-export default Stocks
+export default Backtests
