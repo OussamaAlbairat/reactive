@@ -33,10 +33,14 @@ function Backtests() {
               {current().map((item, index) => (
                 <tr key={index}>
                   <td>{item.created}</td>
-                  <td>{item.description}</td>
                   <td>
                     <Link relative="path" to={`../backtest/${item.id}`}>
-                      {item.portfolio}
+                      {item.description}
+                    </Link>
+                  </td>
+                  <td>
+                    <Link relative="path" to={`../backtest/${item.id}`}>
+                      {item.portfolio_description}
                     </Link>
                   </td>
                 </tr>
