@@ -48,82 +48,86 @@ function Backtest() {
   }
 
   return (
-    <div className="container">
-      <h4>Portfolio backtest</h4>
-      <form className="row col-6 align-self-center">
-        <div className="form-group">
-          <label htmlFor="created">Created</label>
-          <input
-            id="created"
-            name="created"
-            type="date"
-            className="form-control"
-            onChange={inputChanged}
-            value={formatDate(data[0].created)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="description">Description</label>
-          <textarea
-            id="description"
-            name="description"
-            className="form-control"
-            onChange={inputChanged}
-            value={data[0].description}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="portfolio_id">Portfolio</label>
-          <PortfoliosList
-            selectId="portfolio_id"
-            portfolioId={data[0].portfolio_id}
-            setPortfolioId={setPortfolioId}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="start_date">Start Date</label>
-          <input
-            id="start_date"
-            name="start_date"
-            type="date"
-            className="form-control"
-            onChange={inputChanged}
-            value={formatDate(data[0].start_date)}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="end_date">End Date</label>
-          <input
-            id="end_date"
-            name="end_date"
-            type="date"
-            className="form-control"
-            onChange={inputChanged}
-            value={formatDate(data[0].end_date)}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            id="log_returns"
-            name="log_returns"
-            type="checkbox"
-            className="form-control"
-            onChange={inputChanged}
-            value={data[0].log_returns}
-          />
-          <label htmlFor="log_returns">Log returns</label>
-        </div>
-        <hr />
-        <div className="d-flex justify-content-end my-5">
-          <button
-            type="submit"
-            className="btn btn-danger"
-            onClick={saveClicked}
-          >
-            Save
-          </button>
-        </div>
-      </form>
+    <div className="container row justify-content-center">
+      <div className="col-6">
+        <h4>Portfolio backtest</h4>
+        <form>
+          <div className="form-group">
+            <label htmlFor="created">Created</label>
+            <input
+              id="created"
+              name="created"
+              type="date"
+              className="form-control"
+              onChange={inputChanged}
+              value={formatDate(data[0].created)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              className="form-control"
+              onChange={inputChanged}
+              value={data[0].description}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="portfolio_id">Portfolio</label>
+            <PortfoliosList
+              selectId="portfolio_id"
+              portfolioId={data[0].portfolio_id}
+              setPortfolioId={setPortfolioId}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="start_date">Start Date</label>
+            <input
+              id="start_date"
+              name="start_date"
+              type="date"
+              className="form-control"
+              onChange={inputChanged}
+              value={formatDate(data[0].start_date)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="end_date">End Date</label>
+            <input
+              id="end_date"
+              name="end_date"
+              type="date"
+              className="form-control"
+              onChange={inputChanged}
+              value={formatDate(data[0].end_date)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="log_returns" className="form-check-label">
+              Log returns
+            </label>
+            <input
+              id="log_returns"
+              name="log_returns"
+              type="checkbox"
+              className="form-check-input"
+              onChange={inputChanged}
+              value={data[0].log_returns}
+            />
+          </div>
+          <hr />
+          <div className="d-flex justify-content-end my-5">
+            <button
+              type="submit"
+              className="btn btn-danger"
+              onClick={saveClicked}
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   )
 }

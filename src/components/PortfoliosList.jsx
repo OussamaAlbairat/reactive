@@ -15,7 +15,12 @@ const PortfoliosList = ({ selectId, portfolioId, setPortfolioId }) => {
 
   return (
     <>
-      <select id={selectId} name={selectId} onChange={inputChanged}>
+      <select
+        id={selectId}
+        name={selectId}
+        onChange={inputChanged}
+        className="form-select"
+      >
         {data.map((item, index) => {
           let attr = {
             key: index,
