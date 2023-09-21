@@ -16,15 +16,14 @@ const PortfoliosList = ({ selectId, portfolioId, setPortfolioId }) => {
   return (
     <>
       <select id={selectId} name={selectId} onChange={inputChanged}>
-        {data.map((item, index) => (
-          <option
-            key={index}
-            value={item.id}
-            {...(item.id == portfolioId ? "selected" : "")}
-          >
-            {item.description}
-          </option>
-        ))}
+        {data.map((item, index) => {
+          let attr = {
+            key: index,
+            value: item.id,
+          }
+          if (item.id == portfolioId) attr.selected = "true"
+          return <option {...attr}>{item.description}</option>
+        })}
       </select>
     </>
   )
