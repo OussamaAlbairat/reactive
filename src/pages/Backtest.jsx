@@ -34,6 +34,12 @@ function Backtest() {
     })
   }
 
+  const setPortfolioId = (value) => {
+    setData((old) => {
+      return [{ ...old[0], portfolio_id: value }]
+    })
+  }
+
   const saveClicked = (e) => {
     e.preventDefault()
     save(data[0]).then((dt) => {
@@ -44,7 +50,7 @@ function Backtest() {
   return (
     <div className="container">
       <h4>Portfolio backtest</h4>
-      <form>
+      <form className="row col-6 align-self-center">
         <div className="form-group">
           <label htmlFor="created">Created</label>
           <input
@@ -68,12 +74,9 @@ function Backtest() {
         </div>
         <div className="form-group">
           <label htmlFor="portfolio_id">Portfolio</label>
-          <input
-            list="portfoliosdatalist"
-            type="text"
-            name="portfolio_id"
-            value={data[0].portfolio_id}
-            onChange={inputChanged}
+          <PortfoliosList
+            selectId="portfolio_id"
+            setPortfolioId={setPortfolioId}
           />
         </div>
         <div className="form-group">
@@ -120,7 +123,6 @@ function Backtest() {
           </button>
         </div>
       </form>
-      <PortfoliosList datalistid="portfoliosdatalist" />
     </div>
   )
 }
