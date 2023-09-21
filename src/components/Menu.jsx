@@ -7,7 +7,7 @@ const Menu = () => {
 
   return (
     <nav
-      className="navbar navbar-expand-lg navbar-dark bg-dark"
+      className="navbar navbar-expand-lg navbar-light bg-light"
       aria-label="Reactive"
     >
       <div className="container-fluid">
