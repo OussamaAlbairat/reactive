@@ -1,3 +1,4 @@
+import { formatDate } from "../store/Utils"
 import { useLoading } from "../store/Loading"
 import { RuningOperationStatus } from "../store/RuningOperationStatus"
 
@@ -24,7 +25,7 @@ const Portfolios = () => {
             <tbody>
               {data.map((item, index) => (
                 <tr key={item.id}>
-                  <td>{item.created}</td>
+                  <td>{formatDate(item.created)}</td>
                   <td>
                     <a href={`portfolio/${item.id}`}>{item.description}</a>
                   </td>

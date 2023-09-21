@@ -103,7 +103,7 @@ function Backtest() {
               value={formatDate(data[0].end_date)}
             />
           </div>
-          <div className="form-group">
+          <div className="form-check">
             <label htmlFor="log_returns" className="form-check-label">
               Log returns
             </label>

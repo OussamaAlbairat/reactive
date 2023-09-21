@@ -1,3 +1,4 @@
+import { formatDate } from "../store/Utils"
 import { Link } from "react-router-dom"
 import { useLoading } from "../store/Loading"
 import { RuningOperationStatus } from "../store/RuningOperationStatus"
@@ -32,7 +33,7 @@ function Backtests() {
             <tbody>
               {current().map((item, index) => (
                 <tr key={index}>
-                  <td>{item.created}</td>
+                  <td>{formatDate(item.created)}</td>
                   <td>
                     <Link relative="path" to={`../backtest/${item.id}`}>
                       {item.description}
