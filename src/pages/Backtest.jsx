@@ -76,6 +76,7 @@ function Backtest() {
           <label htmlFor="portfolio_id">Portfolio</label>
           <PortfoliosList
             selectId="portfolio_id"
+            portfolioId={data[0].portfolio_id}
             setPortfolioId={setPortfolioId}
           />
         </div>

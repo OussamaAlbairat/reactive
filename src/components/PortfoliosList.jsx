@@ -1,6 +1,6 @@
 import { useLoading } from "../store/Loading"
 
-const PortfoliosList = ({ selectId, setPortfolioId }) => {
+const PortfoliosList = ({ selectId, portfolioId, setPortfolioId }) => {
   const { data } = useLoading({
     url: "/api/portfoliosmanagement/Portfolios",
     initData: [],
@@ -15,9 +15,13 @@ const PortfoliosList = ({ selectId, setPortfolioId }) => {
 
   return (
     <>
-      <select id={selectId} changed={inputChanged}>
+      <select id={selectId} name={selectId} onChange={inputChanged}>
         {data.map((item, index) => (
-          <option key={index} value={item.id}>
+          <option
+            key={index}
+            value={item.id}
+            {...(item.id == portfolioId ? "selected" : "")}
+          >
             {item.description}
           </option>
         ))}
