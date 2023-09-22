@@ -9,4 +9,5 @@
 
 .table {
   --bs-table-bg: rgb(222, 221, 217);
+  --bs-table-border-color: white;
 }
