@@ -6,3 +6,7 @@
 .dropdown-menu {
   --bs-dropdown-link-hover-bg: #f7f4dd;
 } */
+
+.table {
+  --bs-table-bg: rgb(222, 221, 217);
+}
