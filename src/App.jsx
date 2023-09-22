@@ -8,7 +8,6 @@ import {
 // //Pages
 import Home from "./pages/Home.jsx"
 import About from "./pages/About.jsx"
-import Faq from "./pages/Faq.jsx"
 import Contact from "./pages/Contact.jsx"
 import Error from "./pages/Error.jsx"
 import Stock from "./pages/Stock.jsx"
@@ -36,7 +35,6 @@ const router = createBrowserRouter(
       <Route path="backtests" element={<Backtests />} />
       <Route path="backtest" element={<Backtest />} />
       <Route path="backtest/:id" element={<Backtest />} />
-      <Route path="faq" element={<Faq />} />
       <Route path="contact" element={<Contact />} />
       <Route path="about" element={<About />} />
       <Route path="signup" element={<Settings />} />

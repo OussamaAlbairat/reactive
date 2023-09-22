@@ -61,18 +61,13 @@ const Menu = () => {
               </a>
               <ul className="dropdown-menu">
                 <li>
-                  <Link className="dropdown-item" to="faq">
-                    Faq
+                  <Link className="dropdown-item" to="about">
+                    About
                   </Link>
                 </li>
                 <li>
                   <Link className="dropdown-item" to="contact">
                     Contact
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="about">
-                    About
                   </Link>
                 </li>
               </ul>
