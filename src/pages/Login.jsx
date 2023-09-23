@@ -1,12 +1,11 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { redirect } from "react-router-dom"
 import { useSaving } from "../store/Saving"
 
 const Login = () => {
   const { save } = useSaving({ url: "/api/reactiveConfig/Login" })
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const navigate = useNavigate()
 
   const onChangeHandler = (e) => {
     e.preventDefault()
@@ -22,11 +21,18 @@ const Login = () => {
         password,
         tz: new Date().getTimezoneOffset(),
       })
-      if (result.status == "OK") navigate("/")
+      if (result.status == "OK") redirect("/")
       else alert("Unable to authenticate user.")
     }
     run()
   }
+
+  const providers = [
+    { provider: "aad", icon: "microsoft", label: "Microsoft Azure" },
+    { provider: "google", icon: "google", label: "Google" },
+    { provider: "github", icon: "github", label: "Github" },
+    { provider: "twitter", icon: "twitter", label: "Twitter" },
+  ]
 
   return (
     <div className="container-fluid row my-auto" style={{ height: "400px" }}>
@@ -64,39 +70,30 @@ const Login = () => {
             </button>
           </div>
         </form>
+        <hr />
+        <Providers providers={providers} />
       </div>
-      <div className="col-1 my-auto mx-auto text-center">
-        <u>Or</u>
-      </div>
-      <div className="col-5 my-auto mx-auto">
-        <div className="card">
-          <div className="card-header text-center">
-            Use an identity provider
-          </div>
-          <ul className="list-group list-group-flush">
-            {[
-              { provider: "aad", icon: "microsoft", label: "Microsoft Azure" },
-              { provider: "google", icon: "google", label: "Google" },
-              { provider: "github", icon: "github", label: "Github" },
-              { provider: "twitter", icon: "twitter", label: "Twitter" },
-            ].map((item, ndx) => {
-              return (
-                <li key={ndx} className="list-group-item">
-                  <div className="row">
-                    <a
-                      href={`.auth/login/${item.provider}`}
-                      className={`col-6 offset-3 btn btn-outline-secondary btn-lg btn-block my-2 bi bi-${item.icon}`}
-                    >
-                      <span className="d-none d-lg-inline mx-2">
-                        {item.label}
-                      </span>
-                    </a>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
-        </div>
+    </div>
+  )
+}
+
+const Providers = ({ providers }) => {
+  return (
+    <div className="row">
+      <div className="col d-flex justify-content-center">
+        {providers.map((item, ndx) => {
+          return (
+            <div key={ndx} className="d-inline mx-1">
+              <a
+                href={`.auth/login/${item.provider}`}
+                className={`btn btn-outline-secondary btn-sm my-1 bi bi-${item.icon}`}
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                data-bs-title={`${item.label}`}
+              ></a>
+            </div>
+          )
+        })}
       </div>
     </div>
   )

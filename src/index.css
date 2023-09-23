@@ -1,19 +1,22 @@
 :root {
-  --bs-light-rgb: rgb(246, 245, 243);
-  --bs-body-bg: #f1f0e9;
+  --bs-light-rgb: rgb(218, 218, 231);
+  --bs-body-bg: rgb(228, 228, 240);
+  --bs-border-color: white;
 }
 
 .dropdown-menu {
-  --bs-dropdown-link-hover-bg: rgb(223, 219, 215);
+  --bs-dropdown-link-hover-bg: rgb(190, 195, 213);
 }
-
+/*
 body {
   background-image: url("/v880-techi-04-a.jpg");
   background-size: cover;
   min-height: 80vh;
 }
-
+*/
 .table {
-  --bs-table-bg: rgb(222, 221, 217);
+  --bs-table-bg: rgb(179, 182, 228);
   --bs-table-border-color: white;
+  border-radius: 6px;
+  overflow: hidden;
 }
