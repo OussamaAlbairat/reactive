@@ -1,11 +1,17 @@
-/* :root {
-  --bs-light-rgb: #f1f0e9;
+:root {
+  --bs-light-rgb: rgb(246, 245, 243);
   --bs-body-bg: #f1f0e9;
 }
 
 .dropdown-menu {
-  --bs-dropdown-link-hover-bg: #f7f4dd;
-} */
+  --bs-dropdown-link-hover-bg: rgb(223, 219, 215);
+}
+
+body {
+  background-image: url("/v880-techi-04-a.jpg");
+  background-size: cover;
+  min-height: 80vh;
+}
 
 .table {
   --bs-table-bg: rgb(222, 221, 217);
