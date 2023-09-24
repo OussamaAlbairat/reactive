@@ -7,7 +7,7 @@ const Login = () => {
   const { save } = useSaving({ url: "/api/reactiveConfig/Login" })
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const { navigate } = useNavigate()
+  const navigate = useNavigate()
   const { dispatch } = useRegistry()
 
   const onChangeHandler = (e) => {
