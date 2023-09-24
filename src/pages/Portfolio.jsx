@@ -128,6 +128,7 @@ const Portfolio = () => {
                         list="stocksdatalist"
                         type="text"
                         name="symbol"
+                        className="form-control"
                         value={stock.symbol}
                         onChange={symbolChanged}
                         data-stockid={stock.id || newId()}
@@ -137,6 +138,7 @@ const Portfolio = () => {
                       <input
                         type="text"
                         name="ratio"
+                        className="form-control"
                         value={financial(stock.ratio * 100) + "%"}
                         onChange={ratioChanged}
                         data-stockid={stock.id || newId()}

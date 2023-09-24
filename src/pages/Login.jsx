@@ -1,11 +1,14 @@
 import { useState } from "react"
-import { redirect } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useSaving } from "../store/Saving"
+import useRegistry from "../store/Registry"
 
 const Login = () => {
   const { save } = useSaving({ url: "/api/reactiveConfig/Login" })
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const { navigate } = useNavigate()
+  const { dispatch } = useRegistry()
 
   const onChangeHandler = (e) => {
     e.preventDefault()
@@ -21,7 +24,7 @@ const Login = () => {
         password,
         tz: new Date().getTimezoneOffset(),
       })
-      if (result.status == "OK") redirect("/")
+      if (result.status == "OK") dispatch("MENU_REFRESH", true) //navigate("/")
       else alert("Unable to authenticate user.")
     }
     run()
