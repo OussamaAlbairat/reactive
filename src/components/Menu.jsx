@@ -10,7 +10,7 @@ const Menu = () => {
 
   useEffect(() => {
     publish("MENU_REFRESH")
-    const menuRefresh = ({ usr }) => {
+    const menuRefresh = (usr) => {
       setUser(usr)
     }
     subscribe("MENU_REFRESH", menuRefresh)
