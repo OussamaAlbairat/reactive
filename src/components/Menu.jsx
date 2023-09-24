@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 
 const Menu = () => {
   const { user } = useAuth()
-  const { refresh, setRefresh } = useState(false)
+  const [refresh, setRefresh] = useState(false)
   const { subscribe, unsubscribe, publish } = useRegistry()
 
   useEffect(() => {
