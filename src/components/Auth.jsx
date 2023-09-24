@@ -53,7 +53,10 @@ export const getUser = () => {
 
     return null
   }
-  run().then((usr) => (user = usr))
+  run().then((usr) => {
+    user = usr
+  })
+  console.log(user)
   return user
 }
 
