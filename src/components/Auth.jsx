@@ -1,5 +1,6 @@
 import { useEffect, useState, Children } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import useRegistry from "../store/Registry"
 
 const DropDownMenu = ({ children }) => {
   return (
@@ -36,34 +37,56 @@ const DropDownMenu = ({ children }) => {
   )
 }
 
+export const getUser = () => {
+  var user = null
+  const run = async () => {
+    let resp = await fetch("/.auth/me")
+    let data = await resp.json()
+    let _user = data?.clientPrincipal?.userDetails
+    if (_user) return { type: "provider", email: _user }
+
+    resp = await fetch("/api/reactiveConfig/validatetoken")
+    data = await resp.json()
+    console.log(data)
+    data = data?.data
+    if (data && data.length > 0) return { type: "basic", email: data[0].email }
+
+    return null
+  }
+  run().then((usr) => (user = usr))
+  return user
+}
+
 export const useAuth = () => {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    const run = async () => {
-      let resp = await fetch("/.auth/me")
-      let data = await resp.json()
-      let _user = data?.clientPrincipal?.userDetails
-      if (_user) {
-        setUser({ type: "provider", email: _user })
-        return
-      }
-      resp = await fetch("/api/reactiveConfig/validatetoken")
-      data = await resp.json()
-      console.log(data)
-      data = data?.data
-      if (data && data.length > 0)
-        setUser({ type: "basic", email: data[0].email })
-    }
-    run()
+    setUser(getUser())
+    // const run = async () => {
+    //   let resp = await fetch("/.auth/me")
+    //   let data = await resp.json()
+    //   let _user = data?.clientPrincipal?.userDetails
+    //   if (_user) {
+    //     setUser({ type: "provider", email: _user })
+    //     return
+    //   }
+    //   resp = await fetch("/api/reactiveConfig/validatetoken")
+    //   data = await resp.json()
+    //   console.log(data)
+    //   data = data?.data
+    //   if (data && data.length > 0)
+    //     setUser({ type: "basic", email: data[0].email })
+    // }
+    // run()
   }, [])
 
   return { user, setUser }
 }
 
-export const Auth = () => {
-  const { user, setUser } = useAuth()
+export const Auth = ({ user }) => {
+  //const { user, setUser } = useAuth()
   const navigate = useNavigate()
+  const { dispatch } = useRegistry()
 
   const clickHandler = (e) => {
     e.preventDefault()
@@ -71,7 +94,7 @@ export const Auth = () => {
       let resp = await fetch("/api/reactiveConfig/logout")
       let data = await resp.json()
       console.log(data)
-      if (data && data.status == "OK") setUser(null)
+      if (data && data.status == "OK") dispatch("MENU_REFRESH", null) //setUser(null)
       navigate("/")
     }
     run()

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useSaving } from "../store/Saving"
+import { getUser } from "../components/Auth"
 import useRegistry from "../store/Registry"
 
 const Login = () => {
@@ -26,7 +27,7 @@ const Login = () => {
       })
       if (result.status == "OK") {
         navigate("/")
-        dispatch("MENU_REFRESH", {})
+        dispatch("MENU_REFRESH", getUser())
       } else alert("Unable to authenticate user.")
     }
     run()

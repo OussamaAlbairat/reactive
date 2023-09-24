@@ -86,7 +86,7 @@ const Menu = () => {
             </li>
           </ul>
           <Search />
-          <Auth />
+          <Auth user={user} />
         </div>
       </div>
     </nav>
