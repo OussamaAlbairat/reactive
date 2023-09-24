@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useSaving } from "../store/Saving"
+import { useAuth } from "../components/Auth"
 import useRegistry from "../store/Registry"
 
 const Login = () => {
@@ -24,8 +25,11 @@ const Login = () => {
         password,
         tz: new Date().getTimezoneOffset(),
       })
-      if (result.status == "OK") dispatch("MENU_REFRESH", true) //navigate("/")
-      else alert("Unable to authenticate user.")
+      if (result.status == "OK") {
+        const { user } = useAuth()
+        navigate("/")
+        dispatch("MENU_REFRESH", user)
+      } else alert("Unable to authenticate user.")
     }
     run()
   }
