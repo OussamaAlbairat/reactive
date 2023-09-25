@@ -35,7 +35,6 @@ function Backtest() {
   }
 
   const logReturnsChanged = (e) => {
-    e.preventDefault()
     const name = e.target.name
     const value = e.target.checked
     setData((old) => {
