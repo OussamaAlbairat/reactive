@@ -11,6 +11,15 @@ export const isInteger = (a) => {
   return !Number.isNaN(Number.parseInt(a))
 }
 
+export const strToBool = (value) => {
+  const trues = ["true", "t", "1"]
+  const falses = ["false", "f", "0"]
+  if (typeof value !== "string") throw "not a string value"
+  if (trues.includes(value.toLowerCase())) return true
+  if (falses.includes(value.toLowerCase())) return false
+  throw "not a supported value"
+}
+
 export const getApiData = async (url) => {
   const resp = await fetch(url)
   if (!resp.ok) throw new Error("response not OK")

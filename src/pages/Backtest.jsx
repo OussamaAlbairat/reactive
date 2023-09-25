@@ -1,4 +1,4 @@
-import { formatDate, isInteger } from "../store/Utils"
+import { formatDate, isInteger, strToBool } from "../store/Utils"
 import { useParams } from "react-router-dom"
 import { useLoading } from "../store/Loading"
 import { useSaving } from "../store/Saving"
@@ -55,6 +55,16 @@ function Backtest() {
       if (dt.status == "OK" && dt.data && dt.data.length) setData(dt.data)
     })
   }
+
+  const attrs = {
+    id: "log_returns",
+    name: "log_returns",
+    type: "checkbox",
+    className: "form-check-input",
+    onChange: logReturnsChanged,
+  }
+
+  if (strToBool(data[0].log_returns)) attrs.checked = true
 
   return (
     <div className="container row justify-content-center">
@@ -116,14 +126,7 @@ function Backtest() {
             <label htmlFor="log_returns" className="form-check-label">
               Log returns
             </label>
-            <input
-              id="log_returns"
-              name="log_returns"
-              type="checkbox"
-              className="form-check-input"
-              onChange={logReturnsChanged}
-              checked={data[0].log_returns}
-            />
+            <input {...attrs} />
           </div>
           <hr />
           <div className="d-flex justify-content-end my-5">
