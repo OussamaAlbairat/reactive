@@ -20,3 +20,12 @@ body {
   border-radius: 6px;
   overflow: hidden;
 }
+
+.form-check {
+  padding-left: 0em;
+}
+
+.form-check .form-check-input {
+  float: none;
+  margin-left: 0.5em;
+}

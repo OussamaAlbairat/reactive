@@ -34,6 +34,15 @@ function Backtest() {
     })
   }
 
+  const logReturnsChanged = (e) => {
+    e.preventDefault()
+    const name = e.target.name
+    const value = e.target.checked
+    setData((old) => {
+      return [{ ...old[0], [name]: value }]
+    })
+  }
+
   const setPortfolioId = (value) => {
     setData((old) => {
       return [{ ...old[0], portfolio_id: value }]
@@ -52,7 +61,7 @@ function Backtest() {
       <div className="col-6">
         <h4>Portfolio backtest</h4>
         <form>
-          <div className="form-group">
+          <div className="form-group my-1">
             <label htmlFor="created">Created</label>
             <input
               id="created"
@@ -63,7 +72,7 @@ function Backtest() {
               value={formatDate(data[0].created)}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group my-1">
             <label htmlFor="description">Description</label>
             <textarea
               id="description"
@@ -73,7 +82,7 @@ function Backtest() {
               value={data[0].description}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group my-1">
             <label htmlFor="portfolio_id">Portfolio</label>
             <PortfoliosList
               selectId="portfolio_id"
@@ -81,7 +90,7 @@ function Backtest() {
               setPortfolioId={setPortfolioId}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group my-1">
             <label htmlFor="start_date">Start Date</label>
             <input
               id="start_date"
@@ -92,7 +101,7 @@ function Backtest() {
               value={formatDate(data[0].start_date)}
             />
           </div>
-          <div className="form-group">
+          <div className="form-group my-1">
             <label htmlFor="end_date">End Date</label>
             <input
               id="end_date"
@@ -103,7 +112,7 @@ function Backtest() {
               value={formatDate(data[0].end_date)}
             />
           </div>
-          <div className="form-check">
+          <div className="form-check my-1">
             <label htmlFor="log_returns" className="form-check-label">
               Log returns
             </label>
@@ -112,8 +121,8 @@ function Backtest() {
               name="log_returns"
               type="checkbox"
               className="form-check-input"
-              onChange={inputChanged}
-              value={data[0].log_returns}
+              onChange={logReturnsChanged}
+              checked={data[0].log_returns}
             />
           </div>
           <hr />
