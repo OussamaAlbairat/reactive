@@ -14,6 +14,7 @@ export const isInteger = (a) => {
 export const strToBool = (value) => {
   const trues = ["true", "t", "1"]
   const falses = ["false", "f", "0"]
+  if (typeof value === "boolean") return value
   if (typeof value !== "string") throw "not a string value"
   if (trues.includes(value.toLowerCase())) return true
   if (falses.includes(value.toLowerCase())) return false
