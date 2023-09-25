@@ -37,55 +37,29 @@ const DropDownMenu = ({ children }) => {
   )
 }
 
-export const getUser = () => {
-  var user = null
-  const run = async () => {
-    let resp = await fetch("/.auth/me")
-    let data = await resp.json()
-    let _user = data?.clientPrincipal?.userDetails
-    if (_user) return { type: "provider", email: _user }
+export const getUser = async () => {
+  let resp = await fetch("/.auth/me")
+  let data = await resp.json()
+  let _user = data?.clientPrincipal?.userDetails
+  if (_user) return { type: "provider", email: _user }
 
-    resp = await fetch("/api/reactiveConfig/validatetoken")
-    data = await resp.json()
-    console.log(data)
-    data = data?.data
-    if (data && data.length > 0) return { type: "basic", email: data[0].email }
+  resp = await fetch("/api/reactiveConfig/validatetoken")
+  data = await resp.json()
+  console.log(data)
+  data = data?.data
+  if (data && data.length > 0) return { type: "basic", email: data[0].email }
 
-    return null
-  }
-  run()
-    .then((usr) => {
-      console.log(`usr:${usr}`)
-      user = usr
-    })
-    .catch((ex) => {
-      console.log(ex)
-    })
-  console.log(`user:${user}`)
-  return user
+  return null
 }
 
 export const useAuth = () => {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    setUser(getUser())
-    // const run = async () => {
-    //   let resp = await fetch("/.auth/me")
-    //   let data = await resp.json()
-    //   let _user = data?.clientPrincipal?.userDetails
-    //   if (_user) {
-    //     setUser({ type: "provider", email: _user })
-    //     return
-    //   }
-    //   resp = await fetch("/api/reactiveConfig/validatetoken")
-    //   data = await resp.json()
-    //   console.log(data)
-    //   data = data?.data
-    //   if (data && data.length > 0)
-    //     setUser({ type: "basic", email: data[0].email })
-    // }
-    // run()
+    const run = async () => {
+      setUser(await getUser())
+    }
+    run()
   }, [])
 
   return { user, setUser }

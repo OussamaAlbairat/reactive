@@ -26,8 +26,8 @@ const Login = () => {
         tz: new Date().getTimezoneOffset(),
       })
       if (result.status == "OK") {
+        dispatch("MENU_REFRESH", await getUser())
         navigate("/")
-        dispatch("MENU_REFRESH", getUser())
       } else alert("Unable to authenticate user.")
     }
     run()
