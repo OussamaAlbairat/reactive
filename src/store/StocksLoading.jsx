@@ -5,7 +5,11 @@ export const useStocksLoading = () => {
     url: "/api/boursedecasablancastocks/Stocks?type=All",
     initData: [],
     cachedUrl: true,
-    filterDataCondition: (obj, value) => obj.symbol.startsWith(value),
+    filterDataCondition: (obj, value) =>
+      (obj.symbol && obj.symbol.includes(value)) ||
+      (obj.description && obj.description.includes(value)) ||
+      (obj.company && obj.company.includes(value)) ||
+      (obj.type && obj.type.includes(value)),
   })
   return { data, setData, status }
 }
