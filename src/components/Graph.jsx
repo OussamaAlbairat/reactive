@@ -24,11 +24,20 @@ const Graph = ({ type, data }) => {
     }
   }
 
+  const getPortfolioXandY = () => {
+    return {
+      x: data.return_dates.map((x) => new Date(x).getTime()),
+      y: data.target_portfolio_returns.map((x) => financial(x)),
+    }
+  }
+
   useEffect(() => {
     const plotElm = refPlot.current
     if (type == "Bond") (async () => await plotLineGraph(plotElm, getXandY()))()
-    if (type == "Stock")
+    else if (type == "Stock")
       (async () => await plotCandleSticksGraphEx(plotElm, getCandelData()))()
+    else if (type == "Portfolio")
+      (async () => await plotLineGraph(plotElm, getPortfolioXandY()))()
   }, [data])
 
   return (
