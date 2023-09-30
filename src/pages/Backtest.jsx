@@ -6,10 +6,29 @@ import { useSaving } from "../store/Saving"
 import PortfoliosList from "../components/PortfoliosList"
 import Graph from "../components/Graph"
 
+function toggleDisplay(id) {
+  let x = document.getElementById(id)
+  if (!x) return false
+  if (x.style.display === "none") x.style.display = "block"
+  else x.style.display = "none"
+  return true
+}
+
+function toggleBody(id_prefix) {
+  toggleDisplay(id_prefix + "-caret-bottom")
+  toggleDisplay(id_prefix + "-caret-right")
+  toggleDisplay(id_prefix + "-body")
+  return true
+}
+
 const Card = ({ id, title, children }) => {
+  const headerClick = (e) => {
+    e.preventDefault()
+    toggleBody("graph")
+  }
   return (
     <div id={id} className="card">
-      <div id={`${id}-header`} className="card-header">
+      <div id={`${id}-header`} className="card-header" onClick={headerClick}>
         <div
           style={{ display: "inline-block" }}
           data-bs-toggle="collapse"
@@ -200,16 +219,9 @@ function Backtest() {
       </div>
       <div className="row">
         {data && data.length && data[0].report && (
-          <Card
-            id="graph"
-            title="Graph"
-            children={[
-              <Graph
-                type="Portfolio"
-                data={JSON.parse(data[0].report).data[0]}
-              />,
-            ]}
-          />
+          <Card id="graph" title="Graph">
+            <Graph type="Portfolio" data={JSON.parse(data[0].report).data[0]} />
+          </Card>
         )}
       </div>
     </form>
