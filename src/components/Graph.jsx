@@ -25,7 +25,9 @@ const Graph = ({ type, data }) => {
   }
 
   const getPortfolioXandY = () => {
-    const r = data.target_portfolio_returns.flatMap((x) => financial(x))
+    const r = data.target_portfolio_returns.flatMap((x) =>
+      Number.parseFloat(Number.parseFloat(x).toFixed(2))
+    )
     return {
       x: data.return_dates.map((x) => new Date(x).getTime()),
       y: r.map(
