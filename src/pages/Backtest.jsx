@@ -1,9 +1,61 @@
+import { Children } from "react"
 import { formatDate, isInteger, strToBool } from "../store/Utils"
 import { useParams } from "react-router-dom"
 import { useLoading } from "../store/Loading"
 import { useSaving } from "../store/Saving"
 import PortfoliosList from "../components/PortfoliosList"
 import Graph from "../components/Graph"
+
+const Card = ({ id, title, children }) => {
+  return (
+    <div id={id} className="card">
+      <div id={`${id}-header`} className="card-header">
+        <div
+          style="display:inline-block;"
+          data-bs-toggle="collapse"
+          data-bs-target={`${id}-body`}
+          aria-expanded="false"
+          aria-controls={`${id}-body`}
+        >
+          <svg
+            id={`${id}-caret-bottom`}
+            style="display:block;"
+            viewBox="0 0 16 16"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentcolor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+          >
+            <path d="M15 5 L8 13 1 5 Z" />
+          </svg>
+          <svg
+            id={`${id}-caret-right`}
+            style="display:none;"
+            viewBox="0 0 16 16"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentcolor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+          >
+            <path d="M5 15 L13 8 5 1 Z" />
+          </svg>
+        </div>
+        <h2 style="display:inline-block;">{{ title }}</h2>
+      </div>
+      <div id={`${id}-body`} className="card-body">
+        {Children.map(children, (child, ndx) => {
+          return <div key={ndx}>{child}</div>
+        })}
+      </div>
+    </div>
+  )
+}
 
 function Backtest() {
   const { id } = useParams()
@@ -67,7 +119,7 @@ function Backtest() {
   if (strToBool(data[0].log_returns)) attrs.checked = true
 
   return (
-    <form className="container-fluid">
+    <form className="container">
       <div className="row">
         <h4>Portfolio backtest</h4>
       </div>
@@ -132,7 +184,7 @@ function Backtest() {
             </label>
             <input {...attrs} />
           </div>
-          <div className="d-flex justify-content-end my-5">
+          <div className="d-flex justify-content-end my-4">
             <button
               type="submit"
               className="btn btn-danger"
@@ -147,9 +199,11 @@ function Backtest() {
         <hr />
       </div>
       <div className="row">
-        {data && data.length && data[0].report && (
-          <Graph type="Portfolio" data={JSON.parse(data[0].report).data[0]} />
-        )}
+        <Card id="graph" title="Graph">
+          {data && data.length && data[0].report && (
+            <Graph type="Portfolio" data={JSON.parse(data[0].report).data[0]} />
+          )}
+        </Card>
       </div>
     </form>
   )
