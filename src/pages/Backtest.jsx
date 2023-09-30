@@ -11,7 +11,7 @@ const Card = ({ id, title, children }) => {
     <div id={id} className="card">
       <div id={`${id}-header`} className="card-header">
         <div
-          style="display:inline-block;"
+          style={{ display: "inline-block" }}
           data-bs-toggle="collapse"
           data-bs-target={`${id}-body`}
           aria-expanded="false"
@@ -19,7 +19,7 @@ const Card = ({ id, title, children }) => {
         >
           <svg
             id={`${id}-caret-bottom`}
-            style="display:block;"
+            style={{ display: "block" }}
             viewBox="0 0 16 16"
             width="16"
             height="16"
@@ -33,7 +33,7 @@ const Card = ({ id, title, children }) => {
           </svg>
           <svg
             id={`${id}-caret-right`}
-            style="display:none;"
+            style={{ display: "none" }}
             viewBox="0 0 16 16"
             width="16"
             height="16"
@@ -46,7 +46,7 @@ const Card = ({ id, title, children }) => {
             <path d="M5 15 L13 8 5 1 Z" />
           </svg>
         </div>
-        <h2 style="display:inline-block;">{{ title }}</h2>
+        <h2 style={{ display: "inline-block" }}>{{ title }}</h2>
       </div>
       <div id={`${id}-body`} className="card-body">
         {Children.map(children, (child, ndx) => {
