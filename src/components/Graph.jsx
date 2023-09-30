@@ -45,13 +45,18 @@ const Graph = ({ type, data }) => {
       ys: [
         {
           y: getY("portfolio_returns"),
-          color: "green",
+          color: "graph_green",
           legend: "Optimization",
         },
         {
           y: getY("user_defined_portfolio_returns"),
-          color: "white",
+          color: "graph_white",
           legend: "User",
+        },
+        {
+          y: getY("target_portfolio_returns"),
+          color: "graph_lightgrey",
+          legend: "Target",
         },
       ],
     }
