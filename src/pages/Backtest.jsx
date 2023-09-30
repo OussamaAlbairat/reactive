@@ -199,11 +199,18 @@ function Backtest() {
         <hr />
       </div>
       <div className="row">
-        <Card id="graph" title="Graph">
-          {data && data.length && data[0].report && (
-            <Graph type="Portfolio" data={JSON.parse(data[0].report).data[0]} />
-          )}
-        </Card>
+        data && data.length && data[0].report && (
+        <Card
+          id="graph"
+          title="Graph"
+          children={[
+            <Graph
+              type="Portfolio"
+              data={JSON.parse(data[0].report).data[0]}
+            />,
+          ]}
+        />
+        )
       </div>
     </form>
   )
