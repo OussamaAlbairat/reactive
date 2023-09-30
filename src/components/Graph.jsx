@@ -1,6 +1,10 @@
 import { financial } from "../store/Utils"
 import { useEffect, useRef } from "react"
-import { plotLineGraph, plotCandleSticksGraphEx } from "../store/Graphs"
+import {
+  plotLineGraph,
+  plotMultiLineGraph,
+  plotCandleSticksGraphEx,
+} from "../store/Graphs"
 
 const Graph = ({ type, data }) => {
   const refPlot = useRef()
@@ -25,15 +29,31 @@ const Graph = ({ type, data }) => {
   }
 
   const getPortfolioXandY = () => {
-    const r = data.target_portfolio_returns.flatMap((x) =>
-      Number.parseFloat(Number.parseFloat(x).toFixed(2))
-    )
-    return {
-      x: data.return_dates.map((x) => new Date(x).getTime()),
-      y: r.map(
+    const getY = (returns_tag) => {
+      const r = data[returns_tag].flatMap((x) =>
+        Number.parseFloat(Number.parseFloat(x).toFixed(2))
+      )
+      return r.map(
         (x, i) =>
           100 + 100 * (x + r.slice(0, i).reduce((acc, y) => acc + y, 0.0))
-      ),
+      )
+    }
+
+    return {
+      title: "Portfolio performance",
+      x: data.return_dates.map((x) => new Date(x).getTime()),
+      ys: [
+        {
+          y: getY("portfolio_returns"),
+          color: "green",
+          legend: "Optimization",
+        },
+        {
+          y: getY("user_defined_portfolio_returns"),
+          color: "white",
+          legend: "User",
+        },
+      ],
     }
   }
 
@@ -43,7 +63,7 @@ const Graph = ({ type, data }) => {
     else if (type == "Stock")
       (async () => await plotCandleSticksGraphEx(plotElm, getCandelData()))()
     else if (type == "Portfolio")
-      (async () => await plotLineGraph(plotElm, getPortfolioXandY()))()
+      (async () => await plotMultiLineGraph(plotElm, getPortfolioXandY()))()
   }, [data])
 
   return (

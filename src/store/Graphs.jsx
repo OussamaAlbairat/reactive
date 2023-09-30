@@ -136,7 +136,7 @@ export async function plotLineGraph(element, data) {
   return view
 }
 
-function plotMultiLineGraph(element, data) {
+export async function plotMultiLineGraph(element, data) {
   if (!element) return
 
   if (!(data && "x" in data && "ys" in data)) return
@@ -154,6 +154,10 @@ function plotMultiLineGraph(element, data) {
   })
 
   var view = Bokeh.Plotting.show(plot, element)
+
+  while (element.children.length > 1) element.removeChild(element.firstChild)
+
+  return view
 }
 
 function plotCandleSticks(element, data) {
