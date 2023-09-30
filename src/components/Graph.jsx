@@ -25,11 +25,12 @@ const Graph = ({ type, data }) => {
   }
 
   const getPortfolioXandY = () => {
-    const r = data.target_portfolio_returns.map((x) => financial(x))
+    const r = data.target_portfolio_returns.flatMap((x) => financial(x))
     return {
       x: data.return_dates.map((x) => new Date(x).getTime()),
       y: r.map(
-        (x, i) => 100 + 100 * r.slice(0, i + 1).reduce((acc, y) => acc + y, 0.0)
+        (x, i) =>
+          100 + 100 * (x + r.slice(0, i).reduce((acc, y) => acc + y, 0.0))
       ),
     }
   }
