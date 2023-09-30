@@ -132,19 +132,19 @@ function Backtest() {
             </label>
             <input {...attrs} />
           </div>
+          <div className="d-flex justify-content-end my-5">
+            <button
+              type="submit"
+              className="btn btn-danger"
+              onClick={saveClicked}
+            >
+              Save
+            </button>
+          </div>
         </div>
       </div>
       <div className="row">
         <hr />
-        <div className="d-flex justify-content-end my-5">
-          <button
-            type="submit"
-            className="btn btn-danger"
-            onClick={saveClicked}
-          >
-            Save
-          </button>
-        </div>
       </div>
       <div className="row">
         {data && data.length && data[0].report && (
