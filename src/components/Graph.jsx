@@ -55,7 +55,7 @@ const Graph = ({ type, data }) => {
         },
         {
           y: getY("target_portfolio_returns"),
-          color: "graph_lightgrey",
+          color: "graph_red",
           legend: "Target",
         },
       ],

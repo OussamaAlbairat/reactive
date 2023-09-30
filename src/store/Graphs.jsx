@@ -149,7 +149,7 @@ export async function plotMultiLineGraph(element, data) {
       y: itm.y,
       line_width: 2,
       line_color: graph_color(itm.color),
-      legend: itm.legend,
+      legend_label: itm.legend,
     })
   })
 
