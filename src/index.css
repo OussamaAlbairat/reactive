@@ -33,3 +33,8 @@ body {
 .card {
   --bs-card-cap-bg: var(--bs-body-color-rgb);
 }
+
+div.row > div.card {
+  padding-left: 0px;
+  padding-right: 0px;
+}
