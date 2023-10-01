@@ -1,4 +1,4 @@
-import { Children } from "react"
+import { Children, useEffect, useState } from "react"
 import { formatDate, isInteger, strToBool } from "../store/Utils"
 import { useParams } from "react-router-dom"
 import { useLoading } from "../store/Loading"
@@ -164,6 +164,35 @@ const Params = ({
   )
 }
 
+const Report = ({ data }) => {
+  return (
+    <table className="table">
+      <thead>
+        <tr>
+          <th>Symbol</th>
+          <th>User defined</th>
+          <th>Benchmark</th>
+          <th>Min risk</th>
+          <th>Target</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.regression_pass_1.map((itm, ndx) => {
+          return (
+            <tr key={ndx}>
+              <td>{itm.symbol}</td>
+              <td>{(itm.user_defined_weight * 100).toFixed(2) + " %"}</td>
+              <td>{(itm.benchmark_weight * 100).toFixed(2) + " %"}</td>
+              <td>{(data.portfolio_weights[ndx] * 100).toFixed(2) + " %"}</td>
+              <td>{(data.target_weights[ndx] * 100).toFixed(2) + " %"}</td>
+            </tr>
+          )
+        })}
+      </tbody>
+    </table>
+  )
+}
+
 function Backtest() {
   const { id } = useParams()
 
@@ -215,6 +244,12 @@ function Backtest() {
     })
   }
 
+  const [report, setReport] = useState(null)
+
+  useEffect(() => {
+    setReport(JSON.parse(data[0].report).data[0])
+  }, [data[0].report])
+
   return (
     <div className="container">
       <div className="row">
@@ -232,9 +267,16 @@ function Backtest() {
         </Card>
       </div>
       <div className="row my-2">
-        {data && data.length && data[0].report && (
+        {report && (
           <Card id="graph" title="Graph">
-            <Graph type="Portfolio" data={JSON.parse(data[0].report).data[0]} />
+            <Graph type="Portfolio" data={report} />
+          </Card>
+        )}
+      </div>
+      <div className="row">
+        {report && (
+          <Card id="report" title="Report">
+            <Report data={report} />
           </Card>
         )}
       </div>
