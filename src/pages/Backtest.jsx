@@ -231,7 +231,7 @@ function Backtest() {
           />
         </Card>
       </div>
-      <div className="row">
+      <div className="row my-2">
         {data && data.length && data[0].report && (
           <Card id="graph" title="Graph">
             <Graph type="Portfolio" data={JSON.parse(data[0].report).data[0]} />
