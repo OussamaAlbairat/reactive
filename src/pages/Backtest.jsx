@@ -24,7 +24,7 @@ const Card = ({ id, title, children }) => {
 
   const headerClick = (e) => {
     e.preventDefault()
-    toggleBody("graph")
+    toggleBody(id)
   }
 
   return (
@@ -71,7 +71,7 @@ const Card = ({ id, title, children }) => {
   )
 }
 
-const Form = ({
+const Params = ({
   data,
   inputChanged,
   setPortfolioId,
@@ -90,78 +90,76 @@ const Form = ({
 
   return (
     <div className="row">
-      <form>
-        <div className="col-4">
-          <div className="form-group my-1">
-            <label htmlFor="created">Created</label>
-            <input
-              id="created"
-              name="created"
-              type="date"
-              className="form-control"
-              onChange={inputChanged}
-              value={formatDate(data[0].created)}
-            />
-          </div>
-          <div className="form-group my-1">
-            <label htmlFor="description">Description</label>
-            <textarea
-              id="description"
-              name="description"
-              className="form-control"
-              onChange={inputChanged}
-              value={data[0].description}
-            />
-          </div>
-          <div className="form-group my-1">
-            <label htmlFor="portfolio_id">Portfolio</label>
-            <PortfoliosList
-              selectId="portfolio_id"
-              portfolioId={data[0].portfolio_id}
-              setPortfolioId={setPortfolioId}
-            />
-          </div>
+      <div className="col-4">
+        <div className="form-group my-1">
+          <label htmlFor="created">Created</label>
+          <input
+            id="created"
+            name="created"
+            type="date"
+            className="form-control"
+            onChange={inputChanged}
+            value={formatDate(data[0].created)}
+          />
         </div>
-        <div className="col-4">
-          <div className="form-group my-1">
-            <label htmlFor="start_date">Start Date</label>
-            <input
-              id="start_date"
-              name="start_date"
-              type="date"
-              className="form-control"
-              onChange={inputChanged}
-              value={formatDate(data[0].start_date)}
-            />
-          </div>
-          <div className="form-group my-1">
-            <label htmlFor="end_date">End Date</label>
-            <input
-              id="end_date"
-              name="end_date"
-              type="date"
-              className="form-control"
-              onChange={inputChanged}
-              value={formatDate(data[0].end_date)}
-            />
-          </div>
-          <div className="form-check my-1">
-            <label htmlFor="log_returns" className="form-check-label">
-              Log returns
-            </label>
-            <input {...attrs} />
-          </div>
-          <div className="d-flex justify-content-end my-4">
-            <button
-              type="submit"
-              className="btn btn-danger"
-              onClick={saveClicked}
-            >
-              Save
-            </button>
-          </div>
+        <div className="form-group my-1">
+          <label htmlFor="description">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            className="form-control"
+            onChange={inputChanged}
+            value={data[0].description}
+          />
         </div>
-      </form>
+        <div className="form-group my-1">
+          <label htmlFor="portfolio_id">Portfolio</label>
+          <PortfoliosList
+            selectId="portfolio_id"
+            portfolioId={data[0].portfolio_id}
+            setPortfolioId={setPortfolioId}
+          />
+        </div>
+      </div>
+      <div className="col-4">
+        <div className="form-group my-1">
+          <label htmlFor="start_date">Start Date</label>
+          <input
+            id="start_date"
+            name="start_date"
+            type="date"
+            className="form-control"
+            onChange={inputChanged}
+            value={formatDate(data[0].start_date)}
+          />
+        </div>
+        <div className="form-group my-1">
+          <label htmlFor="end_date">End Date</label>
+          <input
+            id="end_date"
+            name="end_date"
+            type="date"
+            className="form-control"
+            onChange={inputChanged}
+            value={formatDate(data[0].end_date)}
+          />
+        </div>
+        <div className="form-check my-1">
+          <label htmlFor="log_returns" className="form-check-label">
+            Log returns
+          </label>
+          <input {...attrs} />
+        </div>
+        <div className="d-flex justify-content-end my-4">
+          <button
+            type="submit"
+            className="btn btn-danger"
+            onClick={saveClicked}
+          >
+            Save
+          </button>
+        </div>
+      </div>
     </div>
   )
 }
@@ -223,8 +221,8 @@ function Backtest() {
         <h4>Portfolio backtest</h4>
       </div>
       <div className="row">
-        <Card id="form" title="Form">
-          <Form
+        <Card id="params" title="Parameters">
+          <Params
             data={data}
             inputChanged={inputChanged}
             setPortfolioId={setPortfolioId}

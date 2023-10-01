@@ -29,3 +29,7 @@ body {
   float: none;
   margin-left: 0.5em;
 }
+
+.card {
+  --bs-card-cap-bg: var(--bs-body-color-rgb);
+}
