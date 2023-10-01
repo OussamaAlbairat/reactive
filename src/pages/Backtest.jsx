@@ -247,7 +247,8 @@ function Backtest() {
   const [report, setReport] = useState(null)
 
   useEffect(() => {
-    setReport(JSON.parse(data[0].report).data[0])
+    if (data[0].report) setReport(JSON.parse(data[0].report).data[0])
+    else setReport(null)
   }, [data[0].report])
 
   return (
