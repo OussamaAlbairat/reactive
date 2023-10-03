@@ -41,43 +41,45 @@ const Login = () => {
   ]
 
   return (
-    <div className="container-fluid row my-auto" style={{ height: "400px" }}>
-      <div className="col-4 my-auto mx-auto">
-        <form className="form">
-          <div className="card">
-            <div className="card-header text-center">Login</div>
-            <ul className="list-group list-group-flush">
-              <li className="list-group-item form-group">
-                <label htmlFor="email">Email</label>
-                <input
-                  id="email"
-                  name="email"
-                  className="form-control"
-                  type="email"
-                  placeholder="email"
-                  value={email}
-                  onChange={onChangeHandler}
-                />
-              </li>
-              <li className="list-group-item form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                  id="password"
-                  name="password"
-                  className="form-control"
-                  type="password"
-                  value={password}
-                  onChange={onChangeHandler}
-                />
-              </li>
-            </ul>
-            <button className="btn btn-success m-2" onClick={submitHandler}>
-              Submit
-            </button>
-          </div>
-        </form>
-        <hr />
-        <Providers providers={providers} />
+    <div className="container-fluid" style={{ height: "400px" }}>
+      <div className="row">
+        <div className="col-sm-4 offset-sm-4">
+          <form className="form">
+            <div className="card">
+              <div className="card-header text-center">Login</div>
+              <ul className="list-group list-group-flush">
+                <li className="list-group-item form-group">
+                  <label htmlFor="email">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    className="form-control"
+                    type="email"
+                    placeholder="email"
+                    value={email}
+                    onChange={onChangeHandler}
+                  />
+                </li>
+                <li className="list-group-item form-group">
+                  <label htmlFor="password">Password</label>
+                  <input
+                    id="password"
+                    name="password"
+                    className="form-control"
+                    type="password"
+                    value={password}
+                    onChange={onChangeHandler}
+                  />
+                </li>
+              </ul>
+              <button className="btn btn-success m-2" onClick={submitHandler}>
+                Submit
+              </button>
+            </div>
+          </form>
+          <hr />
+          <Providers providers={providers} />
+        </div>
       </div>
     </div>
   )

@@ -60,7 +60,7 @@ const Card = ({ id, title, children }) => {
             <path d="M5 15 L13 8 5 1 Z" />
           </svg>
         </div>
-        <h4 className="mx-1 d-inline-block">{title}</h4>
+        <h6 className="mx-1 d-inline-block">{title}</h6>
       </div>
       <div id={`${id}-body`} className="card-body">
         {Children.map(children, (child, ndx) => {
