@@ -8,9 +8,10 @@ import {
 export const useSaving = ({ url }) => {
   const { setStatus, setMessage } = useContext(RuningOperationStatusContext)
 
-  const setOperationContext = (status, message) => {
+  const setOperationContext = (status, message, setShowAlert) => {
     setStatus(status)
     setMessage(message)
+    setShowAlert(true)
   }
 
   const save = async (save_data) => {
