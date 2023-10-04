@@ -90,7 +90,7 @@ const Params = ({
 
   return (
     <div className="row">
-      <div className="col-4">
+      <div className="col-sm-4">
         <div className="form-group my-1">
           <label htmlFor="created">Created</label>
           <input
@@ -121,7 +121,7 @@ const Params = ({
           />
         </div>
       </div>
-      <div className="col-4">
+      <div className="col-sm-4">
         <div className="form-group my-1">
           <label htmlFor="start_date">Start Date</label>
           <input
