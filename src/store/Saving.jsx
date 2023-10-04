@@ -6,9 +6,11 @@ import {
 } from "./RuningOperationStatus"
 
 export const useSaving = ({ url }) => {
-  const { setStatus, setMessage } = useContext(RuningOperationStatusContext)
+  const { setStatus, setMessage, setShowAlert } = useContext(
+    RuningOperationStatusContext
+  )
 
-  const setOperationContext = (status, message, setShowAlert) => {
+  const setOperationContext = (status, message) => {
     setStatus(status)
     setMessage(message)
     setShowAlert(true)
