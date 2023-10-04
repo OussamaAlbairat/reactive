@@ -12,6 +12,7 @@ export const useLoading = ({
   initData,
   cachedUrl = false,
   filterDataCondition = null,
+  showAlert = false,
 }) => {
   const [data, setData] = useState(initData)
   const { subscribe, unsubscribe } = useRegistry()
@@ -45,7 +46,11 @@ export const useLoading = ({
         const { status, message, data } = await getData(url)
         if (status === "OK") {
           setData(data || initData)
-          setOperationContext(RuningOperationStatus.succeded, message)
+
+          if (showAlert)
+            setOperationContext(RuningOperationStatus.succeded, message)
+          else setOperationContext(RuningOperationStatus.loaded, message)
+
           if (filterDataCondition) {
             const search = (value) => {
               if (value === "") setData(data)

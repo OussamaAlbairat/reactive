@@ -27,6 +27,7 @@ const Alert = ({ status, message }) => {
   useEffect(() => {
     if (status == RuningOperationStatus.notStarted) setClosed(true)
     else if (status == RuningOperationStatus.started) setClosed(true)
+    else if (status == RuningOperationStatus.loaded) setClosed(true)
     else if (status == RuningOperationStatus.failed) {
       setClosed(false)
       setType(error)

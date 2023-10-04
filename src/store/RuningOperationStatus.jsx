@@ -5,6 +5,7 @@ export const RuningOperationStatus = {
   failed: Symbol(1),
   started: Symbol(2),
   notStarted: Symbol(3),
+  loaded: Symbol(4),
 }
 
 export const RuningOperationStatusContext = createContext({
