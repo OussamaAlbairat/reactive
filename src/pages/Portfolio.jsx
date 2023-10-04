@@ -83,98 +83,100 @@ const Portfolio = () => {
   }
 
   return (
-    <div className="container row justify-content-center">
-      <div className="col-6">
-        <h4>Portfolio</h4>
-        <form>
-          <div className="form-group">
-            <label htmlFor="created">Created</label>
-            <input
-              id="created"
-              name="created"
-              type="date"
-              className="form-control"
-              aria-describedby="createdHelp"
-              onChange={inputChanged}
-              value={formatDate(data[0].created)}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="description">Description</label>
-            <textarea
-              id="description"
-              name="description"
-              className="form-control"
-              aria-describedby="descriptionHelp"
-              onChange={inputChanged}
-              value={data[0].description}
-            />
-          </div>
-          <hr />
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Symbol</th>
-                <th>Ratio</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {JSON.parse(data[0].report).stocks.map((stock, index) => {
-                return (
-                  <tr key={index}>
-                    <td>
-                      <input
-                        list="stocksdatalist"
-                        type="text"
-                        name="symbol"
-                        className="form-control"
-                        value={stock.symbol}
-                        onChange={symbolChanged}
-                        data-stockid={stock.id || newId()}
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        name="ratio"
-                        className="form-control"
-                        value={financial(stock.ratio * 100) + "%"}
-                        onChange={ratioChanged}
-                        data-stockid={stock.id || newId()}
-                      />
-                    </td>
-                    <td>
-                      <a href="#" className="d-flex justify-content-end">
-                        <i
-                          className="bi bi-x-lg"
+    <div className="container">
+      <div className="row d-flex justify-content-center">
+        <div className="col-sm-6">
+          <h4>Portfolio</h4>
+          <form>
+            <div className="form-group">
+              <label htmlFor="created">Created</label>
+              <input
+                id="created"
+                name="created"
+                type="date"
+                className="form-control"
+                aria-describedby="createdHelp"
+                onChange={inputChanged}
+                value={formatDate(data[0].created)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="description">Description</label>
+              <textarea
+                id="description"
+                name="description"
+                className="form-control"
+                aria-describedby="descriptionHelp"
+                onChange={inputChanged}
+                value={data[0].description}
+              />
+            </div>
+            <hr />
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Symbol</th>
+                  <th>Ratio</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {JSON.parse(data[0].report).stocks.map((stock, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>
+                        <input
+                          list="stocksdatalist"
+                          type="text"
+                          name="symbol"
+                          className="form-control"
+                          value={stock.symbol}
+                          onChange={symbolChanged}
                           data-stockid={stock.id || newId()}
-                          onClick={deleteStock}
-                        ></i>
-                      </a>
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-          <div className="d-flex justify-content-end my-5">
-            <button
-              type="submit"
-              className="btn btn-danger mx-2"
-              onClick={addClicked}
-            >
-              Add
-            </button>
-            <button
-              type="submit"
-              className="btn btn-danger"
-              onClick={saveClicked}
-            >
-              Save
-            </button>
-          </div>
-        </form>
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          name="ratio"
+                          className="form-control"
+                          value={financial(stock.ratio * 100) + "%"}
+                          onChange={ratioChanged}
+                          data-stockid={stock.id || newId()}
+                        />
+                      </td>
+                      <td>
+                        <a href="#" className="d-flex justify-content-end">
+                          <i
+                            className="bi bi-x-lg"
+                            data-stockid={stock.id || newId()}
+                            onClick={deleteStock}
+                          ></i>
+                        </a>
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+            <div className="d-flex justify-content-end my-5">
+              <button
+                type="submit"
+                className="btn btn-danger mx-2"
+                onClick={addClicked}
+              >
+                Add
+              </button>
+              <button
+                type="submit"
+                className="btn btn-danger"
+                onClick={saveClicked}
+              >
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
       <StocksList datalistid="stocksdatalist" />
     </div>
