@@ -181,7 +181,7 @@ const Report = ({ data }) => {
           return (
             <tr key={ndx}>
               <td>{itm.symbol}</td>
-              <td>{(itm.user_defined_weight * 100).toFixed(2) + " %"}</td>
+              <td>{(itm.user_defined_weight * 100).toFixed(2) + " % "}</td>
               <td>{(itm.benchmark_weight * 100).toFixed(2) + " %"}</td>
               <td>{(data.portfolio_weights[ndx] * 100).toFixed(2) + " %"}</td>
               <td>{(data.target_weights[ndx] * 100).toFixed(2) + " %"}</td>
