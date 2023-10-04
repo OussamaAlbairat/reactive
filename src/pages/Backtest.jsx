@@ -165,6 +165,7 @@ const Params = ({
 }
 
 const Report = ({ data }) => {
+  const formatPercent = (x) => (x * 100).toFixed(2) + " %"
   return (
     <table className="table">
       <thead>
@@ -181,13 +182,31 @@ const Report = ({ data }) => {
           return (
             <tr key={ndx}>
               <td>{itm.symbol}</td>
-              <td>{(itm.user_defined_weight * 100).toFixed(2) + " % "}</td>
-              <td>{(itm.benchmark_weight * 100).toFixed(2) + " %"}</td>
-              <td>{(data.portfolio_weights[ndx] * 100).toFixed(2) + " %"}</td>
-              <td>{(data.target_weights[ndx] * 100).toFixed(2) + " %"}</td>
+              <td>{formatPercent(itm.user_defined_weight)}</td>
+              <td>{formatPercent(itm.benchmark_weight)}</td>
+              <td>{formatPercent(data.portfolio_weights[ndx])}</td>
+              <td>{formatPercent(data.target_weights[ndx])}</td>
             </tr>
           )
         })}
+        <tfoot>
+          <tr>
+            <td>Returns</td>
+            <td>{formatPercent(data.user_defined_annual_expected_return)}</td>
+            <td>{formatPercent(data.benchmark_annual_expected_return)}</td>
+            <td>{formatPercent(data.portfolio_annual_expected_return)}</td>
+            <td>{formatPercent(data.target_annual_expected_return)}</td>
+          </tr>
+          <tr>
+            <td>Risks</td>
+            <td>
+              {formatPercent(Math.sqrt(data.user_defined_annual_variance))}
+            </td>
+            <td>{formatPercent(Math.sqrt(data.benchmark_annual_variance))}</td>
+            <td>{formatPercent(Math.sqrt(data.portfolio_annual_variance))}</td>
+            <td>{formatPercent(Math.sqrt(data.target_annual_variance))}</td>
+          </tr>
+        </tfoot>
       </tbody>
     </table>
   )
