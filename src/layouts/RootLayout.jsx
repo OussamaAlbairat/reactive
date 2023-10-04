@@ -8,6 +8,7 @@ import {
 import RuningOperationSpinner from "../components/RuningOperationSpinner"
 
 const RootLayout = () => {
+  const [showAlert, setShowAlert] = useState(true)
   const [runingOperationStatusMessage, setRuningOperationStatusMessage] =
     useState(null)
   const [runingOperationStatus, setRuningOperationStatus] = useState(
@@ -21,6 +22,8 @@ const RootLayout = () => {
         setStatus: setRuningOperationStatus,
         message: runingOperationStatusMessage,
         setMessage: setRuningOperationStatusMessage,
+        showAlert,
+        setShowAlert,
       }}
     >
       <div>

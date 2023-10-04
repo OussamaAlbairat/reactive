@@ -15,24 +15,24 @@ const error = {
     message: "Operation succeded.",
   }
 
-const Alert = ({ status, message }) => {
+const Alert = ({ status, message, showAlert, setShowAlert }) => {
   const [closed, setClosed] = useState(false)
   const [type, setType] = useState(error)
 
   const closeHandler = (e) => {
     e.preventDefault()
     setClosed(true)
+    setShowAlert(true)
   }
 
   useEffect(() => {
     if (status == RuningOperationStatus.notStarted) setClosed(true)
     else if (status == RuningOperationStatus.started) setClosed(true)
-    else if (status == RuningOperationStatus.loaded) setClosed(true)
     else if (status == RuningOperationStatus.failed) {
       setClosed(false)
       setType(error)
     } else if (status == RuningOperationStatus.succeded) {
-      setClosed(false)
+      setClosed(!showAlert)
       setType(success)
     }
   }, [status])
@@ -58,7 +58,9 @@ const Alert = ({ status, message }) => {
 }
 
 const RuningOperationSpinner = () => {
-  const { status, message } = useContext(RuningOperationStatusContext)
+  const { status, message, showAlert, setShowAlert } = useContext(
+    RuningOperationStatusContext
+  )
   return (
     (status === RuningOperationStatus.started && (
       <div
@@ -68,7 +70,14 @@ const RuningOperationSpinner = () => {
         <div className="spinner-border" role="status"></div>
         <span className="sr-only m-2">{"Loading..."}</span>
       </div>
-    )) || <Alert status={status} message={message} />
+    )) || (
+      <Alert
+        status={status}
+        message={message}
+        showAlert={showAlert}
+        setShowAlert={setShowAlert}
+      />
+    )
   )
 }
 

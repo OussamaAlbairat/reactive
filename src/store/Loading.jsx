@@ -16,13 +16,14 @@ export const useLoading = ({
 }) => {
   const [data, setData] = useState(initData)
   const { subscribe, unsubscribe } = useRegistry()
-  const { status, setStatus, setMessage } = useContext(
+  const { status, setStatus, setMessage, setShowAlert } = useContext(
     RuningOperationStatusContext
   )
 
   const setOperationContext = (status, message) => {
     setStatus(status)
     setMessage(message)
+    if (!showAlert) setShowAlert(showAlert)
   }
 
   const getData = async (uri) => {
@@ -47,9 +48,7 @@ export const useLoading = ({
         if (status === "OK") {
           setData(data || initData)
 
-          if (showAlert)
-            setOperationContext(RuningOperationStatus.succeded, message)
-          else setOperationContext(RuningOperationStatus.loaded, message)
+          setOperationContext(RuningOperationStatus.succeded, message)
 
           if (filterDataCondition) {
             const search = (value) => {

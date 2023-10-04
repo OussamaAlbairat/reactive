@@ -5,7 +5,6 @@ export const RuningOperationStatus = {
   failed: Symbol(1),
   started: Symbol(2),
   notStarted: Symbol(3),
-  loaded: Symbol(4),
 }
 
 export const RuningOperationStatusContext = createContext({
@@ -13,4 +12,6 @@ export const RuningOperationStatusContext = createContext({
   setStatus: null,
   message: null,
   setMessage: null,
+  showAlert: null,
+  setShowAlert: null,
 })
