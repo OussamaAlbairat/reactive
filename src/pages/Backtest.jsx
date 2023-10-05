@@ -166,6 +166,15 @@ const Params = ({
 
 const Report = ({ data }) => {
   const formatPercent = (x) => (x * 100).toFixed(2) + " %"
+
+  const Cell = ({ classes = "", amount }) => {
+    return <td className={classes}>{formatPercent(amount)}</td>
+  }
+
+  const FooterCell = ({ amount }) => {
+    return <Cell classes="bg-dark text-white" amount={amount} />
+  }
+
   return (
     <table className="table">
       <thead>
@@ -182,32 +191,30 @@ const Report = ({ data }) => {
           return (
             <tr key={ndx}>
               <td>{itm.symbol}</td>
-              <td>{formatPercent(itm.user_defined_weight)}</td>
-              <td>{formatPercent(itm.benchmark_weight)}</td>
-              <td>{formatPercent(data.portfolio_weights[ndx])}</td>
-              <td>{formatPercent(data.target_weights[ndx])}</td>
+              <Cell amount={itm.user_defined_weight} />
+              <Cell amount={itm.benchmark_weight} />
+              <Cell amount={data.portfolio_weights[ndx]} />
+              <Cell amount={data.target_weights[ndx]} />
             </tr>
           )
         })}
-        <tfoot>
-          <tr>
-            <td>Returns</td>
-            <td>{formatPercent(data.user_defined_annual_expected_return)}</td>
-            <td>{formatPercent(data.benchmark_annual_expected_return)}</td>
-            <td>{formatPercent(data.portfolio_annual_expected_return)}</td>
-            <td>{formatPercent(data.target_annual_expected_return)}</td>
-          </tr>
-          <tr>
-            <td>Risks</td>
-            <td>
-              {formatPercent(Math.sqrt(data.user_defined_annual_variance))}
-            </td>
-            <td>{formatPercent(Math.sqrt(data.benchmark_annual_variance))}</td>
-            <td>{formatPercent(Math.sqrt(data.portfolio_annual_variance))}</td>
-            <td>{formatPercent(Math.sqrt(data.target_annual_variance))}</td>
-          </tr>
-        </tfoot>
       </tbody>
+      <tfoot>
+        <tr>
+          <th className="bg-dark text-white">Returns</th>
+          <FooterCell amount={data.user_defined_annual_expected_return} />
+          <FooterCell amount={data.benchmark_annual_expected_return} />
+          <FooterCell amount={data.portfolio_annual_expected_return} />
+          <FooterCell amount={data.target_annual_expected_return} />
+        </tr>
+        <tr>
+          <th className="bg-dark text-white">Risks</th>
+          <FooterCell amount={Math.sqrt(data.user_defined_annual_variance)} />
+          <FooterCell amount={Math.sqrt(data.benchmark_annual_variance)} />
+          <FooterCell amount={Math.sqrt(data.portfolio_annual_variance)} />
+          <FooterCell amount={Math.sqrt(data.target_annual_variance)} />
+        </tr>
+      </tfoot>
     </table>
   )
 }
