@@ -38,3 +38,7 @@ div.row > div.card {
   padding-left: 0px;
   padding-right: 0px;
 }
+
+img.rctv-img-lg {
+  max-height: 515px;
+}
