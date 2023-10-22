@@ -92,9 +92,12 @@ export const Auth = ({ user }) => {
           >
             <span className="mx-2">Sign up</span>
           </Link>
-          <Link to="login" className="btn btn-outline-success bi bi-person-up">
+          <a
+            href="/.auth/login/aadb2c"
+            className="btn btn-outline-success bi bi-person-up"
+          >
             <span className="mx-2">Login</span>
-          </Link>
+          </a>
         </DropDownMenu>
       )}
       {user != null && user.type == "basic" && (
