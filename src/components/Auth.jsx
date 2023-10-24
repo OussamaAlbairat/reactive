@@ -1,6 +1,8 @@
 import { useEffect, useState, Children } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import useRegistry from "../store/Registry"
+import { useMsal } from "@azure/msal-react"
+import { loginRequest } from "../authConfig"
 
 const DropDownMenu = ({ children }) => {
   return (
@@ -67,6 +69,8 @@ export const useAuth = () => {
 
 export const Auth = ({ user }) => {
   //const { user, setUser } = useAuth()
+  const { instance } = useMsal()
+
   const navigate = useNavigate()
   const { dispatch } = useRegistry()
 
@@ -82,6 +86,11 @@ export const Auth = ({ user }) => {
     run()
   }
 
+  const clickLogin = (e) => {
+    e.preventDefault()
+    instance.loginPopup(loginRequest).catch((e) => console.log(e))
+  }
+
   return (
     <div className="py-1">
       {user == null && (
@@ -92,12 +101,18 @@ export const Auth = ({ user }) => {
           >
             <span className="mx-2">Sign up</span>
           </Link>
-          <a
+          <button
+            onClick={clickLogin}
+            className="btn btn-outline-success bi bi-person-up"
+          >
+            <span className="mx-2">Login</span>
+          </button>
+          {/* <a
             href="/.auth/login/aadb2c"
             className="btn btn-outline-success bi bi-person-up"
           >
             <span className="mx-2">Login</span>
-          </a>
+          </a> */}
         </DropDownMenu>
       )}
       {user != null && user.type == "basic" && (
