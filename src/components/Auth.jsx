@@ -109,65 +109,61 @@ export const Auth = ({ user }) => {
 
   return (
     <div className="py-1">
-      <UnauthenticatedTemplate>
-        {user == null && (
-          <DropDownMenu>
-            <Link
-              to="signup"
-              className="btn btn-outline-secondary bi bi-person-plus"
-            >
-              <span className="mx-2">Sign up</span>
-            </Link>
-            <button
-              onClick={clickLogin}
-              className="btn btn-outline-success bi bi-person-up"
-            >
-              <span className="mx-2">Login</span>
-            </button>
-            {/* <a
+      {user == null && (
+        <DropDownMenu>
+          <Link
+            to="signup"
+            className="btn btn-outline-secondary bi bi-person-plus"
+          >
+            <span className="mx-2">Sign up</span>
+          </Link>
+          <button
+            onClick={clickLogin}
+            className="btn btn-outline-success bi bi-person-up"
+          >
+            <span className="mx-2">Login</span>
+          </button>
+          {/* <a
             href="/.auth/login/aadb2c"
             className="btn btn-outline-success bi bi-person-up"
           >
             <span className="mx-2">Login</span>
           </a> */}
-          </DropDownMenu>
-        )}
-      </UnauthenticatedTemplate>
-      <AuthenticatedTemplate>
-        {user != null && user.type == "basic" && (
-          <DropDownMenu>
-            <Link
-              to="settings"
-              className="btn btn-outline-secondary bi bi-person-gear"
-            >
-              <span className="mx-2">Settings</span>
-            </Link>
-            <button
-              type="button"
-              className="btn btn-danger"
-              onClick={clickHandler}
-            >
-              Logout ({user.email})
-            </button>
-          </DropDownMenu>
-        )}
-        {user != null && user.type == "provider" && (
-          <DropDownMenu>
-            <Link
-              to="settings"
-              className="btn btn-outline-secondary bi bi-person-gear"
-            >
-              <span className="mx-2">Settings</span>
-            </Link>
-            <button onClick={clickLogout} className="btn btn-danger">
-              Logout ({user.email})
-            </button>
-            {/* <a href="/.auth/logout" className="btn btn-danger">
+        </DropDownMenu>
+      )}
+      {user != null && user.type == "basic" && (
+        <DropDownMenu>
+          <Link
+            to="settings"
+            className="btn btn-outline-secondary bi bi-person-gear"
+          >
+            <span className="mx-2">Settings</span>
+          </Link>
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={clickHandler}
+          >
+            Logout ({user.email})
+          </button>
+        </DropDownMenu>
+      )}
+      {user != null && user.type == "provider" && (
+        <DropDownMenu>
+          <Link
+            to="settings"
+            className="btn btn-outline-secondary bi bi-person-gear"
+          >
+            <span className="mx-2">Settings</span>
+          </Link>
+          <button onClick={clickLogout} className="btn btn-danger">
+            Logout ({user.email})
+          </button>
+          {/* <a href="/.auth/logout" className="btn btn-danger">
             Logout ({user.email})
           </a> */}
-          </DropDownMenu>
-        )}
-      </AuthenticatedTemplate>
+        </DropDownMenu>
+      )}
     </div>
   )
 }
