@@ -71,14 +71,14 @@ export const useAuth = () => {
   return { user, setUser }
 }
 
-export const Auth = ({ user }) => {
+export const Auth = ({ _user }) => {
   //const { user, setUser } = useAuth()
   const { instance } = useMsal()
   const activeAccount = instance.getActiveAccount()
-  user = activeAccount
+  const user = activeAccount
     ? { type: "provider", email: activeAccount.username }
     : null
-
+  console.log("activeAccount :", activeAccount)
   const navigate = useNavigate()
   const { dispatch } = useRegistry()
 
