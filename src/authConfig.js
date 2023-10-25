@@ -45,8 +45,7 @@ export const msalConfig = {
     knownAuthorities: [b2cPolicies.authorityDomain], // Mark your B2C tenant's domain as trusted.
     redirectUri:
       "https://directportfoliomanagement.com/.auth/login/aadb2c/callback/", // You must register this URI on Azure Portal/App Registration. Defaults to window.location.origin
-    postLogoutRedirectUri:
-      "https://directportfoliomanagement.com/.auth/login/aadb2c/callback/", // Indicates the page to navigate after logout.
+    postLogoutRedirectUri: "https://directportfoliomanagement.com/", // Indicates the page to navigate after logout.
     navigateToLoginRequestUrl: false, // If "true", will navigate back to the original request location before processing the auth code response.
   },
   cache: {
