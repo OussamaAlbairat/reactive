@@ -1,21 +1,9 @@
 import { Link } from "react-router-dom"
 import Search from "./Search"
 import { useAuth, Auth } from "./Auth"
-import useRegistry from "../store/Registry"
-import { useEffect } from "react"
 
 const Menu = () => {
-  const { user, setUser } = useAuth()
-  const { subscribe, unsubscribe, publish } = useRegistry()
-
-  useEffect(() => {
-    publish("MENU_REFRESH")
-    const menuRefresh = (usr) => {
-      setUser(usr)
-    }
-    subscribe("MENU_REFRESH", menuRefresh)
-    return () => unsubscribe("MENU_REFRESH", menuRefresh)
-  }, [])
+  const { user } = useAuth()
 
   return (
     <nav
@@ -86,7 +74,7 @@ const Menu = () => {
             </li>
           </ul>
           <Search />
-          <Auth user={user} />
+          <Auth />
         </div>
       </div>
     </nav>

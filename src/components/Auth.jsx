@@ -1,11 +1,6 @@
 import { useEffect, useState, Children } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import useRegistry from "../store/Registry"
-import {
-  AuthenticatedTemplate,
-  UnauthenticatedTemplate,
-  useMsal,
-} from "@azure/msal-react"
+import { Link } from "react-router-dom"
+import { useMsal } from "@azure/msal-react"
 import { loginRequest } from "../authConfig"
 
 const DropDownMenu = ({ children }) => {
@@ -60,41 +55,20 @@ export const getUser = async () => {
 
 export const useAuth = () => {
   const [user, setUser] = useState(null)
+  const { accounts } = useMsal()
 
   useEffect(() => {
-    const run = async () => {
-      setUser(await getUser())
-    }
-    run()
-  }, [])
+    if (accounts && accounts.length > 0)
+      setUser({ type: "provider", email: accounts[0].username })
+    else setUser(null)
+  }, [accounts])
 
-  return { user, setUser }
+  return { user }
 }
 
-export const Auth = ({ _user }) => {
-  //const { user, setUser } = useAuth()
-  const { instance, accounts } = useMsal()
-  const navigate = useNavigate()
-  const { dispatch } = useRegistry()
-
-  console.log(accounts)
-
-  const user =
-    accounts && accounts[0]
-      ? { type: "provider", email: accounts[0].username }
-      : null
-
-  const clickHandler = (e) => {
-    e.preventDefault()
-    const run = async () => {
-      let resp = await fetch("/api/reactiveConfig/logout")
-      let data = await resp.json()
-      console.log(data)
-      if (data && data.status == "OK") dispatch("MENU_REFRESH", null) //setUser(null)
-      navigate("/")
-    }
-    run()
-  }
+export const Auth = () => {
+  const { user } = useAuth()
+  const { instance } = useMsal()
 
   const clickLogin = (e) => {
     e.preventDefault()
@@ -125,32 +99,9 @@ export const Auth = ({ _user }) => {
           >
             <span className="mx-2">Login</span>
           </button>
-          {/* <a
-            href="/.auth/login/aadb2c"
-            className="btn btn-outline-success bi bi-person-up"
-          >
-            <span className="mx-2">Login</span>
-          </a> */}
         </DropDownMenu>
       )}
-      {user != null && user.type == "basic" && (
-        <DropDownMenu>
-          <Link
-            to="settings"
-            className="btn btn-outline-secondary bi bi-person-gear"
-          >
-            <span className="mx-2">Settings</span>
-          </Link>
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={clickHandler}
-          >
-            Logout ({user.email})
-          </button>
-        </DropDownMenu>
-      )}
-      {user != null && user.type == "provider" && (
+      {user != null && (
         <DropDownMenu>
           <Link
             to="settings"
@@ -161,9 +112,6 @@ export const Auth = ({ _user }) => {
           <button onClick={clickLogout} className="btn btn-danger">
             Logout ({user.email})
           </button>
-          {/* <a href="/.auth/logout" className="btn btn-danger">
-            Logout ({user.email})
-          </a> */}
         </DropDownMenu>
       )}
     </div>
