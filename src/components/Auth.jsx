@@ -73,14 +73,16 @@ export const useAuth = () => {
 
 export const Auth = ({ _user }) => {
   //const { user, setUser } = useAuth()
-  const { instance } = useMsal()
-  const activeAccount = instance.getActiveAccount()
-  const user = activeAccount
-    ? { type: "provider", email: activeAccount.username }
-    : null
-  console.log("activeAccount :", activeAccount)
+  const { instance, accounts } = useMsal()
   const navigate = useNavigate()
   const { dispatch } = useRegistry()
+
+  console.log(accounts)
+
+  const user =
+    accounts && accounts[0]
+      ? { type: "provider", email: accounts[0].username }
+      : null
 
   const clickHandler = (e) => {
     e.preventDefault()
