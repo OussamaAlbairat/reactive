@@ -52,6 +52,11 @@ export const msalConfig = {
     cacheLocation: "sessionStorage", // Configures cache location. "sessionStorage" is more secure, but "localStorage" gives you SSO between tabs.
     storeAuthStateInCookie: false, // Set this to "true" if you are having issues on IE11 or Edge
   },
+  api: {
+    scopes: [
+      "https://greenmountdigital.onmicrosoft.com/directportfoliomanagementapi/All.ReadWrite",
+    ], // The scope that we request for the API from B2C, this should be the backend API scope, with the full URI.
+  },
   system: {
     loggerOptions: {
       loggerCallback: (level, message, containsPii) => {

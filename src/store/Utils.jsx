@@ -21,12 +21,41 @@ export const strToBool = (value) => {
   throw "not a supported value"
 }
 
-export const getApiData = async (url) => {
-  const resp = await fetch(url)
-  if (!resp.ok) throw new Error("response not OK")
-  const data = await resp.json()
-  return data
+export const getApiData = async ({ uri, accessToken, initData }) => {
+  const headers = accessToken ? new Headers() : null
+  headers && headers.append("Authorization", `Bearer ${accessToken}`)
+  const options = headers
+    ? { method: "GET", headers: headers }
+    : { method: "GET" }
+  const resp = uri ? await fetch(uri, options) : null
+  const dt = resp ? await resp.json() : null
+  return dt || { status: "OK", message: "url not provided", data: initData }
 }
+
+// const getApiDataWithAuth = async ({ url, accessToken }) => {
+//   try {
+//     const tokenResponse = await msalInstance.acquireTokenSilent({
+//       scopes: msalConfig.api.scopes,
+//       account: msalInstance.getAllAccounts()[0],
+//     })
+//     const headers = new Headers()
+//     headers.append("Authorization", `Bearer ${tokenResponse.accessToken}`)
+//     const response = await fetch(url, { method: "GET", headers: headers })
+//     try {
+//       if (response.ok) return await response.json()
+//       else throw new Error(await response.json().message)
+//     } catch (error) {
+//       console.log("Error: " + error)
+//     }
+//   } catch (error) {
+//     console.log("Error Acquiring Token Silently: " + error)
+//     msalInstance.acquireTokenRedirect({
+//       scopes: config.api.scopes,
+//       forceRefresh: false,
+//     })
+//   }
+//   return null
+// }
 
 export const postApiData = async (url, data = {}) => {
   // Default options are marked with *

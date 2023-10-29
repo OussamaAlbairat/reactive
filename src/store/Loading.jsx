@@ -4,6 +4,9 @@ import {
   RuningOperationStatusContext,
 } from "./RuningOperationStatus"
 import useRegistry from "./Registry"
+import { useMsal } from "@azure/msal-react"
+import { msalConfig } from "../authConfig"
+import { getApiData } from "./Utils"
 
 const cache = new Map()
 
@@ -13,7 +16,9 @@ export const useLoading = ({
   cachedUrl = false,
   filterDataCondition = null,
   showAlert = false,
+  authorize = true,
 }) => {
+  const { instance } = useMsal()
   const [data, setData] = useState(initData)
   const { subscribe, unsubscribe } = useRegistry()
   const { status, setStatus, setMessage, setShowAlert } = useContext(
@@ -26,16 +31,28 @@ export const useLoading = ({
     if (!showAlert) setShowAlert(showAlert)
   }
 
-  const getData = async (uri) => {
+  const getDataOrCache = async (uri) => {
     if (cachedUrl && cache.has(uri)) return cache.get(uri)
-    else if (cachedUrl) return cache.set(uri, await doFetch(uri)).get(uri)
-    else return await doFetch(uri)
+    else if (cachedUrl) return cache.set(uri, await getData(uri)).get(uri)
+    else return await getData(uri)
   }
 
-  const doFetch = async (uri) => {
-    const resp = uri ? await fetch(uri) : null
-    const dt = resp ? await resp.json() : null
-    return dt || { status: "OK", message: "url not provided", data: initData }
+  const getData = async (uri) => {
+    const accessToken = await getAccessToken()
+    console.log("accessToken", accessToken)
+    return await getApiData({ uri, accessToken, initData })
+  }
+
+  const getAccessToken = async () => {
+    if (!authorize) return null
+    const accounts = instance.getAllAccounts()
+    const account = accounts && accounts.length > 0 ? accounts[0] : null
+    if (!account) return null
+    const tokenResponse = await instance.acquireTokenSilent({
+      scopes: msalConfig.api.scopes,
+      account: account,
+    })
+    return tokenResponse.accessToken
   }
 
   useEffect(() => {
@@ -44,7 +61,7 @@ export const useLoading = ({
     const run = async () => {
       try {
         setOperationContext(RuningOperationStatus.started, "")
-        const { status, message, data } = await getData(url)
+        const { status, message, data } = await getDataOrCache(url)
         if (status === "OK") {
           setData(data || initData)
 
