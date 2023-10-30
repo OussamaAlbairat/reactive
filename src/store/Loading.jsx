@@ -5,8 +5,7 @@ import {
 } from "./RuningOperationStatus"
 import useRegistry from "./Registry"
 import { useMsal } from "@azure/msal-react"
-import { msalConfig } from "../authConfig"
-import { getApiData } from "./Utils"
+import { getAccessToken, getApiData } from "./Utils"
 
 const cache = new Map()
 
@@ -38,21 +37,9 @@ export const useLoading = ({
   }
 
   const getData = async (uri) => {
-    const accessToken = await getAccessToken()
+    const accessToken = await getAccessToken(authorize, instance)
     console.log("accessToken", accessToken)
     return await getApiData({ uri, accessToken, initData })
-  }
-
-  const getAccessToken = async () => {
-    if (!authorize) return null
-    const accounts = instance.getAllAccounts()
-    const account = accounts && accounts.length > 0 ? accounts[0] : null
-    if (!account) return null
-    const tokenResponse = await instance.acquireTokenSilent({
-      scopes: msalConfig.api.scopes,
-      account: account,
-    })
-    return tokenResponse.accessToken
   }
 
   useEffect(() => {

@@ -10,6 +10,7 @@ export const useStocksLoading = () => {
       (obj.description && obj.description.includes(value)) ||
       (obj.company && obj.company.includes(value)) ||
       (obj.type && obj.type.includes(value)),
+    authorize: false,
   })
   return { data, setData, status }
 }

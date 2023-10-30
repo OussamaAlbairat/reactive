@@ -1,3 +1,5 @@
+import { msalConfig } from "../authConfig"
+
 export const newId = () => Math.floor(Math.random() * 10 ** 15)
 
 export const financial = (x) => Number.parseFloat(x).toFixed(2)
@@ -19,6 +21,18 @@ export const strToBool = (value) => {
   if (trues.includes(value.toLowerCase())) return true
   if (falses.includes(value.toLowerCase())) return false
   throw "not a supported value"
+}
+
+export const getAccessToken = async (authorize, instance) => {
+  if (!authorize) return null
+  const accounts = instance.getAllAccounts()
+  const account = accounts && accounts.length > 0 ? accounts[0] : null
+  if (!account) return null
+  const tokenResponse = await instance.acquireTokenSilent({
+    scopes: msalConfig.api.scopes,
+    account: account,
+  })
+  return tokenResponse.accessToken
 }
 
 export const getApiData = async ({ uri, accessToken, initData }) => {
@@ -57,17 +71,17 @@ export const getApiData = async ({ uri, accessToken, initData }) => {
 //   return null
 // }
 
-export const postApiData = async (url, data = {}) => {
+export const postApiData = async (url, accessToken, data = {}) => {
+  const headers = new Headers()
+  headers.append("Content-Type", "application/json")
+  if (accessToken) headers.append("Authorization", `Bearer ${accessToken}`)
   // Default options are marked with *
   const resp = await fetch(url, {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     mode: "same-origin", // no-cors, *cors, same-origin
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
     credentials: "same-origin", // include, *same-origin, omit
-    headers: {
-      "Content-Type": "application/json",
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
+    headers: headers, // 'Content-Type': 'application/x-www-form-urlencoded', application/json
     redirect: "follow", // manual, *follow, error
     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     body: JSON.stringify(data), // body data type must match "Content-Type" header

@@ -1,11 +1,13 @@
 import { useContext } from "react"
-import { postApiData } from "./Utils"
+import { useMsal } from "@azure/msal-react"
+import { getAccessToken, postApiData } from "./Utils"
 import {
   RuningOperationStatus,
   RuningOperationStatusContext,
 } from "./RuningOperationStatus"
 
-export const useSaving = ({ url }) => {
+export const useSaving = ({ url, authorize = true }) => {
+  const { instance } = useMsal()
   const { setStatus, setMessage, setShowAlert } = useContext(
     RuningOperationStatusContext
   )
@@ -19,7 +21,12 @@ export const useSaving = ({ url }) => {
   const save = async (save_data) => {
     setOperationContext(RuningOperationStatus.started, "")
     try {
-      const { status, message, data } = await postApiData(url, save_data)
+      const accessToken = await getAccessToken(authorize, instance)
+      const { status, message, data } = await postApiData(
+        url,
+        accessToken,
+        save_data
+      )
       console.log(message)
       if (status === "OK")
         setOperationContext(RuningOperationStatus.succeded, message)
