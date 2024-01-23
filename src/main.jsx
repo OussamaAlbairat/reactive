@@ -10,7 +10,7 @@ import "bootstrap/js/index.esm.js"
 import "./index.css"
 
 const msalInstance = new PublicClientApplication(msalConfig)
-await msalInstance.initialize()
+msalInstance.initialize()
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
