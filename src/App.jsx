@@ -37,7 +37,6 @@ const router = createBrowserRouter(
       <Route path="backtest/:id" element={<Backtest />} />
       <Route path="contact" element={<Contact />} />
       <Route path="about" element={<About />} />
-      <Route path="signup" element={<Settings />} />
       <Route path="settings" element={<Settings />} />
     </Route>
   )

@@ -87,12 +87,6 @@ export const Auth = () => {
     <div className="py-1">
       {user == null && (
         <DropDownMenu>
-          <Link
-            to="signup"
-            className="btn btn-outline-secondary bi bi-person-plus"
-          >
-            <span className="mx-2">Sign up</span>
-          </Link>
           <button
             onClick={clickLogin}
             className="btn btn-outline-success bi bi-person-up"

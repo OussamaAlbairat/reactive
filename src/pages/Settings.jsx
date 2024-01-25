@@ -4,20 +4,18 @@ import { useSaving } from "../store/Saving"
 
 const Settings = () => {
   const { data, setData } = useLoading({
-    url: "/api/reactiveConfig/settings",
+    url: "/api/reactiveConfig/users?filter=me",
     initData: [
       {
         firstname: "",
         lastname: "",
         email: "",
-        password: "",
-        passwordconfirm: "",
       },
     ],
     cachedUrl: false,
   })
 
-  const { save } = useSaving({ url: "/api/reactiveConfig/settings" })
+  const { save } = useSaving({ url: "/api/reactiveConfig/users" })
 
   const onChangeHandler = (e) => {
     e.preventDefault()
@@ -80,28 +78,6 @@ const Settings = () => {
                     className="form-control"
                     type="email"
                     value={data[0].email}
-                    onChange={onChangeHandler}
-                  />
-                </li>
-                <li className="list-group-item form-group">
-                  <label htmlFor="password">Password</label>
-                  <input
-                    id="password"
-                    name="password"
-                    className="form-control"
-                    type="password"
-                    value={data[0].password}
-                    onChange={onChangeHandler}
-                  />
-                </li>
-                <li className="list-group-item form-group">
-                  <label htmlFor="passwordconfirm">Password Confirm</label>
-                  <input
-                    id="passwordconfirm"
-                    name="passwordconfirm"
-                    className="form-control"
-                    type="password"
-                    value={data[0].passwordconfirm}
                     onChange={onChangeHandler}
                   />
                 </li>
