@@ -17,7 +17,7 @@ const Stocks = () => {
       {status === RuningOperationStatus.succeded && (
         <div className="container">
           <h4 className="d-inline">Instruments from Bourse de Casablanca</h4>
-          <img src="/boursedecasablanca_logo.png" style="width:100px; height:40px;"/>
+          <img src="/boursedecasablanca_logo.png" style={{width:"100px", height:"40px"}}/>
           <table className="table">
             <thead>
               <tr>
