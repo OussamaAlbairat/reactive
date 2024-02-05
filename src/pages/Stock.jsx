@@ -1,4 +1,3 @@
-import { isInteger } from "../store/Utils"
 import { useLocation, useParams } from "react-router-dom"
 import { useLoading } from "../store/Loading"
 import { RuningOperationStatus } from "../store/RuningOperationStatus"
@@ -9,9 +8,8 @@ const Stock = () => {
   const location = useLocation()
 
   const { data, status } = useLoading({
-    url: isInteger(id)
-      ? `/api/boursedecasablancastocks/stockhistory?type=${location.state?.type}&instrument_id=${id}`
-      : null,
+    url:
+      `/api/boursedecasablancastocks/stockhistory?type=${location.state?.type}&instrument_id=${id}`,
     initData: [],
     cachedUrl: false,
   })

@@ -2,7 +2,7 @@ import { useLoading } from "./Loading"
 
 export const useStocksLoading = () => {
   const { data, setData, status } = useLoading({
-    url: "/api/boursedecasablancastocks/Stocks?type=All",
+    url: "/api/boursedecasablancastocks/Stocks?Source=DB",
     initData: [],
     cachedUrl: true,
     filterDataCondition: (obj, value) =>
