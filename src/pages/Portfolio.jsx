@@ -30,7 +30,7 @@ const Portfolio = () => {
     setData((old) => {
       const oldReport = JSON.parse(old[0].report)
       const newStocks = oldReport.stocks
-      newStocks.push({ id: newId(), symbol: "NEW", ratio: 0.1 })
+      newStocks.push({ id: newId(), symbol: "", ratio: 0.1 })
       return [{ ...old[0], report: JSON.stringify({ stocks: [...newStocks] }) }]
     })
   }
@@ -83,34 +83,47 @@ const Portfolio = () => {
   }
 
   return (
-    <div className="container">
-      <div className="row d-flex justify-content-center">
-        <div className="col-sm-6">
-          <h4>Portfolio</h4>
-          <form>
-            <div className="form-group">
-              <label htmlFor="created">Created</label>
-              <input
-                id="created"
-                name="created"
-                type="date"
-                className="form-control"
-                aria-describedby="createdHelp"
-                onChange={inputChanged}
-                value={formatDate(data[0].created)}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="description">Description</label>
-              <textarea
-                id="description"
-                name="description"
-                className="form-control"
-                aria-describedby="descriptionHelp"
-                onChange={inputChanged}
-                value={data[0].description}
-              />
-            </div>
+    <form>
+      <div className="container">
+        <div className="row d-flex justify-content-center">
+          <div className="col-sm-8">
+            <h4>Portfolio</h4>
+          </div>
+        </div>
+        <div className="row d-flex justify-content-center">
+          <div className="col-sm-8">
+            <hr />
+          </div>
+          <div className="col-sm-4">
+                <div className="form-group">
+                  <label htmlFor="created">Created</label>
+                  <input
+                    id="created"
+                    name="created"
+                    type="date"
+                    className="form-control"
+                    aria-describedby="createdHelp"
+                    onChange={inputChanged}
+                    value={formatDate(data[0].created)}
+                  />
+                </div>
+          </div>
+          <div className="col-sm-4">
+                <div className="form-group">
+                  <label htmlFor="description">Description</label>
+                  <textarea
+                    id="description"
+                    name="description"
+                    className="form-control"
+                    aria-describedby="descriptionHelp"
+                    onChange={inputChanged}
+                    value={data[0].description}
+                  />
+                </div>
+          </div>
+        </div>
+        <div className="row d-flex justify-content-center">
+          <div className="col-sm-8">
             <hr />
             <table className="table">
               <thead>
@@ -167,7 +180,7 @@ const Portfolio = () => {
               >
                 Add
               </button>
-              <button
+                <button
                 type="submit"
                 className="btn btn-danger"
                 onClick={saveClicked}
@@ -175,11 +188,11 @@ const Portfolio = () => {
                 Save
               </button>
             </div>
-          </form>
+          </div>
         </div>
+        <StocksList datalistid="stocksdatalist" />
       </div>
-      <StocksList datalistid="stocksdatalist" />
-    </div>
+    </form>
   )
 }
 
