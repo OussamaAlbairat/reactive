@@ -88,38 +88,36 @@ const Portfolio = () => {
         <div className="row d-flex justify-content-center">
           <div className="col-sm-8">
             <h4>Portfolio</h4>
+            <hr />
           </div>
         </div>
         <div className="row d-flex justify-content-center">
-          <div className="col-sm-8">
-            <hr />
+          <div className="col-sm-4">
+            <div className="form-group">
+              <label htmlFor="created">Created</label>
+              <input
+                id="created"
+                name="created"
+                type="date"
+                className="form-control"
+                aria-describedby="createdHelp"
+                onChange={inputChanged}
+                value={formatDate(data[0].created)}
+              />
+            </div>
           </div>
           <div className="col-sm-4">
-                <div className="form-group">
-                  <label htmlFor="created">Created</label>
-                  <input
-                    id="created"
-                    name="created"
-                    type="date"
-                    className="form-control"
-                    aria-describedby="createdHelp"
-                    onChange={inputChanged}
-                    value={formatDate(data[0].created)}
-                  />
-                </div>
-          </div>
-          <div className="col-sm-4">
-                <div className="form-group">
-                  <label htmlFor="description">Description</label>
-                  <textarea
-                    id="description"
-                    name="description"
-                    className="form-control"
-                    aria-describedby="descriptionHelp"
-                    onChange={inputChanged}
-                    value={data[0].description}
-                  />
-                </div>
+            <div className="form-group">
+              <label htmlFor="description">Description</label>
+              <textarea
+                id="description"
+                name="description"
+                className="form-control"
+                aria-describedby="descriptionHelp"
+                onChange={inputChanged}
+                value={data[0].description}
+              />
+            </div>
           </div>
         </div>
         <div className="row d-flex justify-content-center">
