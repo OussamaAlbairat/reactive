@@ -85,13 +85,13 @@ const Portfolio = () => {
   return (
     <form>
       <div className="container">
-        <div className="row d-flex justify-content-center">
+        <div className="row">
           <div className="col-sm-8">
             <h4>Portfolio</h4>
             <hr />
           </div>
         </div>
-        <div className="row d-flex justify-content-center">
+        <div className="row">
           <div className="col-sm-4">
             <div className="form-group">
               <label htmlFor="created">Created</label>
@@ -120,7 +120,7 @@ const Portfolio = () => {
             </div>
           </div>
         </div>
-        <div className="row d-flex justify-content-center">
+        <div className="row">
           <div className="col-sm-8">
             <hr />
             <table className="table">
