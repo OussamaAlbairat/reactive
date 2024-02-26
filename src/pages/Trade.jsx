@@ -56,11 +56,11 @@ const Trade = () => {
               />
             </div>
             <div className="form-group my-1">
-              <label htmlFor="stock">Stock</label>
+              <label htmlFor="description">Stock</label>
               <input
                 list="stocksdatalist"
                 type="text"
-                name="stock"
+                name="description"
                 className="form-control"
                 value={data[0].description}
                 onChange={inputChanged}
