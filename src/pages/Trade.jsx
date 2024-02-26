@@ -42,85 +42,93 @@ const Trade = () => {
     }
 
     return (
-        <div className="row">
-          <div className="col-sm-4">
-            <div className="form-group my-1">
-              <label htmlFor="created">Created</label>
-              <input
-                id="created"
-                name="created"
-                type="date"
-                className="form-control"
-                onChange={inputChanged}
-                value={formatDate(data[0].created)}
-              />
+        <div className="container">
+            <div className="row">
+                <div className="col-sm-8">
+                    <h4>Trade</h4>
+                    <hr />
+                </div>
             </div>
-            <div className="form-group my-1">
-              <label htmlFor="description">Stock</label>
-              <input
-                list="stocksdatalist"
-                type="text"
-                name="description"
-                className="form-control"
-                value={data[0].description}
-                onChange={inputChanged}
-                data-stockid={data[0].stock_id}
-                />
+            <div className="row">
+                <div className="col-sm-4">
+                    <div className="form-group my-1">
+                        <label htmlFor="created">Created</label>
+                        <input
+                            id="created"
+                            name="created"
+                            type="date"
+                            className="form-control"
+                            onChange={inputChanged}
+                            value={formatDate(data[0].created)}
+                        />
+                    </div>
+                    <div className="form-group my-1">
+                        <label htmlFor="description">Stock</label>
+                        <input
+                            list="stocksdatalist"
+                            type="text"
+                            name="description"
+                            className="form-control"
+                            value={data[0].description}
+                            onChange={inputChanged}
+                            data-stockid={data[0].stock_id}
+                            />
+                    </div>
+                    <div className="form-group my-1">
+                        <label htmlFor="portfolio_id">Portfolio</label>
+                        <PortfoliosList
+                            selectId="portfolio_id"
+                            portfolioId={data[0].portfolio_id}
+                            setPortfolioId={setPortfolioId}
+                        />
+                    </div>
+                </div>
+                <div className="col-sm-4">
+                    <div className="form-group my-1">
+                        <label htmlFor="qty">Quantity</label>
+                        <input
+                            id="qty"
+                            name="qty"
+                            type="number"
+                            className="form-control"
+                            onChange={inputChanged}
+                            value={financial(data[0].qty)}
+                        />
+                    </div>
+                    <div className="form-group my-1">
+                        <label htmlFor="price">Price</label>
+                        <input
+                            id="price"
+                            name="price"
+                            type="number"
+                            className="form-control"
+                            onChange={inputChanged}
+                            value={financial(data[0].price)}
+                        />
+                    </div>            
+                    <div className="form-group my-1">
+                        <label htmlFor="amount">Amount</label>
+                        <input
+                            id="amount"
+                            name="amount"
+                            type="number"
+                            className="form-control"
+                            onChange={inputChanged}
+                            value={financial(data[0].amount)}
+                        />
+                    </div>            
+                    <div className="d-flex justify-content-end my-4">
+                        <button
+                            type="submit"
+                            className="btn btn-danger"
+                            onClick={saveClicked}
+                        >
+                            Save
+                        </button>
+                    </div>
+                </div>
+                <StocksList datalistid="stocksdatalist" />
             </div>
-            <div className="form-group my-1">
-              <label htmlFor="portfolio_id">Portfolio</label>
-              <PortfoliosList
-                selectId="portfolio_id"
-                portfolioId={data[0].portfolio_id}
-                setPortfolioId={setPortfolioId}
-              />
-            </div>
-          </div>
-          <div className="col-sm-4">
-            <div className="form-group my-1">
-              <label htmlFor="qty">Quantity</label>
-              <input
-                id="qty"
-                name="qty"
-                type="number"
-                className="form-control"
-                onChange={inputChanged}
-                value={financial(data[0].qty)}
-              />
-            </div>
-            <div className="form-group my-1">
-              <label htmlFor="price">Price</label>
-              <input
-                id="price"
-                name="price"
-                type="number"
-                className="form-control"
-                onChange={inputChanged}
-                value={financial(data[0].price)}
-              />
-            </div>            
-            <div className="form-group my-1">
-              <label htmlFor="amount">Amount</label>
-              <input
-                id="amount"
-                name="amount"
-                type="number"
-                className="form-control"
-                onChange={inputChanged}
-                value={financial(data[0].amount)}
-              />
-            </div>            
-            <div className="d-flex justify-content-end my-4">
-              <button
-                type="submit"
-                className="btn btn-danger"
-                onClick={saveClicked}
-              >
-                Save
-              </button>
-            </div>
-          </div>
-          <StocksList datalistid="stocksdatalist" />
         </div>
       )
 }
