@@ -34,6 +34,13 @@ const Trade = () => {
         })
     }
 
+    const saveClicked = (e) => {
+        e.preventDefault()
+        save(data[0]).then((dt) => {
+            if (dt.status == "OK" && dt.data && dt.data.length) setData(dt.data)
+        })
+    }
+
     return (
         <div className="row">
           <div className="col-sm-4">
