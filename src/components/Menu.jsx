@@ -38,6 +38,13 @@ const Menu = () => {
             </li>
             {user != null && (
               <li className="nav-item">
+                <Link to="trades" className="nav-link">
+                  Trades
+                </Link>
+              </li>
+            )}
+            {user != null && (
+              <li className="nav-item">
                 <Link to="portfolios" className="nav-link">
                   Portfolios
                 </Link>

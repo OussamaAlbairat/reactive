@@ -12,6 +12,8 @@ import Contact from "./pages/Contact.jsx"
 import Error from "./pages/Error.jsx"
 import Stock from "./pages/Stock.jsx"
 import Stocks from "./pages/Stocks.jsx"
+import Trade from "./pages/Trade.jsx"
+import Trades from "./pages/Trades.jsx"
 import Portfolio from "./pages/Portfolio.jsx"
 import Portfolios from "./pages/Portfolios.jsx"
 import Backtest from "./pages/Backtest.jsx"
@@ -29,6 +31,11 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path="stocks" element={<Stocks />} />
       <Route path="stock/:id" element={<Stock />} />
+
+      <Route path="trades" element={<Trades />} />
+      <Route path="trade" element={<Trade />} />
+      <Route path="trade/:id" element={<Trade />} />
+
       <Route path="portfolios" element={<Portfolios />} />
       <Route path="portfolio" element={<Portfolio />} />
       <Route path="portfolio/:id" element={<Portfolio />} />
