@@ -28,6 +28,21 @@ const Trade = () => {
         })
     }
 
+    const stockChanged = (e) => {
+        e.preventDefault()
+        const value = e.target.value
+        const getStockId = () => {
+            const select = `datalist[id="stocksdatalist"] > option[value="${value}"]`
+            const innerValue = document.querySelector(select).dataset.value
+            const res = /^db.([0-9]*)$/.exec(innerValue) //db.123 -> [db.123, 123]
+            const stockId = (res && res.length == 2) ? res[1] : 'NaN' 
+            return stockId   
+        }
+        setData((old) => {
+          return [{ ...old[0], stock_id: getStockId() }]
+        })
+    }
+
     const setPortfolioId = (value) => {
         setData((old) => {
           return [{ ...old[0], portfolio_id: value }]
@@ -70,7 +85,7 @@ const Trade = () => {
                             name="description"
                             className="form-control"
                             value={data[0].description}
-                            onChange={inputChanged}
+                            onChange={stockChanged}
                             data-stockid={data[0].stock_id}
                             />
                     </div>

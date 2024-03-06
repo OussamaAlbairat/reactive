@@ -6,7 +6,7 @@ const StocksList = ({ datalistid }) => {
   return (
     <datalist id={datalistid}>
       {data.map((item, index) => (
-        <option key={index} value={item.symbol}>
+        <option key={index} value={item.symbol} data-value={item.instrument_id}>
           {item.company == item.description
             ? `${item.symbol}-${item.company}`
             : `${item.symbol}-${item.company}(${item.description})`}
