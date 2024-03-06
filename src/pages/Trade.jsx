@@ -40,7 +40,7 @@ const Trade = () => {
             return stockId   
         }
         setData((old) => {
-          return [{ ...old[0], stock_id: getStockId() }]
+          return [{ ...old[0], stock_id: getStockId(), description: value }]
         })
     }
 
