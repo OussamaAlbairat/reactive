@@ -36,7 +36,7 @@ const Trades = () => {
                     <tr key={item.id}>
                       <td>{formatDate(item.created)}</td>
                       <td>
-                        <a href={`trades/${item.id}`}>{item.description}</a>
+                        <a href={`trade/${item.id}`}>{item.description}</a>
                       </td>
                       <td>{item.qty}</td>
                       <td>{item.price}</td>
