@@ -8,6 +8,10 @@ import PortfoliosList from "../components/PortfoliosList"
 const Trade = () => {
     const { id } = useParams()
 
+    const statusAttr = {} 
+    
+    if (isInteger(id)) statusAttr.readonly = 1
+
     const { data, setData } = useLoading({
       url: isInteger(id) ? `/api/portfoliosmanagement/trades?id=${id}` : null,
       initData: [
@@ -70,6 +74,7 @@ const Trade = () => {
                     <div className="form-group my-1">
                         <label htmlFor="created">Created</label>
                         <input
+                            {...statusAttr}
                             id="created"
                             name="created"
                             type="date"
@@ -81,6 +86,7 @@ const Trade = () => {
                     <div className="form-group my-1">
                         <label htmlFor="description">Stock</label>
                         <input
+                            {...statusAttr}
                             list="stocksdatalist"
                             type="text"
                             name="description"
@@ -102,6 +108,7 @@ const Trade = () => {
                     <div className="form-group my-1">
                         <label htmlFor="qty">Quantity</label>
                         <input
+                            {...statusAttr}
                             id="qty"
                             name="qty"
                             type="number"
@@ -113,6 +120,7 @@ const Trade = () => {
                     <div className="form-group my-1">
                         <label htmlFor="price">Price</label>
                         <input
+                            {...statusAttr}
                             id="price"
                             name="price"
                             type="number"
@@ -124,6 +132,7 @@ const Trade = () => {
                     <div className="form-group my-1">
                         <label htmlFor="amount">Amount</label>
                         <input
+                            {...statusAttr}
                             id="amount"
                             name="amount"
                             type="number"
