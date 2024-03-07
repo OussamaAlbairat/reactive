@@ -10,7 +10,7 @@ const Trade = () => {
 
     const statusAttr = {} 
     
-    if (isInteger(id)) statusAttr.readonly = 1
+    if (isInteger(id)) statusAttr.disabled = 1
 
     const { data, setData } = useLoading({
       url: isInteger(id) ? `/api/portfoliosmanagement/trades?id=${id}` : null,
