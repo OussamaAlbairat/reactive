@@ -23,6 +23,12 @@ const Trade = () => {
   
     const { save } = useSaving({ url: "/api/portfoliosmanagement/trades" })
 
+    const keyDown = (e) => {
+        const key = e.key
+        const result = /^[0-9]$/.test(key) 
+        if(!result) e.preventDefault()
+    }
+
     const inputChanged = (e) => {
         e.preventDefault()
         const name = e.target.name
@@ -111,10 +117,11 @@ const Trade = () => {
                             {...statusAttr}
                             id="qty"
                             name="qty"
-                            type="number"
+                            type="text"
                             className="form-control"
+                            onKeyDown={keyDown}
                             onChange={inputChanged}
-                            value={financial(data[0].qty)}
+                            value={data[0].qty}
                         />
                     </div>
                     <div className="form-group my-1">
