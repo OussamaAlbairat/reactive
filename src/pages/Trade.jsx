@@ -23,7 +23,7 @@ const Trade = () => {
   
     const { save } = useSaving({ url: "/api/portfoliosmanagement/trades" })
 
-    const keyDown = (e) => {
+    const keyPress = (e) => {
         const key = e.key
         const result = /^[0-9]$/.test(key) 
         if(!result) e.preventDefault()
@@ -119,7 +119,7 @@ const Trade = () => {
                             name="qty"
                             type="text"
                             className="form-control"
-                            onKeyDown={keyDown}
+                            onKeyPress={keyPress}
                             onChange={inputChanged}
                             value={data[0].qty}
                         />
